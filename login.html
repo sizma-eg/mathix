@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#07070b"
+  >
+
+  <meta
+    name="description"
+    content="تسجيل الدخول إلى Mathix"
+  >
+
+  <title>Mathix | تسجيل الدخول</title>
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="logo.png"
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #07070b;
+      --border: rgba(255,255,255,.08);
+
+      --text: #f5f5f7;
+      --muted: #92929f;
+
+      --purple: #8b3dff;
+      --purple-2: #a45cff;
+
+      --danger: #ff5d6c;
+      --success: #35d07f;
+    }
+
+    html {
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 25px 15px;
+
+      background:
+        radial-gradient(
+          circle at 85% 5%,
+          rgba(139,61,255,.15),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 10% 90%,
+          rgba(139,61,255,.08),
+          transparent 30%
+        ),
+        var(--bg);
+
+      color: var(--text);
+
+      font-family: "Cairo", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 430px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 11px;
+
+      margin-bottom: 25px;
+    }
+
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+
+      object-fit: contain;
+
+      animation: floatLogo 3s ease-in-out infinite;
+
+      filter:
+        drop-shadow(
+          0 0 14px
+          rgba(139,61,255,.22)
+        );
+    }
+
+    @keyframes floatLogo {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+
+    }
+
+    .brand-name {
+      font-family: "Chakra Petch", sans-serif;
+
+      font-size: 29px;
+      font-weight: 700;
+
+      direction: ltr;
+    }
+
+    .math {
+      color: #fff;
+    }
+
+    .ix {
+      color: var(--purple-2);
+    }
+
+    .card {
+      padding: 31px;
+
+      border: 1px solid var(--border);
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.045),
+          rgba(255,255,255,.015)
+        );
+
+      box-shadow:
+        0 30px 90px rgba(0,0,0,.35);
+    }
+
+    .heading {
+      text-align: center;
+
+      margin-bottom: 25px;
+    }
+
+    .heading h1 {
+      font-size: 26px;
+      font-weight: 900;
+    }
+
+    .heading p {
+      margin-top: 7px;
+
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #b5b5c0;
+
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+      height: 50px;
+
+      padding: 0 14px;
+
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 13px;
+
+      outline: none;
+
+      background: rgba(0,0,0,.22);
+
+      color: #fff;
+
+      font-size: 12px;
+
+      transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+    }
+
+    input:focus {
+      border-color: rgba(139,61,255,.6);
+
+      background: rgba(139,61,255,.035);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(139,61,255,.08);
+    }
+
+    input::placeholder {
+      color: #5f5f6b;
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap input {
+      padding-left: 50px;
+    }
+
+    .show-password {
+      position: absolute;
+
+      left: 8px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      width: 34px;
+      height: 34px;
+
+      border: 0;
+      border-radius: 9px;
+
+      background: transparent;
+
+      color: #777783;
+
+      font-size: 14px;
+    }
+
+    .show-password:hover {
+      color: #fff;
+      background: rgba(255,255,255,.05);
+    }
+
+    .forgot-row {
+      display: flex;
+      justify-content: flex-start;
+
+      margin-top: -4px;
+      margin-bottom: 18px;
+    }
+
+    .forgot-btn {
+      padding: 0;
+
+      border: 0;
+
+      background: transparent;
+
+      color: var(--purple-2);
+
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .forgot-btn:hover {
+      text-decoration: underline;
+    }
+
+    .submit-btn {
+      width: 100%;
+      height: 51px;
+
+      border: 0;
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #7d2fff,
+          #a45cff
+        );
+
+      color: #fff;
+
+      font-size: 13px;
+      font-weight: 800;
+
+      box-shadow:
+        0 12px 35px
+        rgba(139,61,255,.2);
+
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        opacity .2s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 16px 40px
+        rgba(139,61,255,.3);
+    }
+
+    .submit-btn:disabled {
+      cursor: not-allowed;
+      opacity: .6;
+      transform: none;
+    }
+
+    .message {
+      display: none;
+
+      margin-bottom: 15px;
+
+      padding: 12px 14px;
+
+      border-radius: 12px;
+
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .message.error {
+      display: block;
+
+      color: #ff9ba4;
+
+      border: 1px solid rgba(255,93,108,.2);
+
+      background: rgba(255,93,108,.07);
+    }
+
+    .message.success {
+      display: block;
+
+      color: #75e7a8;
+
+      border: 1px solid rgba(53,208,127,.2);
+
+      background: rgba(53,208,127,.07);
+    }
+
+    .signup-link {
+      margin-top: 21px;
+
+      text-align: center;
+
+      color: #777783;
+
+      font-size: 11px;
+    }
+
+    .signup-link a {
+      color: var(--purple-2);
+      font-weight: 700;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    .back-home {
+      display: block;
+
+      margin-top: 18px;
+
+      color: #666672;
+
+      text-align: center;
+
+      font-size: 10px;
+    }
+
+    .back-home:hover {
+      color: #aaaab5;
+    }
+
+    .loading {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+    }
+
+    .spinner {
+      width: 15px;
+      height: 15px;
+
+      border: 2px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+
+      border-radius: 50%;
+
+      animation: spin .7s linear infinite;
+    }
+
+    @keyframes spin {
+
+      to {
+        transform: rotate(360deg);
+      }
+
+    }
+
+    @media (max-width: 480px) {
+
+      .card {
+        padding: 25px 18px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="page">
+
+    <a
+      href="index.html"
+      class="brand"
+    >
+
+      <img
+        src="logo.png"
+        alt="Mathix"
+        class="brand-logo"
+      >
+
+      <div class="brand-name">
+        <span class="math">Math</span><span class="ix">ix</span>
+      </div>
+
+    </a>
+
+
+    <div class="card">
+
+      <div class="heading">
+
+        <h1>
+          تسجيل الدخول
+        </h1>
+
+        <p>
+          ادخل إلى حسابك في Mathix
+        </p>
+
+      </div>
+
+
+      <div
+        class="message"
+        id="message"
+      ></div>
+
+
+      <form id="loginForm">
+
+
+        <div class="field">
+
+          <label for="email">
+            البريد الإلكتروني
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            placeholder="example@gmail.com"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="password">
+            كلمة المرور
+          </label>
+
+          <div class="password-wrap">
+
+            <input
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              required
+            >
+
+            <button
+              type="button"
+              class="show-password"
+              id="showPassword"
+            >
+              ◉
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="forgot-row">
+
+          <button
+            type="button"
+            class="forgot-btn"
+            id="forgotPassword"
+          >
+            نسيت كلمة المرور؟
+          </button>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="submit-btn"
+          id="submitBtn"
+        >
+          تسجيل الدخول
+        </button>
+
+      </form>
+
+
+      <div class="signup-link">
+
+        ليس لديك حساب؟
+
+        <a href="signup.html">
+          إنشاء حساب جديد
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <a
+      href="index.html"
+      class="back-home"
+    >
+      ← العودة إلى الصفحة الرئيسية
+    </a>
+
+  </div>
+
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      sendPasswordResetEmail
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+    /* =========================
+       FIREBASE CONFIG
+    ========================= */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk",
+
+      authDomain:
+        "mathix-2008.firebaseapp.com",
+
+      projectId:
+        "mathix-2008",
+
+      storageBucket:
+        "mathix-2008.firebasestorage.app",
+
+      messagingSenderId:
+        "561805658834",
+
+      appId:
+        "1:561805658834:web:c1db8ebc2d415be9497b0b",
+
+      measurementId:
+        "G-XWHKQ72FM0"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+    const auth =
+      getAuth(app);
+
+
+    /* =========================
+       ELEMENTS
+    ========================= */
+
+    const form =
+      document.getElementById("loginForm");
+
+    const emailInput =
+      document.getElementById("email");
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const submitBtn =
+      document.getElementById("submitBtn");
+
+    const message =
+      document.getElementById("message");
+
+    const showPassword =
+      document.getElementById("showPassword");
+
+    const forgotPassword =
+      document.getElementById("forgotPassword");
+
+
+    /* =========================
+       MESSAGE
+    ========================= */
+
+    function showMessage(
+      text,
+      type = "error"
+    ) {
+
+      message.textContent = text;
+
+      message.className =
+        `message ${type}`;
+
+    }
+
+
+    /* =========================
+       SHOW PASSWORD
+    ========================= */
+
+    showPassword.addEventListener(
+      "click",
+      () => {
+
+        if (
+          passwordInput.type === "password"
+        ) {
+
+          passwordInput.type = "text";
+
+          showPassword.textContent =
+            "◌";
+
+        } else {
+
+          passwordInput.type = "password";
+
+          showPassword.textContent =
+            "◉";
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    form.addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        const email =
+          emailInput.value
+            .trim()
+            .toLowerCase();
+
+
+        const password =
+          passwordInput.value;
+
+
+        if (!email || !password) {
+
+          showMessage(
+            "اكتب البريد الإلكتروني وكلمة المرور."
+          );
+
+          return;
+
+        }
+
+
+        submitBtn.disabled = true;
+
+        submitBtn.innerHTML = `
+          <span class="loading">
+            <span class="spinner"></span>
+            جاري تسجيل الدخول...
+          </span>
+        `;
+
+
+        try {
+
+          await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+
+          showMessage(
+            "تم تسجيل الدخول بنجاح. جاري فتح حسابك...",
+            "success"
+          );
+
+
+          setTimeout(
+            () => {
+
+              window.location.href =
+                "dashboard.html";
+
+            },
+            700
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Login error:",
+            error
+          );
+
+
+          let errorMessage =
+            "حدث خطأ أثناء تسجيل الدخول.";
+
+
+          switch (error.code) {
+
+            case "auth/invalid-credential":
+
+              errorMessage =
+                "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+
+              break;
+
+
+            case "auth/invalid-email":
+
+              errorMessage =
+                "البريد الإلكتروني غير صحيح.";
+
+              break;
+
+
+            case "auth/user-not-found":
+
+              errorMessage =
+                "لا يوجد حساب بهذا البريد الإلكتروني.";
+
+              break;
+
+
+            case "auth/wrong-password":
+
+              errorMessage =
+                "كلمة المرور غير صحيحة.";
+
+              break;
+
+
+            case "auth/too-many-requests":
+
+              errorMessage =
+                "تمت محاولات كثيرة. حاول مرة أخرى بعد قليل.";
+
+              break;
+
+
+            case "auth/network-request-failed":
+
+              errorMessage =
+                "تأكد من اتصالك بالإنترنت.";
+
+              break;
+
+          }
+
+
+          showMessage(
+            errorMessage
+          );
+
+
+          submitBtn.disabled =
+            false;
+
+          submitBtn.textContent =
+            "تسجيل الدخول";
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       FORGOT PASSWORD
+    ========================= */
+
+    forgotPassword.addEventListener(
+      "click",
+      async () => {
+
+        const email =
+          emailInput.value
+            .trim()
+            .toLowerCase();
+
+
+        if (!email) {
+
+          showMessage(
+            "اكتب البريد الإلكتروني أولاً ثم اضغط «نسيت كلمة المرور؟»."
+          );
+
+          emailInput.focus();
+
+          return;
+
+        }
+
+
+        forgotPassword.disabled =
+          true;
+
+
+        try {
+
+          await sendPasswordResetEmail(
+            auth,
+            email
+          );
+
+
+          showMessage(
+            "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.",
+            "success"
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Password reset error:",
+            error
+          );
+
+
+          let errorMessage =
+            "تعذر إرسال رابط إعادة تعيين كلمة المرور.";
+
+
+          switch (error.code) {
+
+            case "auth/user-not-found":
+
+              errorMessage =
+                "لا يوجد حساب بهذا البريد الإلكتروني.";
+
+              break;
+
+
+            case "auth/invalid-email":
+
+              errorMessage =
+                "البريد الإلكتروني غير صحيح.";
+
+              break;
+
+
+            case "auth/network-request-failed":
+
+              errorMessage =
+                "تأكد من اتصالك بالإنترنت.";
+
+              break;
+
+          }
+
+
+          showMessage(
+            errorMessage
+          );
+
+        }
+
+
+        forgotPassword.disabled =
+          false;
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>
