@@ -1,0 +1,2028 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#07070b"
+  >
+
+  <meta
+    name="description"
+    content="Mathix - المراجعات والملخصات"
+  >
+
+  <title>المراجعات | Mathix</title>
+
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Chakra+Petch:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #07070b;
+      --bg2: #0c0c12;
+      --card: #101018;
+      --card2: #14141e;
+      --border: rgba(255,255,255,.08);
+      --text: #ffffff;
+      --muted: #9b9ba8;
+      --purple: #8b5cf6;
+      --purple2: #a855f7;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(139,92,246,.13),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 85% 80%,
+          rgba(168,85,247,.08),
+          transparent 30%
+        ),
+        var(--bg);
+
+      color: var(--text);
+      font-family: "Cairo", sans-serif;
+    }
+
+    button,
+    input,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 6%;
+
+      background: rgba(7,7,11,.82);
+      backdrop-filter: blur(18px);
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      font-family: "Chakra Petch", sans-serif;
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+
+      animation: floatLogo 4s ease-in-out infinite;
+    }
+
+    @keyframes floatLogo {
+      0%,100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    .brand .white {
+      color: #fff;
+    }
+
+    .brand .purple {
+      color: var(--purple2);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      color: #bcbcc7;
+      padding: 9px 13px;
+      border-radius: 10px;
+      transition: .2s;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #fff;
+      background: rgba(139,92,246,.12);
+    }
+
+    .nav-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wallet-mini {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 9px 13px;
+
+      border: 1px solid rgba(139,92,246,.25);
+      background: rgba(139,92,246,.08);
+
+      border-radius: 11px;
+
+      font-size: 13px;
+    }
+
+    .wallet-mini strong {
+      color: #c4b5fd;
+    }
+
+    .logout-btn {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: #ddd;
+
+      padding: 9px 13px;
+      border-radius: 10px;
+
+      transition: .2s;
+    }
+
+    .logout-btn:hover {
+      background: rgba(255,255,255,.06);
+    }
+
+    .mobile-menu {
+      display: none;
+      border: 0;
+      background: transparent;
+      color: white;
+      font-size: 25px;
+    }
+
+    /* ================= CONTENT ================= */
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+      padding: 45px 0 70px;
+    }
+
+    .hero {
+      margin-bottom: 30px;
+    }
+
+    .hero .badge {
+      display: inline-flex;
+      align-items: center;
+
+      padding: 7px 12px;
+      border-radius: 999px;
+
+      color: #c4b5fd;
+      background: rgba(139,92,246,.10);
+      border: 1px solid rgba(139,92,246,.2);
+
+      font-size: 12px;
+      margin-bottom: 13px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 650px;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+
+    /* ================= FILTER ================= */
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 28px;
+    }
+
+    .filter {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: #aaaab5;
+
+      padding: 10px 15px;
+      border-radius: 11px;
+
+      transition: .2s;
+    }
+
+    .filter:hover {
+      color: #fff;
+      border-color: rgba(139,92,246,.35);
+    }
+
+    .filter.active {
+      color: #fff;
+      background: rgba(139,92,246,.16);
+      border-color: rgba(139,92,246,.4);
+    }
+
+    /* ================= GRID ================= */
+
+    .loading {
+      padding: 55px 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .loading-spinner {
+      width: 35px;
+      height: 35px;
+
+      margin: 0 auto 14px;
+
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,.08);
+      border-top-color: var(--purple);
+
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+
+    .revision-card {
+      position: relative;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.025),
+          rgba(139,92,246,.025)
+        ),
+        var(--card);
+
+      border: 1px solid var(--border);
+      border-radius: 19px;
+
+      padding: 21px;
+
+      transition: .25s;
+      overflow: hidden;
+    }
+
+    .revision-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(139,92,246,.28);
+      box-shadow: 0 15px 40px rgba(0,0,0,.25);
+    }
+
+    .revision-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .revision-icon {
+      width: 47px;
+      height: 47px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 14px;
+
+      background: rgba(139,92,246,.12);
+      border: 1px solid rgba(139,92,246,.2);
+
+      font-size: 21px;
+    }
+
+    .price {
+      align-self: flex-start;
+
+      padding: 6px 10px;
+      border-radius: 9px;
+
+      background: rgba(255,255,255,.05);
+      color: #ddd;
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .price.free {
+      color: #86efac;
+      background: rgba(34,197,94,.09);
+    }
+
+    .revision-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .revision-card .description {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 13px;
+      min-height: 48px;
+      margin-bottom: 15px;
+    }
+
+    .subject-label {
+      display: inline-block;
+
+      color: #c4b5fd;
+      background: rgba(139,92,246,.08);
+
+      border: 1px solid rgba(139,92,246,.15);
+
+      border-radius: 8px;
+
+      padding: 5px 9px;
+
+      font-size: 11px;
+      margin-bottom: 15px;
+    }
+
+    .revision-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      flex: 1;
+
+      border: 0;
+      border-radius: 11px;
+
+      padding: 11px 13px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      transition: .2s;
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(
+        135deg,
+        var(--purple),
+        var(--purple2)
+      );
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      color: #ddd;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,.08);
+    }
+
+    .empty {
+      grid-column: 1/-1;
+
+      padding: 60px 20px;
+
+      text-align: center;
+
+      border: 1px dashed var(--border);
+      border-radius: 18px;
+
+      color: var(--muted);
+    }
+
+    .empty-icon {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    /* ================= MODAL ================= */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-box {
+      width: min(500px, 100%);
+
+      background: #111119;
+
+      border: 1px solid var(--border);
+      border-radius: 20px;
+
+      padding: 24px;
+
+      box-shadow: 0 30px 100px rgba(0,0,0,.5);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+
+      margin-bottom: 20px;
+    }
+
+    .modal-header h3 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .modal-header p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .close {
+      width: 35px;
+      height: 35px;
+
+      flex-shrink: 0;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: transparent;
+      color: #bbb;
+
+      font-size: 18px;
+    }
+
+    .purchase-info {
+      display: grid;
+      gap: 10px;
+
+      margin-bottom: 20px;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+
+      padding: 13px;
+
+      border-radius: 12px;
+
+      background: rgba(255,255,255,.035);
+      border: 1px solid var(--border);
+
+      font-size: 13px;
+    }
+
+    .info-row span:first-child {
+      color: var(--muted);
+    }
+
+    .info-row strong {
+      color: #fff;
+    }
+
+    .balance-after {
+      color: #86efac !important;
+    }
+
+    .insufficient {
+      color: #fca5a5 !important;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 9px;
+    }
+
+    .modal-actions .btn {
+      min-height: 44px;
+    }
+
+    /* ================= TOAST ================= */
+
+    .toast {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      z-index: 1000;
+
+      max-width: 360px;
+
+      padding: 14px 17px;
+
+      border-radius: 13px;
+
+      background: #15151e;
+      border: 1px solid var(--border);
+
+      box-shadow: 0 15px 50px rgba(0,0,0,.35);
+
+      color: #fff;
+
+      transform: translateY(25px);
+      opacity: 0;
+      pointer-events: none;
+
+      transition: .25s;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      border-color: rgba(34,197,94,.3);
+    }
+
+    .toast.error {
+      border-color: rgba(239,68,68,.3);
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 900px) {
+
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-user .logout-btn {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+    }
+
+    @media (max-width: 620px) {
+
+      .navbar {
+        padding: 0 4%;
+      }
+
+      .container {
+        width: 92%;
+        padding-top: 30px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wallet-mini {
+        display: none;
+      }
+
+      .filters {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 4px;
+      }
+
+      .filter {
+        flex-shrink: 0;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <nav class="navbar">
+
+    <a href="dashboard.html" class="brand">
+      <img src="logo.png" alt="Mathix">
+      <span>
+        <span class="white">Math</span><span class="purple">ix</span>
+      </span>
+    </a>
+
+    <div class="nav-links">
+
+      <a href="dashboard.html">
+        الرئيسية
+      </a>
+
+      <a href="subjects.html">
+        المواد
+      </a>
+
+      <a href="revisions.html" class="active">
+        المراجعات
+      </a>
+
+      <a href="wallet.html">
+        المحفظة
+      </a>
+
+      <a href="profile.html">
+        الملف الشخصي
+      </a>
+
+    </div>
+
+    <div class="nav-user">
+
+      <div class="wallet-mini">
+        💰
+        <span>
+          الرصيد:
+          <strong id="navBalance">0 ج.م</strong>
+        </span>
+      </div>
+
+      <button
+        class="logout-btn"
+        id="logoutBtn"
+      >
+        خروج
+      </button>
+
+      <button
+        class="mobile-menu"
+        id="mobileMenu"
+      >
+        ☰
+      </button>
+
+    </div>
+
+  </nav>
+
+
+  <main class="container">
+
+    <section class="hero">
+
+      <div class="badge">
+        ✦ Mathix Revisions
+      </div>
+
+      <h1>
+        المراجعات والملخصات
+      </h1>
+
+      <p>
+        كل ملخصات ومراجعات المنهج في مكان واحد.
+        بعض المحتويات مجانية، وبعضها متاح بالشراء من خلال محفظة Mathix.
+      </p>
+
+    </section>
+
+
+    <div class="filters">
+
+      <button
+        class="filter active"
+        data-subject="all"
+      >
+        الكل
+      </button>
+
+      <button
+        class="filter"
+        data-subject="arabic"
+      >
+        اللغة العربية
+      </button>
+
+      <button
+        class="filter"
+        data-subject="english"
+      >
+        اللغة الإنجليزية
+      </button>
+
+      <button
+        class="filter"
+        data-subject="physics"
+      >
+        Physics
+      </button>
+
+      <button
+        class="filter"
+        data-subject="chemistry"
+      >
+        Chemistry
+      </button>
+
+      <button
+        class="filter"
+        data-subject="solid"
+      >
+        Solid Geometry
+      </button>
+
+      <button
+        class="filter"
+        data-subject="algebra"
+      >
+        Algebra
+      </button>
+
+    </div>
+
+
+    <div
+      id="loading"
+      class="loading"
+    >
+      <div class="loading-spinner"></div>
+      جاري تحميل المراجعات...
+    </div>
+
+
+    <div
+      id="revisionsGrid"
+      class="grid"
+      style="display:none;"
+    ></div>
+
+  </main>
+
+</div>
+
+
+<!-- PURCHASE MODAL -->
+
+<div
+  class="modal"
+  id="purchaseModal"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <div>
+        <h3>
+          شراء الملخص
+        </h3>
+
+        <p id="purchaseDescription">
+          تأكيد عملية الشراء
+        </p>
+      </div>
+
+      <button
+        class="close"
+        id="closePurchase"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="purchase-info">
+
+      <div class="info-row">
+        <span>الملخص</span>
+        <strong id="purchaseTitle">-</strong>
+      </div>
+
+      <div class="info-row">
+        <span>السعر</span>
+        <strong id="purchasePrice">0 ج.م</strong>
+      </div>
+
+      <div class="info-row">
+        <span>رصيدك الحالي</span>
+        <strong id="purchaseBalance">0 ج.م</strong>
+      </div>
+
+      <div class="info-row">
+        <span>الرصيد بعد الشراء</span>
+        <strong
+          id="purchaseAfter"
+          class="balance-after"
+        >
+          0 ج.م
+        </strong>
+      </div>
+
+    </div>
+
+
+    <div class="modal-actions">
+
+      <button
+        class="btn btn-secondary"
+        id="cancelPurchase"
+      >
+        إلغاء
+      </button>
+
+      <button
+        class="btn btn-primary"
+        id="confirmPurchase"
+      >
+        تأكيد الشراء
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
+
+<script type="module">
+
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+  import {
+    getFirestore,
+    collection,
+    query,
+    where,
+    orderBy,
+    onSnapshot,
+    doc,
+    getDoc,
+    runTransaction,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+  /* ================= FIREBASE ================= */
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk",
+    authDomain: "mathix-2008.firebaseapp.com",
+    projectId: "mathix-2008",
+    storageBucket: "mathix-2008.firebasestorage.app",
+    messagingSenderId: "561805658834",
+    appId: "1:561805658834:web:c1db8ebc2d415be9497b0b",
+    measurementId: "G-XWHKQ72FM0"
+  };
+
+
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+
+  const db = getFirestore(app);
+
+
+  /* ================= STATE ================= */
+
+  let currentUser = null;
+
+  let currentBalance = 0;
+
+  let currentSubject = "all";
+
+  let allRevisions = [];
+
+  let selectedRevision = null;
+
+  let unsubscribeBalance = null;
+
+  let unsubscribeRevisions = null;
+
+
+  /* ================= ELEMENTS ================= */
+
+  const loading =
+    document.getElementById("loading");
+
+  const grid =
+    document.getElementById("revisionsGrid");
+
+  const navBalance =
+    document.getElementById("navBalance");
+
+  const purchaseModal =
+    document.getElementById("purchaseModal");
+
+  const purchaseTitle =
+    document.getElementById("purchaseTitle");
+
+  const purchasePrice =
+    document.getElementById("purchasePrice");
+
+  const purchaseBalance =
+    document.getElementById("purchaseBalance");
+
+  const purchaseAfter =
+    document.getElementById("purchaseAfter");
+
+  const confirmPurchase =
+    document.getElementById("confirmPurchase");
+
+  const toast =
+    document.getElementById("toast");
+
+
+  /* ================= HELPERS ================= */
+
+  function escapeHTML(value) {
+
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+  }
+
+
+  function formatMoney(value) {
+
+    return Number(value || 0).toLocaleString("ar-EG") + " ج.م";
+
+  }
+
+
+  function showToast(message, type = "") {
+
+    toast.textContent = message;
+
+    toast.className = "toast show " + type;
+
+    clearTimeout(showToast.timer);
+
+    showToast.timer = setTimeout(() => {
+
+      toast.className = "toast";
+
+    }, 3500);
+
+  }
+
+
+  function getSubjectName(subject) {
+
+    const names = {
+
+      arabic: "اللغة العربية",
+
+      english: "اللغة الإنجليزية",
+
+      physics: "Physics",
+
+      chemistry: "Chemistry",
+
+      solid: "Solid Geometry",
+
+      algebra: "Algebra"
+
+    };
+
+    return names[subject] || subject || "عام";
+
+  }
+
+
+  function isFree(revision) {
+
+    return (
+      revision.free === true ||
+      Number(revision.price || 0) <= 0
+    );
+
+  }
+
+
+  function getContentUrl(revision) {
+
+    return (
+      revision.pdfUrl ||
+      revision.url ||
+      revision.youtubeUrl ||
+      ""
+    );
+
+  }
+
+
+  function openRevision(revision) {
+
+    const url = getContentUrl(revision);
+
+    if (!url) {
+
+      showToast(
+        "المحتوى غير متاح حاليًا.",
+        "error"
+      );
+
+      return;
+
+    }
+
+    window.open(
+      url,
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+  }
+
+
+  /* ================= RENDER ================= */
+
+  function renderRevisions() {
+
+    const list =
+      currentSubject === "all"
+        ? allRevisions
+        : allRevisions.filter(
+            item =>
+              item.subject === currentSubject
+          );
+
+
+    if (!list.length) {
+
+      grid.innerHTML = `
+        <div class="empty">
+          <div class="empty-icon">📚</div>
+          <div>لا توجد مراجعات متاحة حاليًا.</div>
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    grid.innerHTML = list.map(revision => {
+
+      const free = isFree(revision);
+
+      const price = Number(
+        revision.price || 0
+      );
+
+      const purchased =
+        revision.purchased === true;
+
+
+      let actionText = "فتح الملخص";
+
+      if (!free && !purchased) {
+        actionText =
+          `شراء بـ ${formatMoney(price)}`;
+      }
+
+
+      return `
+        <article
+          class="revision-card"
+          data-id="${escapeHTML(revision.id)}"
+        >
+
+          <div class="revision-top">
+
+            <div class="revision-icon">
+              ${
+                revision.type === "youtube"
+                  ? "▶"
+                  : revision.type === "text"
+                    ? "📝"
+                    : "📄"
+              }
+            </div>
+
+            <div
+              class="price ${free ? "free" : ""}"
+            >
+              ${
+                free
+                  ? "مجاني"
+                  : formatMoney(price)
+              }
+            </div>
+
+          </div>
+
+
+          <h3>
+            ${escapeHTML(revision.title || "بدون عنوان")}
+          </h3>
+
+
+          <p class="description">
+            ${escapeHTML(
+              revision.description ||
+              "مراجعة شاملة لمساعدتك على تثبيت المعلومات."
+            )}
+          </p>
+
+
+          <span class="subject-label">
+            ${escapeHTML(
+              getSubjectName(revision.subject)
+            )}
+          </span>
+
+
+          <div class="revision-actions">
+
+            <button
+              class="btn btn-primary"
+              data-action="open"
+              data-id="${escapeHTML(revision.id)}"
+            >
+              ${actionText}
+            </button>
+
+          </div>
+
+        </article>
+      `;
+
+    }).join("");
+
+  }
+
+
+  /* ================= LOAD REVISIONS ================= */
+
+  function loadAllRevisions() {
+
+    if (unsubscribeRevisions) {
+      unsubscribeRevisions();
+    }
+
+
+    loading.style.display = "block";
+
+    grid.style.display = "none";
+
+
+    const revisionsQuery = query(
+      collection(db, "revisions"),
+      orderBy("order", "asc")
+    );
+
+
+    unsubscribeRevisions =
+      onSnapshot(
+        revisionsQuery,
+        async snapshot => {
+
+          const revisions =
+            snapshot.docs.map(item => ({
+              id: item.id,
+              ...item.data()
+            }));
+
+
+          allRevisions = revisions;
+
+
+          /*
+           * نتحقق من المشتريات الحالية للطالب.
+           */
+          if (currentUser) {
+
+            const checks =
+              await Promise.all(
+                allRevisions.map(async revision => {
+
+                  const purchaseId =
+                    `${currentUser.uid}_${revision.id}`;
+
+                  const purchaseRef =
+                    doc(
+                      db,
+                      "purchases",
+                      purchaseId
+                    );
+
+                  const purchaseSnap =
+                    await getDoc(purchaseRef);
+
+                  return {
+                    ...revision,
+                    purchased:
+                      purchaseSnap.exists()
+                  };
+
+                })
+              );
+
+
+            allRevisions = checks;
+
+          }
+
+
+          loading.style.display = "none";
+
+          grid.style.display = "grid";
+
+          renderRevisions();
+
+        },
+        error => {
+
+          console.error(error);
+
+          loading.style.display = "none";
+
+          grid.style.display = "grid";
+
+          grid.innerHTML = `
+            <div class="empty">
+              <div class="empty-icon">⚠️</div>
+              <div>
+                حدث خطأ أثناء تحميل المراجعات.
+              </div>
+            </div>
+          `;
+
+        }
+      );
+
+  }
+
+
+  /* ================= BALANCE ================= */
+
+  function listenToWallet() {
+
+    if (!currentUser) return;
+
+
+    if (unsubscribeBalance) {
+      unsubscribeBalance();
+    }
+
+
+    const walletRef =
+      doc(
+        db,
+        "wallets",
+        currentUser.uid
+      );
+
+
+    unsubscribeBalance =
+      onSnapshot(
+        walletRef,
+        snapshot => {
+
+          if (!snapshot.exists()) {
+
+            currentBalance = 0;
+
+          } else {
+
+            currentBalance =
+              Number(
+                snapshot.data().balance || 0
+              );
+
+          }
+
+
+          navBalance.textContent =
+            formatMoney(currentBalance);
+
+
+          if (selectedRevision) {
+            updatePurchaseModal();
+          }
+
+        },
+        error => {
+
+          console.error(error);
+
+          currentBalance = 0;
+
+          navBalance.textContent =
+            "0 ج.م";
+
+        }
+      );
+
+  }
+
+
+  /* ================= PURCHASE MODAL ================= */
+
+  function updatePurchaseModal() {
+
+    if (!selectedRevision) return;
+
+
+    const price =
+      Number(
+        selectedRevision.price || 0
+      );
+
+
+    const after =
+      currentBalance - price;
+
+
+    purchaseTitle.textContent =
+      selectedRevision.title || "-";
+
+
+    purchasePrice.textContent =
+      formatMoney(price);
+
+
+    purchaseBalance.textContent =
+      formatMoney(currentBalance);
+
+
+    purchaseAfter.textContent =
+      formatMoney(
+        Math.max(after, 0)
+      );
+
+
+    purchaseAfter.className =
+      after >= 0
+        ? "balance-after"
+        : "insufficient";
+
+
+    if (currentBalance < price) {
+
+      confirmPurchase.disabled = true;
+
+      confirmPurchase.textContent =
+        "الرصيد غير كافٍ";
+
+    } else {
+
+      confirmPurchase.disabled = false;
+
+      confirmPurchase.textContent =
+        "تأكيد الشراء";
+
+    }
+
+  }
+
+
+  function openPurchase(revision) {
+
+    selectedRevision = revision;
+
+    updatePurchaseModal();
+
+    purchaseModal.classList.add("show");
+
+  }
+
+
+  function closePurchaseModal() {
+
+    purchaseModal.classList.remove("show");
+
+    selectedRevision = null;
+
+  }
+
+
+  /* ================= SECURE PURCHASE ================= */
+
+  async function purchaseRevision() {
+
+    if (!currentUser || !selectedRevision) {
+      return;
+    }
+
+
+    const revision =
+      selectedRevision;
+
+
+    const price =
+      Number(revision.price || 0);
+
+
+    if (price <= 0) {
+
+      openRevision(revision);
+
+      return;
+
+    }
+
+
+    if (currentBalance < price) {
+
+      showToast(
+        "رصيد المحفظة غير كافٍ. اشحن المحفظة أولًا.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    confirmPurchase.disabled = true;
+
+    confirmPurchase.textContent =
+      "جاري الشراء...";
+
+
+    const purchaseId =
+      `${currentUser.uid}_${revision.id}`;
+
+
+    const walletRef =
+      doc(
+        db,
+        "wallets",
+        currentUser.uid
+      );
+
+
+    const purchaseRef =
+      doc(
+        db,
+        "purchases",
+        purchaseId
+      );
+
+
+    const revisionRef =
+      doc(
+        db,
+        "revisions",
+        revision.id
+      );
+
+
+    try {
+
+      await runTransaction(
+        db,
+        async transaction => {
+
+          const [
+            walletSnap,
+            purchaseSnap,
+            revisionSnap
+          ] = await Promise.all([
+            transaction.get(walletRef),
+            transaction.get(purchaseRef),
+            transaction.get(revisionRef)
+          ]);
+
+
+          if (!walletSnap.exists()) {
+            throw new Error(
+              "wallet-not-found"
+            );
+          }
+
+
+          if (purchaseSnap.exists()) {
+            throw new Error(
+              "already-purchased"
+            );
+          }
+
+
+          if (!revisionSnap.exists()) {
+            throw new Error(
+              "revision-not-found"
+            );
+          }
+
+
+          const revisionData =
+            revisionSnap.data();
+
+
+          const actualPrice =
+            Number(
+              revisionData.price || 0
+            );
+
+
+          if (
+            revisionData.free === true ||
+            actualPrice <= 0
+          ) {
+
+            throw new Error(
+              "free-content"
+            );
+
+          }
+
+
+          const walletData =
+            walletSnap.data();
+
+
+          const balance =
+            Number(
+              walletData.balance || 0
+            );
+
+
+          if (balance < actualPrice) {
+            throw new Error(
+              "insufficient-balance"
+            );
+          }
+
+
+          const newBalance =
+            balance - actualPrice;
+
+
+          transaction.set(
+            purchaseRef,
+            {
+              uid: currentUser.uid,
+              revisionId: revision.id,
+              title:
+                revisionData.title || "",
+              subject:
+                revisionData.subject || "",
+              price: actualPrice,
+              status: "completed",
+              createdAt:
+                serverTimestamp()
+            }
+          );
+
+
+          transaction.update(
+            walletRef,
+            {
+              balance: newBalance,
+              lastPurchaseId: purchaseId,
+              updatedAt:
+                serverTimestamp()
+            }
+          );
+
+        }
+      );
+
+
+      selectedRevision.purchased = true;
+
+
+      const purchasedId =
+        selectedRevision.id;
+
+
+      allRevisions =
+        allRevisions.map(item =>
+          item.id === purchasedId
+            ? {
+                ...item,
+                purchased: true
+              }
+            : item
+        );
+
+
+      renderRevisions();
+
+      closePurchaseModal();
+
+
+      showToast(
+        "تم شراء الملخص بنجاح 🎉",
+        "success"
+      );
+
+
+      const purchasedRevision =
+        allRevisions.find(
+          item => item.id === purchasedId
+        );
+
+
+      if (purchasedRevision) {
+
+        setTimeout(() => {
+
+          openRevision(
+            purchasedRevision
+          );
+
+        }, 500);
+
+      }
+
+
+    } catch (error) {
+
+      console.error(error);
+
+
+      if (
+        error.message ===
+        "already-purchased"
+      ) {
+
+        showToast(
+          "أنت اشتريت هذا الملخص بالفعل.",
+          "error"
+        );
+
+      } else if (
+        error.message ===
+        "insufficient-balance"
+      ) {
+
+        showToast(
+          "رصيد المحفظة غير كافٍ.",
+          "error"
+        );
+
+      } else if (
+        error.message ===
+        "free-content"
+      ) {
+
+        showToast(
+          "هذا المحتوى مجاني.",
+          "error"
+        );
+
+      } else {
+
+        showToast(
+          "تعذر إتمام عملية الشراء. حاول مرة أخرى.",
+          "error"
+        );
+
+      }
+
+    } finally {
+
+      confirmPurchase.disabled = false;
+
+      confirmPurchase.textContent =
+        "تأكيد الشراء";
+
+    }
+
+  }
+
+
+  /* ================= FILTERS ================= */
+
+  document
+    .querySelectorAll(".filter")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          document
+            .querySelectorAll(".filter")
+            .forEach(item =>
+              item.classList.remove("active")
+            );
+
+
+          button.classList.add("active");
+
+
+          currentSubject =
+            button.dataset.subject;
+
+
+          renderRevisions();
+
+        }
+      );
+
+    });
+
+
+  /* ================= CARD ACTIONS ================= */
+
+  grid.addEventListener(
+    "click",
+    event => {
+
+      const button =
+        event.target.closest(
+          "[data-action]"
+        );
+
+
+      if (!button) return;
+
+
+      const id =
+        button.dataset.id;
+
+
+      const revision =
+        allRevisions.find(
+          item => item.id === id
+        );
+
+
+      if (!revision) return;
+
+
+      if (isFree(revision) ||
+          revision.purchased === true) {
+
+        openRevision(revision);
+
+        return;
+
+      }
+
+
+      openPurchase(revision);
+
+    }
+  );
+
+
+  /* ================= MODAL ================= */
+
+  document
+    .getElementById("closePurchase")
+    .addEventListener(
+      "click",
+      closePurchaseModal
+    );
+
+
+  document
+    .getElementById("cancelPurchase")
+    .addEventListener(
+      "click",
+      closePurchaseModal
+    );
+
+
+  confirmPurchase.addEventListener(
+    "click",
+    purchaseRevision
+  );
+
+
+  purchaseModal.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target ===
+        purchaseModal
+      ) {
+
+        closePurchaseModal();
+
+      }
+
+    }
+  );
+
+
+  /* ================= LOGOUT ================= */
+
+  document
+    .getElementById("logoutBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        await signOut(auth);
+
+        window.location.href =
+          "login.html";
+
+      }
+    );
+
+
+  /* ================= MOBILE MENU ================= */
+
+  document
+    .getElementById("mobileMenu")
+    .addEventListener(
+      "click",
+      () => {
+
+        const links =
+          document.querySelector(
+            ".nav-links"
+          );
+
+
+        const visible =
+          links.style.display === "flex";
+
+
+        links.style.display =
+          visible
+            ? ""
+            : "flex";
+
+
+        if (!visible) {
+
+          links.style.position =
+            "absolute";
+
+          links.style.top =
+            "76px";
+
+          links.style.right =
+            "4%";
+
+          links.style.left =
+            "4%";
+
+          links.style.padding =
+            "10px";
+
+          links.style.flexDirection =
+            "column";
+
+          links.style.alignItems =
+            "stretch";
+
+          links.style.background =
+            "#101018";
+
+          links.style.border =
+            "1px solid rgba(255,255,255,.08)";
+
+          links.style.borderRadius =
+            "15px";
+
+        }
+
+      }
+    );
+
+
+  /* ================= AUTH ================= */
+
+  onAuthStateChanged(
+    auth,
+    user => {
+
+      if (!user) {
+
+        window.location.href =
+          "login.html";
+
+        return;
+
+      }
+
+
+      currentUser = user;
+
+      listenToWallet();
+
+      loadAllRevisions();
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
