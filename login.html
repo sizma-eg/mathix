@@ -9,6 +9,7 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   >
+
   <meta
     name="theme-color"
     content="#07070b"
@@ -51,13 +52,10 @@
     :root {
       --bg: #07070b;
       --border: rgba(255,255,255,.08);
-
       --text: #f5f5f7;
       --muted: #92929f;
-
       --purple: #8b3dff;
       --purple-2: #a45cff;
-
       --danger: #ff5d6c;
       --success: #35d07f;
     }
@@ -112,19 +110,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
       gap: 11px;
-
       margin-bottom: 25px;
     }
 
     .brand-logo {
       width: 48px;
       height: 48px;
-
       object-fit: contain;
 
-      animation: floatLogo 3s ease-in-out infinite;
+      animation:
+        floatLogo
+        3s
+        ease-in-out
+        infinite;
 
       filter:
         drop-shadow(
@@ -147,7 +146,9 @@
     }
 
     .brand-name {
-      font-family: "Chakra Petch", sans-serif;
+      font-family:
+        "Chakra Petch",
+        sans-serif;
 
       font-size: 29px;
       font-weight: 700;
@@ -166,7 +167,10 @@
     .card {
       padding: 31px;
 
-      border: 1px solid var(--border);
+      border:
+        1px solid
+        var(--border);
+
       border-radius: 24px;
 
       background:
@@ -177,12 +181,12 @@
         );
 
       box-shadow:
-        0 30px 90px rgba(0,0,0,.35);
+        0 30px 90px
+        rgba(0,0,0,.35);
     }
 
     .heading {
       text-align: center;
-
       margin-bottom: 25px;
     }
 
@@ -193,7 +197,6 @@
 
     .heading p {
       margin-top: 7px;
-
       color: var(--muted);
       font-size: 12px;
     }
@@ -219,12 +222,16 @@
 
       padding: 0 14px;
 
-      border: 1px solid rgba(255,255,255,.08);
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
       border-radius: 13px;
 
       outline: none;
 
-      background: rgba(0,0,0,.22);
+      background:
+        rgba(0,0,0,.22);
 
       color: #fff;
 
@@ -237,9 +244,11 @@
     }
 
     input:focus {
-      border-color: rgba(139,61,255,.6);
+      border-color:
+        rgba(139,61,255,.6);
 
-      background: rgba(139,61,255,.035);
+      background:
+        rgba(139,61,255,.035);
 
       box-shadow:
         0 0 0 3px
@@ -264,7 +273,8 @@
       left: 8px;
       top: 50%;
 
-      transform: translateY(-50%);
+      transform:
+        translateY(-50%);
 
       width: 34px;
       height: 34px;
@@ -277,11 +287,14 @@
       color: #777783;
 
       font-size: 14px;
+
+      cursor: pointer;
     }
 
     .show-password:hover {
       color: #fff;
-      background: rgba(255,255,255,.05);
+      background:
+        rgba(255,255,255,.05);
     }
 
     .forgot-row {
@@ -299,10 +312,13 @@
 
       background: transparent;
 
-      color: var(--purple-2);
+      color:
+        var(--purple-2);
 
       font-size: 10px;
       font-weight: 700;
+
+      cursor: pointer;
     }
 
     .forgot-btn:hover {
@@ -336,10 +352,13 @@
         transform .2s ease,
         box-shadow .2s ease,
         opacity .2s ease;
+
+      cursor: pointer;
     }
 
     .submit-btn:hover {
-      transform: translateY(-2px);
+      transform:
+        translateY(-2px);
 
       box-shadow:
         0 16px 40px
@@ -370,9 +389,12 @@
 
       color: #ff9ba4;
 
-      border: 1px solid rgba(255,93,108,.2);
+      border:
+        1px solid
+        rgba(255,93,108,.2);
 
-      background: rgba(255,93,108,.07);
+      background:
+        rgba(255,93,108,.07);
     }
 
     .message.success {
@@ -380,9 +402,12 @@
 
       color: #75e7a8;
 
-      border: 1px solid rgba(53,208,127,.2);
+      border:
+        1px solid
+        rgba(53,208,127,.2);
 
-      background: rgba(53,208,127,.07);
+      background:
+        rgba(53,208,127,.07);
     }
 
     .signup-link {
@@ -396,7 +421,9 @@
     }
 
     .signup-link a {
-      color: var(--purple-2);
+      color:
+        var(--purple-2);
+
       font-weight: 700;
     }
 
@@ -433,12 +460,18 @@
       width: 15px;
       height: 15px;
 
-      border: 2px solid rgba(255,255,255,.3);
+      border:
+        2px solid
+        rgba(255,255,255,.3);
+
       border-top-color: #fff;
 
       border-radius: 50%;
 
-      animation: spin .7s linear infinite;
+      animation:
+        spin .7s
+        linear
+        infinite;
     }
 
     @keyframes spin {
@@ -505,7 +538,6 @@
 
 
       <form id="loginForm">
-
 
         <div class="field">
 
@@ -604,18 +636,18 @@
 
     import {
       initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    } from
+      "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
     import {
-      getAuth,
+      initializeAuth,
+      browserLocalPersistence,
       signInWithEmailAndPassword,
       sendPasswordResetEmail
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    } from
+      "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-
-    /* =========================
-       FIREBASE CONFIG
-    ========================= */
 
     const firebaseConfig = {
 
@@ -646,46 +678,65 @@
     const app =
       initializeApp(firebaseConfig);
 
+
+    /*
+      تهيئة Firebase Auth
+      بالـLocal Persistence من البداية.
+    */
+
     const auth =
-      getAuth(app);
+      initializeAuth(
+        app,
+        {
+          persistence:
+            browserLocalPersistence
+        }
+      );
 
-
-    /* =========================
-       ELEMENTS
-    ========================= */
 
     const form =
-      document.getElementById("loginForm");
+      document.getElementById(
+        "loginForm"
+      );
 
     const emailInput =
-      document.getElementById("email");
+      document.getElementById(
+        "email"
+      );
 
     const passwordInput =
-      document.getElementById("password");
+      document.getElementById(
+        "password"
+      );
 
     const submitBtn =
-      document.getElementById("submitBtn");
+      document.getElementById(
+        "submitBtn"
+      );
 
     const message =
-      document.getElementById("message");
+      document.getElementById(
+        "message"
+      );
 
     const showPassword =
-      document.getElementById("showPassword");
+      document.getElementById(
+        "showPassword"
+      );
 
     const forgotPassword =
-      document.getElementById("forgotPassword");
+      document.getElementById(
+        "forgotPassword"
+      );
 
-
-    /* =========================
-       MESSAGE
-    ========================= */
 
     function showMessage(
       text,
       type = "error"
     ) {
 
-      message.textContent = text;
+      message.textContent =
+        text;
 
       message.className =
         `message ${type}`;
@@ -693,26 +744,25 @@
     }
 
 
-    /* =========================
-       SHOW PASSWORD
-    ========================= */
-
     showPassword.addEventListener(
       "click",
       () => {
 
         if (
-          passwordInput.type === "password"
+          passwordInput.type ===
+          "password"
         ) {
 
-          passwordInput.type = "text";
+          passwordInput.type =
+            "text";
 
           showPassword.textContent =
             "◌";
 
         } else {
 
-          passwordInput.type = "password";
+          passwordInput.type =
+            "password";
 
           showPassword.textContent =
             "◉";
@@ -722,10 +772,6 @@
       }
     );
 
-
-    /* =========================
-       LOGIN
-    ========================= */
 
     form.addEventListener(
       "submit",
@@ -744,7 +790,10 @@
           passwordInput.value;
 
 
-        if (!email || !password) {
+        if (
+          !email ||
+          !password
+        ) {
 
           showMessage(
             "اكتب البريد الإلكتروني وكلمة المرور."
@@ -755,7 +804,9 @@
         }
 
 
-        submitBtn.disabled = true;
+        submitBtn.disabled =
+          true;
+
 
         submitBtn.innerHTML = `
           <span class="loading">
@@ -767,12 +818,35 @@
 
         try {
 
-          await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
+          const credential =
+            await signInWithEmailAndPassword(
+              auth,
+              email,
+              password
+            );
 
+
+          /*
+            تأكيد أن المستخدم موجود
+            بالفعل داخل Firebase Auth.
+          */
+
+          if (
+            !credential ||
+            !credential.user
+          ) {
+
+            throw new Error(
+              "LOGIN_USER_NOT_AVAILABLE"
+            );
+
+          }
+
+
+          /*
+            الجلسة الآن محفوظة
+            في Local Persistence.
+          */
 
           showMessage(
             "تم تسجيل الدخول بنجاح. جاري فتح حسابك...",
@@ -780,21 +854,18 @@
           );
 
 
-          setTimeout(
-            () => {
+          /*
+            ننتقل مباشرة.
+          */
 
-              window.location.href =
-                "dashboard.html";
-
-            },
-            700
+          window.location.replace(
+            "dashboard.html"
           );
-
 
         } catch (error) {
 
           console.error(
-            "Login error:",
+            "LOGIN ERROR:",
             error
           );
 
@@ -837,6 +908,14 @@
               break;
 
 
+            case "auth/user-disabled":
+
+              errorMessage =
+                "هذا الحساب تم تعطيله.";
+
+              break;
+
+
             case "auth/too-many-requests":
 
               errorMessage =
@@ -849,6 +928,22 @@
 
               errorMessage =
                 "تأكد من اتصالك بالإنترنت.";
+
+              break;
+
+
+            case "auth/operation-not-allowed":
+
+              errorMessage =
+                "تسجيل الدخول بالبريد الإلكتروني غير مفعّل في Firebase.";
+
+              break;
+
+
+            case "auth/popup-blocked":
+
+              errorMessage =
+                "المتصفح منع العملية.";
 
               break;
 
@@ -871,10 +966,6 @@
       }
     );
 
-
-    /* =========================
-       FORGOT PASSWORD
-    ========================= */
 
     forgotPassword.addEventListener(
       "click",
@@ -920,7 +1011,7 @@
         } catch (error) {
 
           console.error(
-            "Password reset error:",
+            "PASSWORD RESET ERROR:",
             error
           );
 
