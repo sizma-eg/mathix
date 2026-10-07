@@ -1,1117 +1,914 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07070b">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <title>Mathix | الملف الشخصي</title>
 
-  <meta
-    name="theme-color"
-    content="#07070b"
-  >
-
-  <title>الملف الشخصي | Mathix</title>
-
-  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="icon" href="logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Chakra+Petch:wght@500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   >
 
   <style>
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --bg:#050507;
+      --border:rgba(255,255,255,.08);
+      --purple:#a855f7;
+      --purple-dark:#6d28d9;
+      --text:#fff;
+      --muted:#92929f;
+      --success:#22c55e;
+      --sidebar:270px;
     }
 
-    :root {
-      --bg: #07070b;
-      --card: #101018;
-      --border: rgba(255,255,255,.08);
-      --text: #fff;
-      --muted: #9999a7;
-      --purple: #8b5cf6;
-      --purple2: #a855f7;
-      --green: #22c55e;
+    * {
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
     }
 
     body {
-      min-height: 100vh;
-
+      min-height:100vh;
       background:
-        radial-gradient(
-          circle at 15% 10%,
-          rgba(139,92,246,.13),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 85% 80%,
-          rgba(168,85,247,.08),
-          transparent 30%
-        ),
+        radial-gradient(circle at 80% 0%,rgba(168,85,247,.11),transparent 28%),
+        radial-gradient(circle at 15% 80%,rgba(109,40,217,.07),transparent 30%),
         var(--bg);
-
-      color: var(--text);
-
-      font-family: "Cairo", sans-serif;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input {
-      font-family: inherit;
+      color:var(--text);
+      font-family:"Cairo",sans-serif;
     }
 
     button {
-      cursor: pointer;
+      font-family:inherit;
+      border:0;
+      cursor:pointer;
     }
 
-    /* NAV */
-
-    .navbar {
-      height: 76px;
-
-      position: sticky;
-      top: 0;
-      z-index: 50;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      padding: 0 6%;
-
-      background: rgba(7,7,11,.84);
-      backdrop-filter: blur(18px);
-
-      border-bottom: 1px solid var(--border);
+    a {
+      color:inherit;
+      text-decoration:none;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      font-family: "Chakra Petch", sans-serif;
-      font-size: 25px;
-      font-weight: 700;
+    .loading-screen {
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:grid;
+      place-items:center;
+      background:#050507;
+      transition:.4s;
     }
 
-    .brand img {
-      width: 38px;
-      height: 38px;
-      object-fit: contain;
-
-      animation: floating 4s ease-in-out infinite;
+    .loading-screen.hide {
+      opacity:0;
+      visibility:hidden;
     }
 
-    @keyframes floating {
-
-      0%,100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-4px);
-      }
-
-    }
-
-    .white {
-      color: #fff;
-    }
-
-    .purple {
-      color: var(--purple2);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: #bcbcc7;
-
-      padding: 9px 13px;
-
-      border-radius: 10px;
-
-      font-size: 14px;
-
-      transition: .2s;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: white;
-      background: rgba(139,92,246,.12);
-    }
-
-    .logout {
-      border: 1px solid var(--border);
-      background: transparent;
-
-      color: #ddd;
-
-      padding: 9px 13px;
-      border-radius: 10px;
-    }
-
-    .mobile-menu {
-      display: none;
-
-      border: 0;
-      background: transparent;
-      color: #fff;
-
-      font-size: 25px;
-    }
-
-    /* CONTENT */
-
-    .container {
-      width: min(1000px, 92%);
-      margin: auto;
-
-      padding: 48px 0 70px;
-    }
-
-    .hero {
-      margin-bottom: 28px;
-    }
-
-    .badge {
-      display: inline-block;
-
-      padding: 7px 12px;
-
-      border-radius: 999px;
-
-      color: #c4b5fd;
-
-      background: rgba(139,92,246,.1);
-
-      border: 1px solid rgba(139,92,246,.2);
-
-      font-size: 12px;
-
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-size: clamp(28px,5vw,42px);
-      margin-bottom: 8px;
-    }
-
-    .hero p {
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 14px;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 270px 1fr;
-      gap: 18px;
-    }
-
-    /* SIDE */
-
-    .side-card,
-    .main-card {
-      background: var(--card);
-
-      border: 1px solid var(--border);
-
-      border-radius: 20px;
-    }
-
-    .side-card {
-      padding: 24px;
-
-      height: fit-content;
-
-      text-align: center;
-    }
-
-    .avatar {
-      width: 92px;
-      height: 92px;
-
-      margin: 0 auto 15px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 50%;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(139,92,246,.25),
-          rgba(168,85,247,.08)
-        );
-
-      border: 1px solid rgba(139,92,246,.3);
-
-      font-family: "Chakra Petch", sans-serif;
-
-      font-size: 34px;
-      font-weight: 700;
-
-      color: #c4b5fd;
-    }
-
-    .side-card h2 {
-      font-size: 18px;
-      margin-bottom: 5px;
-    }
-
-    .side-card p {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-
-      margin-top: 15px;
-
-      padding: 6px 10px;
-
-      border-radius: 999px;
-
-      background: rgba(34,197,94,.08);
-      border: 1px solid rgba(34,197,94,.18);
-
-      color: #86efac;
-
-      font-size: 11px;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-
-      border-radius: 50%;
-
-      background: var(--green);
-    }
-
-    /* MAIN */
-
-    .main-card {
-      padding: 25px;
-    }
-
-    .section-title {
-      margin-bottom: 20px;
-    }
-
-    .section-title h3 {
-      font-size: 19px;
-      margin-bottom: 5px;
-    }
-
-    .section-title p {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .info {
-      padding: 15px;
-
-      border-radius: 13px;
-
-      background: rgba(255,255,255,.025);
-
-      border: 1px solid var(--border);
-    }
-
-    .info.full {
-      grid-column: 1/-1;
-    }
-
-    .info label {
-      display: block;
-
-      color: var(--muted);
-
-      font-size: 11px;
-
-      margin-bottom: 6px;
-    }
-
-    .info strong {
-      display: block;
-
-      color: #fff;
-
-      font-size: 14px;
-
-      word-break: break-word;
-    }
-
-    .code {
-      color: #c4b5fd !important;
-
-      font-family: "Chakra Petch", sans-serif;
-      letter-spacing: .5px;
-    }
-
-    .wallet-box {
-      margin-top: 18px;
-
-      padding: 18px;
-
-      border-radius: 15px;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(139,92,246,.1),
-          rgba(168,85,247,.04)
-        );
-
-      border: 1px solid rgba(139,92,246,.18);
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 15px;
-    }
-
-    .wallet-box span {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .wallet-box strong {
-      display: block;
-
-      margin-top: 3px;
-
-      font-size: 22px;
-
-      color: #c4b5fd;
-    }
-
-    .wallet-btn {
-      padding: 10px 14px;
-
-      border-radius: 10px;
-
-      background: linear-gradient(
-        135deg,
-        var(--purple),
-        var(--purple2)
-      );
-
-      color: white;
-
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-
-      gap: 9px;
-
-      margin-top: 20px;
-    }
-
-    .action {
-      padding: 11px 15px;
-
-      border: 1px solid var(--border);
-
-      background: rgba(255,255,255,.035);
-
-      border-radius: 10px;
-
-      color: #ddd;
-
-      font-size: 12px;
-    }
-
-    .action:hover {
-      background: rgba(255,255,255,.07);
-    }
-
-    /* LOADING */
-
-    .loading {
-      text-align: center;
-      padding: 70px 20px;
-
-      color: var(--muted);
-    }
-
-    .spinner {
-      width: 34px;
-      height: 34px;
-
-      margin: auto auto 12px;
-
-      border-radius: 50%;
-
-      border: 3px solid rgba(255,255,255,.08);
-      border-top-color: var(--purple);
-
-      animation: spin .8s linear infinite;
+    .loader {
+      width:55px;
+      height:55px;
+      border-radius:50%;
+      border:3px solid rgba(255,255,255,.08);
+      border-top-color:var(--purple);
+      animation:spin .8s linear infinite;
+      box-shadow:0 0 35px rgba(168,85,247,.3);
     }
 
     @keyframes spin {
-      to {
-        transform: rotate(360deg);
+      to { transform:rotate(360deg); }
+    }
+
+    .sidebar {
+      position:fixed;
+      top:0;
+      right:0;
+      width:var(--sidebar);
+      height:100vh;
+      padding:24px 18px;
+      z-index:1000;
+      border-left:1px solid var(--border);
+      background:rgba(7,7,11,.82);
+      backdrop-filter:blur(25px);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:4px 10px 28px;
+    }
+
+    .brand img {
+      width:42px;
+      height:42px;
+      object-fit:contain;
+      filter:drop-shadow(0 0 15px rgba(168,85,247,.4));
+    }
+
+    .brand-text,
+    .mobile-brand {
+      font-family:"Chakra Petch",sans-serif;
+      font-weight:700;
+    }
+
+    .brand-text {
+      font-size:25px;
+    }
+
+    .brand-text span,
+    .mobile-brand span {
+      color:var(--purple);
+    }
+
+    .nav {
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    .nav-link {
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:13px;
+      min-height:50px;
+      padding:0 15px;
+      border-radius:16px;
+      color:#9999a6;
+      transition:.25s;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .nav-link:hover {
+      color:#fff;
+      background:rgba(255,255,255,.045);
+      transform:translateX(-3px);
+    }
+
+    .nav-link.active {
+      color:#fff;
+      background:rgba(168,85,247,.11);
+      box-shadow:inset 0 0 0 1px rgba(168,85,247,.13);
+    }
+
+    .nav-link.active::before {
+      content:"";
+      position:absolute;
+      right:0;
+      width:3px;
+      height:25px;
+      border-radius:10px;
+      background:var(--purple);
+      box-shadow:0 0 15px var(--purple);
+    }
+
+    .nav-icon {
+      width:22px;
+      text-align:center;
+      font-size:18px;
+    }
+
+    .sidebar-bottom {
+      margin-top:auto;
+    }
+
+    .wallet-mini {
+      padding:15px;
+      border-radius:19px;
+      border:1px solid var(--border);
+      background:linear-gradient(135deg,rgba(168,85,247,.13),rgba(255,255,255,.025));
+      margin-bottom:12px;
+    }
+
+    .wallet-mini-label {
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    .wallet-mini-value {
+      margin-top:4px;
+      font-family:"Chakra Petch",sans-serif;
+      font-size:23px;
+      font-weight:700;
+    }
+
+    .wallet-mini-value span {
+      color:var(--purple);
+      font-size:11px;
+    }
+
+    .logout {
+      width:100%;
+      justify-content:center;
+      color:#fca5a5;
+      background:rgba(239,68,68,.07);
+    }
+
+    .mobile-header {
+      display:none;
+    }
+
+    .main {
+      margin-right:var(--sidebar);
+      padding:38px 42px 60px;
+      min-height:100vh;
+    }
+
+    .head {
+      margin-bottom:28px;
+    }
+
+    .head h1 {
+      font-size:clamp(25px,3vw,37px);
+      font-weight:900;
+    }
+
+    .head p {
+      color:var(--muted);
+      margin-top:7px;
+      font-size:13px;
+    }
+
+    .profile-hero {
+      position:relative;
+      overflow:hidden;
+      padding:30px;
+      border-radius:30px;
+      border:1px solid rgba(168,85,247,.2);
+      background:
+        radial-gradient(circle at 85% 20%,rgba(168,85,247,.2),transparent 35%),
+        linear-gradient(135deg,rgba(168,85,247,.11),rgba(255,255,255,.025));
+      display:flex;
+      align-items:center;
+      gap:22px;
+    }
+
+    .avatar {
+      flex:0 0 82px;
+      width:82px;
+      height:82px;
+      display:grid;
+      place-items:center;
+      border-radius:25px;
+      background:linear-gradient(135deg,var(--purple),var(--purple-dark));
+      font-family:"Chakra Petch",sans-serif;
+      font-size:31px;
+      font-weight:700;
+      box-shadow:0 15px 45px rgba(168,85,247,.28);
+    }
+
+    .hero-info h2 {
+      font-size:26px;
+      font-weight:900;
+    }
+
+    .hero-info p {
+      color:var(--muted);
+      margin-top:4px;
+      font-size:12px;
+    }
+
+    .status {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      margin-top:12px;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(34,197,94,.09);
+      color:#86efac;
+      font-size:10px;
+      font-weight:900;
+    }
+
+    .dot {
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--success);
+      box-shadow:0 0 10px var(--success);
+    }
+
+    .stats {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:15px;
+      margin-top:18px;
+    }
+
+    .stat {
+      padding:20px;
+      border-radius:21px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.025);
+    }
+
+    .stat-label {
+      color:var(--muted);
+      font-size:10px;
+    }
+
+    .stat-value {
+      margin-top:8px;
+      font-family:"Chakra Petch",sans-serif;
+      font-size:26px;
+      font-weight:700;
+    }
+
+    .stat-value span {
+      color:var(--purple);
+      font-size:11px;
+      font-family:"Cairo",sans-serif;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:1.3fr .7fr;
+      gap:18px;
+      margin-top:18px;
+    }
+
+    .card {
+      padding:24px;
+      border-radius:24px;
+      border:1px solid var(--border);
+      background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    }
+
+    .card h3 {
+      font-size:18px;
+      font-weight:900;
+    }
+
+    .card-sub {
+      color:var(--muted);
+      font-size:11px;
+      margin-top:5px;
+    }
+
+    .info-list {
+      margin-top:20px;
+      display:grid;
+      gap:11px;
+    }
+
+    .info-row {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      padding:14px 15px;
+      border-radius:15px;
+      background:rgba(255,255,255,.025);
+      border:1px solid rgba(255,255,255,.045);
+    }
+
+    .info-label {
+      color:var(--muted);
+      font-size:10px;
+    }
+
+    .info-value {
+      color:#fff;
+      font-size:12px;
+      font-weight:700;
+      text-align:left;
+      max-width:65%;
+      overflow-wrap:anywhere;
+    }
+
+    .wallet-card {
+      min-height:100%;
+      background:
+        radial-gradient(circle at 80% 15%,rgba(168,85,247,.16),transparent 40%),
+        linear-gradient(145deg,rgba(168,85,247,.08),rgba(255,255,255,.015));
+    }
+
+    .wallet-balance {
+      margin-top:24px;
+      font-family:"Chakra Petch",sans-serif;
+      font-size:40px;
+      font-weight:700;
+    }
+
+    .wallet-balance span {
+      color:var(--purple);
+      font-size:13px;
+    }
+
+    .wallet-link {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      margin-top:25px;
+      border-radius:13px;
+      background:linear-gradient(135deg,var(--purple),var(--purple-dark));
+      font-size:11px;
+      font-weight:900;
+      box-shadow:0 12px 35px rgba(168,85,247,.18);
+    }
+
+    .progress-box {
+      margin-top:20px;
+    }
+
+    .progress-head {
+      display:flex;
+      justify-content:space-between;
+      color:#aaaab5;
+      font-size:11px;
+    }
+
+    .progress {
+      height:8px;
+      margin-top:9px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      overflow:hidden;
+    }
+
+    .progress span {
+      display:block;
+      height:100%;
+      width:0;
+      border-radius:inherit;
+      background:linear-gradient(90deg,var(--purple-dark),var(--purple));
+      box-shadow:0 0 18px rgba(168,85,247,.35);
+      transition:width .7s ease;
+    }
+
+    @media(max-width:1050px) {
+      .grid {
+        grid-template-columns:1fr;
+      }
+
+      .stats {
+        grid-template-columns:repeat(2,1fr);
       }
     }
 
-    @media (max-width: 800px) {
-
-      .nav-links {
-        display: none;
+    @media(max-width:850px) {
+      :root {
+        --sidebar:0px;
       }
 
-      .mobile-menu {
-        display: block;
+      .sidebar {
+        width:275px;
+        transform:translateX(100%);
+        transition:.3s;
       }
 
-      .layout {
-        grid-template-columns: 1fr;
+      .sidebar.open {
+        transform:translateX(0);
       }
 
-      .side-card {
-        display: flex;
-        align-items: center;
-        text-align: right;
-        gap: 15px;
+      .mobile-header {
+        position:sticky;
+        top:0;
+        z-index:900;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        height:68px;
+        padding:0 17px;
+        background:rgba(5,5,7,.78);
+        border-bottom:1px solid var(--border);
+        backdrop-filter:blur(20px);
       }
 
-      .avatar {
-        margin: 0;
-        flex-shrink: 0;
+      .mobile-brand {
+        font-size:21px;
       }
 
-      .side-info {
-        flex: 1;
+      .menu-btn {
+        width:43px;
+        height:43px;
+        border-radius:13px;
+        background:rgba(255,255,255,.05);
+        color:#fff;
+        font-size:19px;
       }
 
-      .status {
-        margin-top: 8px;
+      .main {
+        margin-right:0;
+        padding:28px 17px 45px;
       }
-
     }
 
-    @media (max-width: 550px) {
-
-      .navbar {
-        padding: 0 4%;
+    @media(max-width:550px) {
+      .profile-hero {
+        align-items:flex-start;
+        flex-direction:column;
       }
 
-      .container {
-        width: 92%;
-        padding-top: 30px;
+      .stats {
+        grid-template-columns:1fr 1fr;
       }
 
-      .info-grid {
-        grid-template-columns: 1fr;
+      .info-row {
+        align-items:flex-start;
+        flex-direction:column;
+        gap:5px;
       }
 
-      .info.full {
-        grid-column: auto;
+      .info-value {
+        max-width:100%;
+        text-align:right;
       }
-
-      .wallet-box {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .wallet-btn {
-        width: 100%;
-        text-align: center;
-      }
-
-      .side-card {
-        align-items: flex-start;
-      }
-
-      .avatar {
-        width: 70px;
-        height: 70px;
-        font-size: 26px;
-      }
-
     }
-
   </style>
 </head>
 
 <body>
 
-<nav class="navbar">
-
-  <a
-    href="dashboard.html"
-    class="brand"
-  >
-
-    <img
-      src="logo.png"
-      alt="Mathix"
-    >
-
-    <span>
-      <span class="white">Math</span><span class="purple">ix</span>
-    </span>
-
-  </a>
-
-
-  <div class="nav-links">
-
-    <a href="dashboard.html">
-      الرئيسية
-    </a>
-
-    <a href="subjects.html">
-      المواد
-    </a>
-
-    <a href="revisions.html">
-      المراجعات
-    </a>
-
-    <a href="wallet.html">
-      المحفظة
-    </a>
-
-    <a
-      href="profile.html"
-      class="active"
-    >
-      الملف الشخصي
-    </a>
-
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loader"></div>
   </div>
 
+  <aside class="sidebar" id="sidebar">
 
-  <button
-    class="logout"
-    id="logoutBtn"
-  >
-    خروج
-  </button>
-
-
-  <button
-    class="mobile-menu"
-    id="mobileMenu"
-  >
-    ☰
-  </button>
-
-</nav>
-
-
-<main class="container">
-
-  <section class="hero">
-
-    <div class="badge">
-      ✦ Student Profile
+    <div class="brand">
+      <img src="logo.png" alt="Mathix">
+      <div class="brand-text">Math<span>ix</span></div>
     </div>
 
-    <h1>
-      الملف الشخصي
-    </h1>
+    <nav class="nav">
 
-    <p>
-      بيانات حسابك الأساسية ومعلومات الطالب داخل منصة Mathix.
-    </p>
+      <a class="nav-link" href="dashboard.html">
+        <span class="nav-icon">⌂</span>
+        <span>الرئيسية</span>
+      </a>
 
-  </section>
+      <a class="nav-link" href="subjects.html">
+        <span class="nav-icon">▣</span>
+        <span>المواد</span>
+      </a>
 
+      <a class="nav-link" href="revisions.html">
+        <span class="nav-icon">◈</span>
+        <span>المراجعات</span>
+      </a>
 
-  <div
-    id="loading"
-    class="loading"
-  >
+      <a class="nav-link" href="wallet.html">
+        <span class="nav-icon">◉</span>
+        <span>المحفظة</span>
+      </a>
 
-    <div class="spinner"></div>
+      <a class="nav-link active" href="profile.html">
+        <span class="nav-icon">◯</span>
+        <span>الملف الشخصي</span>
+      </a>
 
-    جاري تحميل بيانات الحساب...
+    </nav>
 
-  </div>
+    <div class="sidebar-bottom">
 
+      <div class="wallet-mini">
+        <div class="wallet-mini-label">رصيد المحفظة</div>
+        <div class="wallet-mini-value">
+          <span id="sideBalance">0</span>
+          <span>EGP</span>
+        </div>
+      </div>
 
-  <div
-    id="content"
-    style="display:none;"
-  >
+      <button class="nav-link logout" id="logoutBtn">
+        <span class="nav-icon">↪</span>
+        <span>تسجيل الخروج</span>
+      </button>
 
-    <div class="layout">
+    </div>
 
+  </aside>
 
-      <aside class="side-card">
+  <header class="mobile-header">
+    <div class="mobile-brand">Math<span>ix</span></div>
+    <button class="menu-btn" id="menuBtn">☰</button>
+  </header>
 
-        <div
-          class="avatar"
-          id="avatar"
+  <main class="main">
+
+    <section class="head">
+      <h1>الملف الشخصي</h1>
+      <p>بيانات حسابك ومستواك داخل Mathix.</p>
+    </section>
+
+    <section class="profile-hero">
+
+      <div class="avatar" id="avatar">
+        M
+      </div>
+
+      <div class="hero-info">
+
+        <h2 id="fullName">
+          جاري التحميل...
+        </h2>
+
+        <p id="email">
+          —
+        </p>
+
+        <div class="status">
+          <span class="dot"></span>
+          الحساب نشط
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="stats">
+
+      <div class="stat">
+        <div class="stat-label">المستوى</div>
+        <div class="stat-value" id="level">Beginner</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">التقدم</div>
+        <div class="stat-value">
+          <span id="progressValue">0</span>%
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Streak</div>
+        <div class="stat-value">
+          <span id="streakValue">0</span>
+          <span>يوم</span>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">XP</div>
+        <div class="stat-value">
+          <span id="xpValue">0</span>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="grid">
+
+      <div class="card">
+
+        <h3>بيانات الحساب</h3>
+
+        <p class="card-sub">
+          المعلومات الأساسية المسجلة في حسابك.
+        </p>
+
+        <div class="info-list">
+
+          <div class="info-row">
+            <div class="info-label">الاسم الكامل</div>
+            <div class="info-value" id="infoName">—</div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-label">البريد الإلكتروني</div>
+            <div class="info-value" id="infoEmail">—</div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-label">رقم الهاتف</div>
+            <div class="info-value" id="infoPhone">—</div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-label">Student Code</div>
+            <div class="info-value" id="infoCode">—</div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-label">نوع الحساب</div>
+            <div class="info-value" id="infoRole">Student</div>
+          </div>
+
+        </div>
+
+        <div class="progress-box">
+
+          <div class="progress-head">
+            <span>التقدم الدراسي</span>
+            <strong id="progressText">0%</strong>
+          </div>
+
+          <div class="progress">
+            <span id="progressBar"></span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card wallet-card">
+
+        <h3>محفظتك</h3>
+
+        <p class="card-sub">
+          الرصيد المتاح حالياً.
+        </p>
+
+        <div class="wallet-balance">
+          <span id="walletBalance">0</span>
+          <span>EGP</span>
+        </div>
+
+        <a
+          class="wallet-link"
+          href="wallet.html"
         >
-          M
-        </div>
+          إدارة المحفظة
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      setPersistence,
+      browserLocalPersistence,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    import {
+      getFirestore,
+      doc,
+      onSnapshot
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-        <div class="side-info">
+    const firebaseConfig = {
+      apiKey: "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk4",
+      authDomain: "mathix-2008.firebaseapp.com",
+      projectId: "mathix-2008",
+      storageBucket: "mathix-2008.firebasestorage.app",
+      messagingSenderId: "561805658834",
+      appId: "1:561805658834:web:c1db8ebc2d415be9497b0b",
+      measurementId: "G-XWHKQ72FM0"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUser = null;
+    let userUnsubscribe = null;
+    let walletUnsubscribe = null;
 
-          <h2 id="sideName">
-            -
-          </h2>
+    const loadingScreen =
+      document.getElementById("loadingScreen");
 
-          <p id="sideEmail">
-            -
-          </p>
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
 
-          <div class="status">
+    function firstLetter(name) {
 
-            <span class="status-dot"></span>
+      const clean =
+        String(name || "M").trim();
 
-            الحساب نشط
+      return clean.charAt(0).toUpperCase();
 
-          </div>
+    }
 
-        </div>
+    function renderUser(data, user) {
 
-      </aside>
+      const fullName =
+        data.fullName ||
+        [data.firstName, data.secondName]
+          .filter(Boolean)
+          .join(" ") ||
+        "طالب Mathix";
 
+      const email =
+        data.email ||
+        user.email ||
+        "—";
 
-      <section class="main-card">
+      const phone =
+        data.phone ||
+        "—";
 
-        <div class="section-title">
+      const code =
+        data.studentCode ||
+        "—";
 
-          <h3>
-            بيانات الطالب
-          </h3>
+      const role =
+        data.role ||
+        "student";
 
-          <p>
-            المعلومات المسجلة في حسابك.
-          </p>
+      const level =
+        data.level ||
+        "Beginner";
 
-        </div>
+      const progress =
+        Math.max(
+          0,
+          Math.min(
+            100,
+            Number(data.progress || 0)
+          )
+        );
 
+      const streak =
+        Number(data.streak || 0);
 
-        <div class="info-grid">
+      const xp =
+        Number(data.xp || data.XP || 0);
 
+      document.getElementById("fullName")
+        .textContent = fullName;
 
-          <div class="info">
+      document.getElementById("email")
+        .textContent = email;
 
-            <label>
-              الاسم الأول
-            </label>
+      document.getElementById("avatar")
+        .textContent = firstLetter(fullName);
 
-            <strong id="firstName">
-              -
-            </strong>
+      document.getElementById("infoName")
+        .textContent = fullName;
 
-          </div>
+      document.getElementById("infoEmail")
+        .textContent = email;
 
+      document.getElementById("infoPhone")
+        .textContent = phone;
 
-          <div class="info">
+      document.getElementById("infoCode")
+        .textContent = code;
 
-            <label>
-              الاسم الثاني
-            </label>
+      document.getElementById("infoRole")
+        .textContent =
+        role === "admin"
+          ? "Admin"
+          : "Student";
 
-            <strong id="secondName">
-              -
-            </strong>
+      document.getElementById("level")
+        .textContent = level;
 
-          </div>
+      document.getElementById("progressValue")
+        .textContent = progress;
 
+      document.getElementById("progressText")
+        .textContent = `${progress}%`;
 
-          <div class="info full">
+      document.getElementById("progressBar")
+        .style.width = `${progress}%`;
 
-            <label>
-              الاسم بالكامل
-            </label>
+      document.getElementById("streakValue")
+        .textContent = streak;
 
-            <strong id="fullName">
-              -
-            </strong>
+      document.getElementById("xpValue")
+        .textContent =
+        xp.toLocaleString("en-US");
 
-          </div>
+    }
 
+    function listenUser(uid) {
 
-          <div class="info">
-
-            <label>
-              رقم الهاتف
-            </label>
-
-            <strong id="phone">
-              -
-            </strong>
-
-          </div>
-
-
-          <div class="info">
-
-            <label>
-              البريد الإلكتروني
-            </label>
-
-            <strong id="email">
-              -
-            </strong>
-
-          </div>
-
-
-          <div class="info">
-
-            <label>
-              كود الطالب
-            </label>
-
-            <strong
-              id="studentCode"
-              class="code"
-            >
-              -
-            </strong>
-
-          </div>
-
-
-          <div class="info">
-
-            <label>
-              نوع الحساب
-            </label>
-
-            <strong id="role">
-              طالب
-            </strong>
-
-          </div>
-
-
-        </div>
-
-
-        <div class="wallet-box">
-
-          <div>
-
-            <span>
-              رصيد المحفظة
-            </span>
-
-            <strong id="balance">
-              0 ج.م
-            </strong>
-
-          </div>
-
-          <a
-            href="wallet.html"
-            class="wallet-btn"
-          >
-            إدارة المحفظة
-          </a>
-
-        </div>
-
-
-        <div class="actions">
-
-          <a
-            href="dashboard.html"
-            class="action"
-          >
-            ← العودة للرئيسية
-          </a>
-
-          <a
-            href="subjects.html"
-            class="action"
-          >
-            📚 المواد
-          </a>
-
-          <a
-            href="revisions.html"
-            class="action"
-          >
-            📝 المراجعات
-          </a>
-
-        </div>
-
-      </section>
-
-    </div>
-
-  </div>
-
-</main>
-
-
-<script type="module">
-
-  import {
-    initializeApp
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
-  import {
-    getAuth,
-    onAuthStateChanged,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-  import {
-    getFirestore,
-    doc,
-    onSnapshot
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk",
-    authDomain: "mathix-2008.firebaseapp.com",
-    projectId: "mathix-2008",
-    storageBucket: "mathix-2008.firebasestorage.app",
-    messagingSenderId: "561805658834",
-    appId: "1:561805658834:web:c1db8ebc2d415be9497b0b",
-    measurementId: "G-XWHKQ72FM0"
-  };
-
-
-  const app =
-    initializeApp(firebaseConfig);
-
-  const auth =
-    getAuth(app);
-
-  const db =
-    getFirestore(app);
-
-
-  const loading =
-    document.getElementById("loading");
-
-  const content =
-    document.getElementById("content");
-
-
-  function money(value) {
-
-    return Number(value || 0)
-      .toLocaleString("ar-EG") +
-      " ج.م";
-
-  }
-
-
-  function firstLetter(name) {
-
-    if (!name) return "M";
-
-    return name
-      .trim()
-      .charAt(0)
-      .toUpperCase();
-
-  }
-
-
-  onAuthStateChanged(
-    auth,
-    user => {
-
-      if (!user) {
-
-        window.location.href =
-          "login.html";
-
-        return;
-
+      if (userUnsubscribe) {
+        userUnsubscribe();
       }
 
-
-      const userRef =
-        doc(
-          db,
-          "users",
-          user.uid
-        );
-
-
-      const walletRef =
-        doc(
-          db,
-          "wallets",
-          user.uid
-        );
-
-
-      onSnapshot(
-        userRef,
+      userUnsubscribe = onSnapshot(
+        doc(db, "users", uid),
         snapshot => {
 
           if (!snapshot.exists()) {
-
-            loading.textContent =
-              "لم يتم العثور على بيانات الطالب.";
-
             return;
-
           }
 
-
-          const data =
-            snapshot.data();
-
-
-          const firstName =
-            data.firstName || "";
-
-          const secondName =
-            data.secondName || "";
-
-          const fullName =
-            data.fullName ||
-            `${firstName} ${secondName}`.trim();
-
-
-          document.getElementById(
-            "firstName"
-          ).textContent =
-            firstName || "-";
-
-
-          document.getElementById(
-            "secondName"
-          ).textContent =
-            secondName || "-";
-
-
-          document.getElementById(
-            "fullName"
-          ).textContent =
-            fullName || "-";
-
-
-          document.getElementById(
-            "phone"
-          ).textContent =
-            data.phone || "-";
-
-
-          document.getElementById(
-            "email"
-          ).textContent =
-            data.email ||
-            user.email ||
-            "-";
-
-
-          document.getElementById(
-            "studentCode"
-          ).textContent =
-            data.studentCode || "-";
-
-
-          document.getElementById(
-            "role"
-          ).textContent =
-            data.role === "student"
-              ? "طالب"
-              : data.role || "طالب";
-
-
-          document.getElementById(
-            "sideName"
-          ).textContent =
-            fullName || "طالب Mathix";
-
-
-          document.getElementById(
-            "sideEmail"
-          ).textContent =
-            data.email ||
-            user.email ||
-            "-";
-
-
-          document.getElementById(
-            "avatar"
-          ).textContent =
-            firstLetter(firstName);
-
-
-          loading.style.display =
-            "none";
-
-          content.style.display =
-            "block";
-
-        },
-        error => {
-
-          console.error(error);
-
-          loading.textContent =
-            "حدث خطأ أثناء تحميل البيانات.";
-
-        }
-      );
-
-
-      onSnapshot(
-        walletRef,
-        snapshot => {
-
-          const balance =
-            snapshot.exists()
-              ? Number(
-                  snapshot.data().balance || 0
-                )
-              : 0;
-
-
-          document.getElementById(
-            "balance"
-          ).textContent =
-            money(balance);
+          renderUser(
+            snapshot.data(),
+            currentUser
+          );
 
         },
         error => {
@@ -1122,81 +919,93 @@
       );
 
     }
-  );
 
+    function listenWallet(uid) {
 
-  document
-    .getElementById("logoutBtn")
-    .addEventListener(
-      "click",
-      async () => {
-
-        await signOut(auth);
-
-        window.location.href =
-          "login.html";
-
+      if (walletUnsubscribe) {
+        walletUnsubscribe();
       }
-    );
 
+      walletUnsubscribe = onSnapshot(
+        doc(db, "wallets", uid),
+        snapshot => {
 
-  document
-    .getElementById("mobileMenu")
-    .addEventListener(
-      "click",
-      () => {
+          const balance =
+            snapshot.exists()
+              ? Number(snapshot.data().balance || 0)
+              : 0;
 
-        const nav =
-          document.querySelector(
-            ".nav-links"
-          );
+          const formatted =
+            balance.toLocaleString("en-US");
 
+          document.getElementById("walletBalance")
+            .textContent = formatted;
 
-        const open =
-          nav.style.display === "flex";
+          document.getElementById("sideBalance")
+            .textContent = formatted;
 
+        },
+        error => {
 
-        nav.style.display =
-          open
-            ? ""
-            : "flex";
+          console.error(error);
 
+        }
+      );
 
-        if (!open) {
+    }
 
-          nav.style.position =
-            "absolute";
+    document
+      .getElementById("menuBtn")
+      .addEventListener("click", () => {
 
-          nav.style.top =
-            "76px";
+        document
+          .getElementById("sidebar")
+          .classList.toggle("open");
 
-          nav.style.right =
-            "4%";
+      });
 
-          nav.style.left =
-            "4%";
+    document
+      .getElementById("logoutBtn")
+      .addEventListener("click", async () => {
 
-          nav.style.padding =
-            "10px";
+        try {
 
-          nav.style.flexDirection =
-            "column";
+          await signOut(auth);
 
-          nav.style.background =
-            "#101018";
+          window.location.href = "login.html";
 
-          nav.style.border =
-            "1px solid rgba(255,255,255,.08)";
+        } catch (error) {
 
-          nav.style.borderRadius =
-            "15px";
+          console.error(error);
 
         }
 
-      }
-    );
+      });
 
-</script>
+    setPersistence(
+      auth,
+      browserLocalPersistence
+    ).catch(console.error);
+
+    onAuthStateChanged(auth, user => {
+
+      if (!user) {
+
+        window.location.href = "login.html";
+        return;
+
+      }
+
+      currentUser = user;
+
+      listenUser(user.uid);
+      listenWallet(user.uid);
+
+      loadingScreen.classList.add("hide");
+
+    });
+
+  </script>
 
 </body>
 </html>
