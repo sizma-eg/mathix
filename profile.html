@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#07070b"
+  >
+
+  <title>الملف الشخصي | Mathix</title>
+
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Chakra+Petch:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #07070b;
+      --card: #101018;
+      --border: rgba(255,255,255,.08);
+      --text: #fff;
+      --muted: #9999a7;
+      --purple: #8b5cf6;
+      --purple2: #a855f7;
+      --green: #22c55e;
+    }
+
+    body {
+      min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(139,92,246,.13),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 85% 80%,
+          rgba(168,85,247,.08),
+          transparent 30%
+        ),
+        var(--bg);
+
+      color: var(--text);
+
+      font-family: "Cairo", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* NAV */
+
+    .navbar {
+      height: 76px;
+
+      position: sticky;
+      top: 0;
+      z-index: 50;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 6%;
+
+      background: rgba(7,7,11,.84);
+      backdrop-filter: blur(18px);
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      font-family: "Chakra Petch", sans-serif;
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+
+      animation: floating 4s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+
+      0%,100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+
+    }
+
+    .white {
+      color: #fff;
+    }
+
+    .purple {
+      color: var(--purple2);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #bcbcc7;
+
+      padding: 9px 13px;
+
+      border-radius: 10px;
+
+      font-size: 14px;
+
+      transition: .2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: white;
+      background: rgba(139,92,246,.12);
+    }
+
+    .logout {
+      border: 1px solid var(--border);
+      background: transparent;
+
+      color: #ddd;
+
+      padding: 9px 13px;
+      border-radius: 10px;
+    }
+
+    .mobile-menu {
+      display: none;
+
+      border: 0;
+      background: transparent;
+      color: #fff;
+
+      font-size: 25px;
+    }
+
+    /* CONTENT */
+
+    .container {
+      width: min(1000px, 92%);
+      margin: auto;
+
+      padding: 48px 0 70px;
+    }
+
+    .hero {
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      display: inline-block;
+
+      padding: 7px 12px;
+
+      border-radius: 999px;
+
+      color: #c4b5fd;
+
+      background: rgba(139,92,246,.1);
+
+      border: 1px solid rgba(139,92,246,.2);
+
+      font-size: 12px;
+
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(28px,5vw,42px);
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 18px;
+    }
+
+    /* SIDE */
+
+    .side-card,
+    .main-card {
+      background: var(--card);
+
+      border: 1px solid var(--border);
+
+      border-radius: 20px;
+    }
+
+    .side-card {
+      padding: 24px;
+
+      height: fit-content;
+
+      text-align: center;
+    }
+
+    .avatar {
+      width: 92px;
+      height: 92px;
+
+      margin: 0 auto 15px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(139,92,246,.25),
+          rgba(168,85,247,.08)
+        );
+
+      border: 1px solid rgba(139,92,246,.3);
+
+      font-family: "Chakra Petch", sans-serif;
+
+      font-size: 34px;
+      font-weight: 700;
+
+      color: #c4b5fd;
+    }
+
+    .side-card h2 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .side-card p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      margin-top: 15px;
+
+      padding: 6px 10px;
+
+      border-radius: 999px;
+
+      background: rgba(34,197,94,.08);
+      border: 1px solid rgba(34,197,94,.18);
+
+      color: #86efac;
+
+      font-size: 11px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+    }
+
+    /* MAIN */
+
+    .main-card {
+      padding: 25px;
+    }
+
+    .section-title {
+      margin-bottom: 20px;
+    }
+
+    .section-title h3 {
+      font-size: 19px;
+      margin-bottom: 5px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .info {
+      padding: 15px;
+
+      border-radius: 13px;
+
+      background: rgba(255,255,255,.025);
+
+      border: 1px solid var(--border);
+    }
+
+    .info.full {
+      grid-column: 1/-1;
+    }
+
+    .info label {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 11px;
+
+      margin-bottom: 6px;
+    }
+
+    .info strong {
+      display: block;
+
+      color: #fff;
+
+      font-size: 14px;
+
+      word-break: break-word;
+    }
+
+    .code {
+      color: #c4b5fd !important;
+
+      font-family: "Chakra Petch", sans-serif;
+      letter-spacing: .5px;
+    }
+
+    .wallet-box {
+      margin-top: 18px;
+
+      padding: 18px;
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(139,92,246,.1),
+          rgba(168,85,247,.04)
+        );
+
+      border: 1px solid rgba(139,92,246,.18);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+    }
+
+    .wallet-box span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .wallet-box strong {
+      display: block;
+
+      margin-top: 3px;
+
+      font-size: 22px;
+
+      color: #c4b5fd;
+    }
+
+    .wallet-btn {
+      padding: 10px 14px;
+
+      border-radius: 10px;
+
+      background: linear-gradient(
+        135deg,
+        var(--purple),
+        var(--purple2)
+      );
+
+      color: white;
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 9px;
+
+      margin-top: 20px;
+    }
+
+    .action {
+      padding: 11px 15px;
+
+      border: 1px solid var(--border);
+
+      background: rgba(255,255,255,.035);
+
+      border-radius: 10px;
+
+      color: #ddd;
+
+      font-size: 12px;
+    }
+
+    .action:hover {
+      background: rgba(255,255,255,.07);
+    }
+
+    /* LOADING */
+
+    .loading {
+      text-align: center;
+      padding: 70px 20px;
+
+      color: var(--muted);
+    }
+
+    .spinner {
+      width: 34px;
+      height: 34px;
+
+      margin: auto auto 12px;
+
+      border-radius: 50%;
+
+      border: 3px solid rgba(255,255,255,.08);
+      border-top-color: var(--purple);
+
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 800px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .side-card {
+        display: flex;
+        align-items: center;
+        text-align: right;
+        gap: 15px;
+      }
+
+      .avatar {
+        margin: 0;
+        flex-shrink: 0;
+      }
+
+      .side-info {
+        flex: 1;
+      }
+
+      .status {
+        margin-top: 8px;
+      }
+
+    }
+
+    @media (max-width: 550px) {
+
+      .navbar {
+        padding: 0 4%;
+      }
+
+      .container {
+        width: 92%;
+        padding-top: 30px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .info.full {
+        grid-column: auto;
+      }
+
+      .wallet-box {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .wallet-btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .side-card {
+        align-items: flex-start;
+      }
+
+      .avatar {
+        width: 70px;
+        height: 70px;
+        font-size: 26px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+  <a
+    href="dashboard.html"
+    class="brand"
+  >
+
+    <img
+      src="logo.png"
+      alt="Mathix"
+    >
+
+    <span>
+      <span class="white">Math</span><span class="purple">ix</span>
+    </span>
+
+  </a>
+
+
+  <div class="nav-links">
+
+    <a href="dashboard.html">
+      الرئيسية
+    </a>
+
+    <a href="subjects.html">
+      المواد
+    </a>
+
+    <a href="revisions.html">
+      المراجعات
+    </a>
+
+    <a href="wallet.html">
+      المحفظة
+    </a>
+
+    <a
+      href="profile.html"
+      class="active"
+    >
+      الملف الشخصي
+    </a>
+
+  </div>
+
+
+  <button
+    class="logout"
+    id="logoutBtn"
+  >
+    خروج
+  </button>
+
+
+  <button
+    class="mobile-menu"
+    id="mobileMenu"
+  >
+    ☰
+  </button>
+
+</nav>
+
+
+<main class="container">
+
+  <section class="hero">
+
+    <div class="badge">
+      ✦ Student Profile
+    </div>
+
+    <h1>
+      الملف الشخصي
+    </h1>
+
+    <p>
+      بيانات حسابك الأساسية ومعلومات الطالب داخل منصة Mathix.
+    </p>
+
+  </section>
+
+
+  <div
+    id="loading"
+    class="loading"
+  >
+
+    <div class="spinner"></div>
+
+    جاري تحميل بيانات الحساب...
+
+  </div>
+
+
+  <div
+    id="content"
+    style="display:none;"
+  >
+
+    <div class="layout">
+
+
+      <aside class="side-card">
+
+        <div
+          class="avatar"
+          id="avatar"
+        >
+          M
+        </div>
+
+        <div class="side-info">
+
+          <h2 id="sideName">
+            -
+          </h2>
+
+          <p id="sideEmail">
+            -
+          </p>
+
+          <div class="status">
+
+            <span class="status-dot"></span>
+
+            الحساب نشط
+
+          </div>
+
+        </div>
+
+      </aside>
+
+
+      <section class="main-card">
+
+        <div class="section-title">
+
+          <h3>
+            بيانات الطالب
+          </h3>
+
+          <p>
+            المعلومات المسجلة في حسابك.
+          </p>
+
+        </div>
+
+
+        <div class="info-grid">
+
+
+          <div class="info">
+
+            <label>
+              الاسم الأول
+            </label>
+
+            <strong id="firstName">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="info">
+
+            <label>
+              الاسم الثاني
+            </label>
+
+            <strong id="secondName">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="info full">
+
+            <label>
+              الاسم بالكامل
+            </label>
+
+            <strong id="fullName">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="info">
+
+            <label>
+              رقم الهاتف
+            </label>
+
+            <strong id="phone">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="info">
+
+            <label>
+              البريد الإلكتروني
+            </label>
+
+            <strong id="email">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="info">
+
+            <label>
+              كود الطالب
+            </label>
+
+            <strong
+              id="studentCode"
+              class="code"
+            >
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="info">
+
+            <label>
+              نوع الحساب
+            </label>
+
+            <strong id="role">
+              طالب
+            </strong>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="wallet-box">
+
+          <div>
+
+            <span>
+              رصيد المحفظة
+            </span>
+
+            <strong id="balance">
+              0 ج.م
+            </strong>
+
+          </div>
+
+          <a
+            href="wallet.html"
+            class="wallet-btn"
+          >
+            إدارة المحفظة
+          </a>
+
+        </div>
+
+
+        <div class="actions">
+
+          <a
+            href="dashboard.html"
+            class="action"
+          >
+            ← العودة للرئيسية
+          </a>
+
+          <a
+            href="subjects.html"
+            class="action"
+          >
+            📚 المواد
+          </a>
+
+          <a
+            href="revisions.html"
+            class="action"
+          >
+            📝 المراجعات
+          </a>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<script type="module">
+
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+  import {
+    getFirestore,
+    doc,
+    onSnapshot
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk",
+    authDomain: "mathix-2008.firebaseapp.com",
+    projectId: "mathix-2008",
+    storageBucket: "mathix-2008.firebasestorage.app",
+    messagingSenderId: "561805658834",
+    appId: "1:561805658834:web:c1db8ebc2d415be9497b0b",
+    measurementId: "G-XWHKQ72FM0"
+  };
+
+
+  const app =
+    initializeApp(firebaseConfig);
+
+  const auth =
+    getAuth(app);
+
+  const db =
+    getFirestore(app);
+
+
+  const loading =
+    document.getElementById("loading");
+
+  const content =
+    document.getElementById("content");
+
+
+  function money(value) {
+
+    return Number(value || 0)
+      .toLocaleString("ar-EG") +
+      " ج.م";
+
+  }
+
+
+  function firstLetter(name) {
+
+    if (!name) return "M";
+
+    return name
+      .trim()
+      .charAt(0)
+      .toUpperCase();
+
+  }
+
+
+  onAuthStateChanged(
+    auth,
+    user => {
+
+      if (!user) {
+
+        window.location.href =
+          "login.html";
+
+        return;
+
+      }
+
+
+      const userRef =
+        doc(
+          db,
+          "users",
+          user.uid
+        );
+
+
+      const walletRef =
+        doc(
+          db,
+          "wallets",
+          user.uid
+        );
+
+
+      onSnapshot(
+        userRef,
+        snapshot => {
+
+          if (!snapshot.exists()) {
+
+            loading.textContent =
+              "لم يتم العثور على بيانات الطالب.";
+
+            return;
+
+          }
+
+
+          const data =
+            snapshot.data();
+
+
+          const firstName =
+            data.firstName || "";
+
+          const secondName =
+            data.secondName || "";
+
+          const fullName =
+            data.fullName ||
+            `${firstName} ${secondName}`.trim();
+
+
+          document.getElementById(
+            "firstName"
+          ).textContent =
+            firstName || "-";
+
+
+          document.getElementById(
+            "secondName"
+          ).textContent =
+            secondName || "-";
+
+
+          document.getElementById(
+            "fullName"
+          ).textContent =
+            fullName || "-";
+
+
+          document.getElementById(
+            "phone"
+          ).textContent =
+            data.phone || "-";
+
+
+          document.getElementById(
+            "email"
+          ).textContent =
+            data.email ||
+            user.email ||
+            "-";
+
+
+          document.getElementById(
+            "studentCode"
+          ).textContent =
+            data.studentCode || "-";
+
+
+          document.getElementById(
+            "role"
+          ).textContent =
+            data.role === "student"
+              ? "طالب"
+              : data.role || "طالب";
+
+
+          document.getElementById(
+            "sideName"
+          ).textContent =
+            fullName || "طالب Mathix";
+
+
+          document.getElementById(
+            "sideEmail"
+          ).textContent =
+            data.email ||
+            user.email ||
+            "-";
+
+
+          document.getElementById(
+            "avatar"
+          ).textContent =
+            firstLetter(firstName);
+
+
+          loading.style.display =
+            "none";
+
+          content.style.display =
+            "block";
+
+        },
+        error => {
+
+          console.error(error);
+
+          loading.textContent =
+            "حدث خطأ أثناء تحميل البيانات.";
+
+        }
+      );
+
+
+      onSnapshot(
+        walletRef,
+        snapshot => {
+
+          const balance =
+            snapshot.exists()
+              ? Number(
+                  snapshot.data().balance || 0
+                )
+              : 0;
+
+
+          document.getElementById(
+            "balance"
+          ).textContent =
+            money(balance);
+
+        },
+        error => {
+
+          console.error(error);
+
+        }
+      );
+
+    }
+  );
+
+
+  document
+    .getElementById("logoutBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        await signOut(auth);
+
+        window.location.href =
+          "login.html";
+
+      }
+    );
+
+
+  document
+    .getElementById("mobileMenu")
+    .addEventListener(
+      "click",
+      () => {
+
+        const nav =
+          document.querySelector(
+            ".nav-links"
+          );
+
+
+        const open =
+          nav.style.display === "flex";
+
+
+        nav.style.display =
+          open
+            ? ""
+            : "flex";
+
+
+        if (!open) {
+
+          nav.style.position =
+            "absolute";
+
+          nav.style.top =
+            "76px";
+
+          nav.style.right =
+            "4%";
+
+          nav.style.left =
+            "4%";
+
+          nav.style.padding =
+            "10px";
+
+          nav.style.flexDirection =
+            "column";
+
+          nav.style.background =
+            "#101018";
+
+          nav.style.border =
+            "1px solid rgba(255,255,255,.08)";
+
+          nav.style.borderRadius =
+            "15px";
+
+        }
+
+      }
+    );
+
+</script>
+
+</body>
+</html>
