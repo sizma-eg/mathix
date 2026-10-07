@@ -22,14 +22,12 @@
 
   <title>Mathix | لوحة الطالب</title>
 
-  <!-- Favicon -->
   <link
     rel="icon"
     type="image/png"
     href="logo.png"
   >
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
 
   <link
@@ -776,7 +774,7 @@
       margin-top: 4px;
     }
 
-    .verified-badge {
+    .active-badge {
       display: inline-flex;
       align-items: center;
       gap: 7px;
@@ -810,6 +808,8 @@
       justify-content: center;
 
       background: #07070b;
+
+      transition: opacity .25s ease;
     }
 
     .loading-box {
@@ -1023,9 +1023,7 @@
 
 <body>
 
-  <!-- =========================
-       LOADING SCREEN
-  ========================= -->
+  <!-- LOADING SCREEN -->
 
   <div
     class="loading-screen"
@@ -1051,9 +1049,7 @@
   </div>
 
 
-  <!-- =========================
-       HEADER
-  ========================= -->
+  <!-- HEADER -->
 
   <header class="header">
 
@@ -1171,9 +1167,7 @@
   </header>
 
 
-  <!-- =========================
-       MOBILE NAV
-  ========================= -->
+  <!-- MOBILE NAV -->
 
   <div
     class="mobile-nav"
@@ -1210,13 +1204,9 @@
   </div>
 
 
-  <!-- =========================
-       MAIN
-  ========================= -->
+  <!-- MAIN -->
 
   <main>
-
-    <!-- Welcome -->
 
     <section class="welcome">
 
@@ -1259,10 +1249,7 @@
     </section>
 
 
-    <!-- Top Information -->
-
     <section class="top-grid">
-
 
       <!-- Student -->
 
@@ -1357,8 +1344,8 @@
 
           <span class="status-dot"></span>
 
-          <span id="verificationStatus">
-            البريد الإلكتروني موثق
+          <span>
+            الحساب نشط
           </span>
 
         </div>
@@ -1389,7 +1376,6 @@
 
 
       <div class="subjects-grid">
-
 
         <a
           href="subjects.html?subject=arabic"
@@ -1554,7 +1540,6 @@
 
       <div class="actions-grid">
 
-
         <a
           href="subjects.html"
           class="action-card"
@@ -1671,14 +1656,14 @@
 
       </div>
 
-      <div class="verified-badge">
+      <div class="active-badge">
 
         <span>
           ✓
         </span>
 
         <span>
-          البريد الإلكتروني موثق
+          الحساب نشط
         </span>
 
       </div>
@@ -1688,9 +1673,7 @@
   </main>
 
 
-  <!-- =========================
-       FIREBASE
-  ========================= -->
+  <!-- FIREBASE -->
 
   <script type="module">
 
@@ -1718,7 +1701,7 @@
     const firebaseConfig = {
 
       apiKey:
-        "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk",
+        "AIzaSyCH--HkIXYn3qhXZ9TwR9ItZrnMOIx_lWXk",
 
       authDomain:
         "mathix-2008.firebaseapp.com",
@@ -1776,9 +1759,6 @@
 
     const headerBalance =
       document.getElementById("headerBalance");
-
-    const verificationStatus =
-      document.getElementById("verificationStatus");
 
     const logoutBtn =
       document.getElementById("logoutBtn");
@@ -1891,12 +1871,40 @@
 
 
     /* =========================
+       HIDE LOADING
+    ========================= */
+
+    function hideLoading() {
+
+      loadingScreen.style.opacity = "0";
+
+      loadingScreen.style.pointerEvents =
+        "none";
+
+      setTimeout(
+        () => {
+          if (loadingScreen) {
+            loadingScreen.remove();
+          }
+        },
+        300
+      );
+
+    }
+
+
+    /* =========================
        AUTH STATE
     ========================= */
 
     onAuthStateChanged(
       auth,
-      async (user) => {
+      (user) => {
+
+        /*
+          لو مفيش مستخدم مسجل دخول
+          نرجعه للـ Login.
+        */
 
         if (!user) {
 
@@ -1910,25 +1918,15 @@
 
 
         /*
-          التأكد من توثيق الإيميل
+          مهم:
+          لا يوجد أي فحص لـ emailVerified.
+          المستخدم يدخل مباشرة بعد تسجيل الدخول.
         */
 
-        if (!user.emailVerified) {
 
-          await signOut(auth);
-
-          window.location.replace(
-            "login.html?verification=required"
-          );
-
-          return;
-
-        }
-
-
-        /*
-          تحميل بيانات الطالب
-        */
+        /* =========================
+           STUDENT DATA
+        ========================= */
 
         const userRef =
           doc(
@@ -1940,55 +1938,79 @@
 
         onSnapshot(
           userRef,
+
           (snapshot) => {
 
-            if (!snapshot.exists()) {
+            /*
+              لو بيانات الطالب موجودة
+            */
+
+            if (snapshot.exists()) {
+
+              const data =
+                snapshot.data();
+
+
+              studentFirstName.textContent =
+                data.firstName ||
+                "طالب";
+
+
+              const fullName =
+                data.fullName ||
+                `${data.firstName || ""} ${data.secondName || ""}`.trim() ||
+                "طالب Mathix";
+
+
+              studentFullName.textContent =
+                fullName;
+
+
+              studentEmail.textContent =
+                data.email ||
+                user.email ||
+                "—";
+
+
+              studentCode.textContent =
+                data.studentCode ||
+                "—";
+
+            } else {
+
+              /*
+                لو المستخدم موجود في Firebase Auth
+                لكن مستند users غير موجود،
+                لا نطرده من الـDashboard.
+              */
 
               console.warn(
                 "Student document not found."
               );
 
+
               studentFirstName.textContent =
+                user.displayName ||
                 "طالب";
 
+
               studentFullName.textContent =
-                user.displayName || "طالب Mathix";
+                user.displayName ||
+                "طالب Mathix";
+
 
               studentEmail.textContent =
-                user.email || "—";
+                user.email ||
+                "—";
+
 
               studentCode.textContent =
                 "—";
 
-              return;
-
             }
 
 
-            const data =
-              snapshot.data();
-
-
-            studentFirstName.textContent =
-              data.firstName ||
-              "طالب";
-
-
-            studentFullName.textContent =
-              data.fullName ||
-              `${data.firstName || ""} ${data.secondName || ""}`.trim() ||
-              "طالب Mathix";
-
-
-            studentEmail.textContent =
-              data.email ||
-              user.email ||
-              "—";
-
-
-            studentCode.textContent =
-              data.studentCode ||
-              "—";
+            hideLoading();
 
           },
 
@@ -1999,15 +2021,41 @@
               error
             );
 
+
+            /*
+              حتى لو حصل خطأ في Firestore،
+              لا نعمل Logout للمستخدم.
+            */
+
+            studentFirstName.textContent =
+              user.displayName ||
+              "طالب";
+
+
+            studentFullName.textContent =
+              user.displayName ||
+              "طالب Mathix";
+
+
+            studentEmail.textContent =
+              user.email ||
+              "—";
+
+
+            studentCode.textContent =
+              "—";
+
+
+            hideLoading();
+
           }
 
         );
 
 
-        /*
-          المحفظة
-          onSnapshot = الرصيد يتحدث مباشرة
-        */
+        /* =========================
+           WALLET
+        ========================= */
 
         const walletRef =
           doc(
@@ -2019,6 +2067,7 @@
 
         onSnapshot(
           walletRef,
+
           (snapshot) => {
 
             let balance = 0;
@@ -2042,6 +2091,7 @@
             mainBalance.textContent =
               formatted;
 
+
             headerBalance.textContent =
               `${formatted} ج.م`;
 
@@ -2054,51 +2104,16 @@
               error
             );
 
+
             mainBalance.textContent =
               "0.00";
+
 
             headerBalance.textContent =
               "0.00 ج.م";
 
           }
 
-        );
-
-
-        /*
-          حالة التوثيق
-        */
-
-        verificationStatus.textContent =
-          user.emailVerified
-            ? "البريد الإلكتروني موثق"
-            : "البريد الإلكتروني غير موثق";
-
-
-        /*
-          إخفاء شاشة التحميل
-        */
-
-        setTimeout(
-          () => {
-
-            loadingScreen.style.opacity =
-              "0";
-
-            loadingScreen.style.pointerEvents =
-              "none";
-
-            setTimeout(
-              () => {
-
-                loadingScreen.remove();
-
-              },
-              300
-            );
-
-          },
-          250
         );
 
       }
