@@ -1,0 +1,2877 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#07070b"
+  >
+
+  <meta
+    name="description"
+    content="Mathix - محفظة الطالب"
+  >
+
+  <title>Mathix | المحفظة</title>
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="logo.png"
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+
+      --bg: #07070b;
+      --card: #101018;
+      --card-2: #14141e;
+
+      --border: rgba(255,255,255,.08);
+
+      --purple: #8b3dff;
+      --purple-2: #a45cff;
+      --purple-soft: rgba(139,61,255,.10);
+
+      --white: #fff;
+      --text: #f5f5f7;
+      --muted: #92929f;
+
+      --success: #35d07f;
+      --warning: #ffc857;
+      --danger: #ff5d6c;
+
+      --radius: 20px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+
+      min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at 85% 0%,
+          rgba(139,61,255,.14),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 5% 35%,
+          rgba(139,61,255,.06),
+          transparent 28%
+        ),
+        var(--bg);
+
+      color: var(--text);
+
+      font-family:
+        "Cairo",
+        sans-serif;
+
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 1000;
+
+      background:
+        rgba(7,7,11,.82);
+
+      backdrop-filter:
+        blur(18px);
+
+      -webkit-backdrop-filter:
+        blur(18px);
+
+      border-bottom:
+        1px solid var(--border);
+    }
+
+    .header-inner {
+
+      width:
+        min(
+          1250px,
+          calc(100% - 32px)
+        );
+
+      min-height: 78px;
+
+      margin: auto;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 20px;
+    }
+
+    .brand {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 11px;
+
+      min-width: max-content;
+    }
+
+    .brand-logo {
+
+      width: 42px;
+      height: 42px;
+
+      object-fit: contain;
+
+      animation:
+        logoFloat
+        3.2s
+        ease-in-out
+        infinite;
+
+      filter:
+        drop-shadow(
+          0 0 12px
+          rgba(139,61,255,.2)
+        );
+    }
+
+    @keyframes logoFloat {
+
+      0%,
+      100% {
+        transform:
+          translateY(0);
+      }
+
+      50% {
+        transform:
+          translateY(-5px);
+      }
+
+    }
+
+    .brand-name {
+
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
+      font-size: 25px;
+
+      font-weight: 700;
+
+      direction: ltr;
+    }
+
+    .brand-name .math {
+      color: #fff;
+    }
+
+    .brand-name .ix {
+      color: var(--purple-2);
+    }
+
+    .nav {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 5px;
+    }
+
+    .nav-link {
+
+      color: #a8a8b5;
+
+      font-size: 14px;
+
+      font-weight: 600;
+
+      padding:
+        10px 13px;
+
+      border-radius: 12px;
+
+      transition: .2s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+
+      color: #fff;
+
+      background:
+        rgba(139,61,255,.09);
+    }
+
+    .header-actions {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+    }
+
+    .wallet-mini {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      min-height: 42px;
+
+      padding:
+        8px 13px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 13px;
+
+      background:
+        rgba(255,255,255,.025);
+    }
+
+    .wallet-icon {
+
+      width: 28px;
+      height: 28px;
+
+      display: grid;
+
+      place-items: center;
+
+      border-radius: 9px;
+
+      background:
+        var(--purple-soft);
+
+      color:
+        var(--purple-2);
+
+      font-size: 14px;
+    }
+
+    .wallet-info {
+
+      display: flex;
+
+      flex-direction: column;
+
+      line-height: 1.2;
+    }
+
+    .wallet-label {
+
+      color: #777784;
+
+      font-size: 9px;
+    }
+
+    .wallet-value {
+
+      color: #fff;
+
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      direction: ltr;
+
+      text-align: right;
+    }
+
+    .logout-btn {
+
+      padding:
+        10px 14px;
+
+      border:
+        1px solid rgba(255,255,255,.09);
+
+      border-radius: 12px;
+
+      background:
+        transparent;
+
+      color: #aaaab5;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      transition: .2s ease;
+    }
+
+    .logout-btn:hover {
+
+      color: #fff;
+
+      border-color:
+        rgba(255,93,108,.35);
+
+      background:
+        rgba(255,93,108,.07);
+    }
+
+    .mobile-menu-btn {
+
+      display: none;
+
+      width: 42px;
+      height: 42px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 12px;
+
+      background:
+        rgba(255,255,255,.025);
+
+      color: #fff;
+
+      font-size: 20px;
+    }
+
+
+    /* =========================
+       MOBILE NAV
+    ========================= */
+
+    .mobile-nav {
+
+      display: none;
+
+      position: fixed;
+
+      top: 79px;
+
+      right: 16px;
+      left: 16px;
+
+      z-index: 999;
+
+      padding: 12px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 17px;
+
+      background:
+        rgba(15,15,22,.97);
+
+      backdrop-filter:
+        blur(20px);
+
+      box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.35);
+    }
+
+    .mobile-nav.open {
+      display: block;
+    }
+
+    .mobile-nav a,
+    .mobile-nav button {
+
+      width: 100%;
+
+      display: block;
+
+      padding: 13px;
+
+      border: 0;
+
+      border-radius: 11px;
+
+      background:
+        transparent;
+
+      color: #aaaab5;
+
+      text-align: right;
+
+      font-size: 13px;
+
+      font-weight: 600;
+    }
+
+    .mobile-nav a:hover {
+
+      color: #fff;
+
+      background:
+        rgba(139,61,255,.08);
+    }
+
+    .mobile-nav button {
+
+      color: #ff7a85;
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    main {
+
+      width:
+        min(
+          1100px,
+          calc(100% - 32px)
+        );
+
+      margin: auto;
+
+      padding:
+        45px 0 70px;
+    }
+
+    .page-header {
+
+      margin-bottom: 25px;
+    }
+
+    .page-header small {
+
+      display: block;
+
+      color:
+        var(--purple-2);
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      margin-bottom: 5px;
+    }
+
+    .page-header h1 {
+
+      font-size:
+        clamp(
+          28px,
+          4vw,
+          40px
+        );
+
+      font-weight: 900;
+
+      line-height: 1.25;
+    }
+
+    .page-header h1 span {
+
+      color:
+        var(--purple-2);
+    }
+
+    .page-header p {
+
+      color:
+        var(--muted);
+
+      font-size: 13px;
+
+      margin-top: 8px;
+    }
+
+
+    /* =========================
+       BALANCE HERO
+    ========================= */
+
+    .balance-card {
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding:
+        30px;
+
+      border:
+        1px solid
+        rgba(139,61,255,.24);
+
+      border-radius:
+        24px;
+
+      background:
+        radial-gradient(
+          circle at 90% 10%,
+          rgba(139,61,255,.22),
+          transparent 35%
+        ),
+        linear-gradient(
+          130deg,
+          rgba(139,61,255,.10),
+          rgba(255,255,255,.02)
+        );
+
+      margin-bottom: 18px;
+    }
+
+    .balance-card::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 220px;
+      height: 220px;
+
+      left: -100px;
+      bottom: -130px;
+
+      border:
+        1px solid
+        rgba(139,61,255,.14);
+
+      border-radius: 50%;
+    }
+
+    .balance-label {
+
+      position: relative;
+
+      z-index: 2;
+
+      color: #858591;
+
+      font-size: 11px;
+    }
+
+    .balance-value {
+
+      position: relative;
+
+      z-index: 2;
+
+      margin-top: 4px;
+
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
+      font-size:
+        clamp(
+          35px,
+          6vw,
+          52px
+        );
+
+      font-weight: 700;
+
+      direction: ltr;
+
+      text-align: right;
+
+      letter-spacing: .5px;
+    }
+
+    .balance-status {
+
+      position: relative;
+
+      z-index: 2;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 7px;
+
+      margin-top: 10px;
+
+      padding:
+        7px 10px;
+
+      border-radius: 9px;
+
+      background:
+        rgba(53,208,127,.07);
+
+      color:
+        var(--success);
+
+      font-size: 9px;
+
+      font-weight: 700;
+    }
+
+    .status-dot {
+
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background:
+        var(--success);
+
+      box-shadow:
+        0 0 8px
+        rgba(53,208,127,.6);
+    }
+
+
+    /* =========================
+       GRID
+    ========================= */
+
+    .wallet-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        1.05fr .95fr;
+
+      gap: 18px;
+
+      margin-top: 18px;
+    }
+
+
+    /* =========================
+       CARDS
+    ========================= */
+
+    .card {
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        var(--radius);
+
+      background:
+        var(--card);
+
+      padding:
+        22px;
+    }
+
+    .card-header {
+
+      display: flex;
+
+      align-items: flex-start;
+
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+
+      font-size: 16px;
+
+      font-weight: 900;
+    }
+
+    .card-subtitle {
+
+      color:
+        #747480;
+
+      font-size: 10px;
+
+      line-height: 1.8;
+
+      margin-top: 4px;
+    }
+
+    .card-icon {
+
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+
+      place-items: center;
+
+      flex-shrink: 0;
+
+      border-radius: 13px;
+
+      background:
+        var(--purple-soft);
+
+      color:
+        var(--purple-2);
+
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
+      font-size: 16px;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       VODAFONE BOX
+    ========================= */
+
+    .vodafone-box {
+
+      padding:
+        17px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.07);
+
+      border-radius: 15px;
+
+      background:
+        rgba(255,255,255,.025);
+
+      margin-bottom: 14px;
+    }
+
+    .vodafone-label {
+
+      color:
+        #777783;
+
+      font-size: 9px;
+
+      margin-bottom: 5px;
+    }
+
+    .vodafone-number {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 10px;
+    }
+
+    .vodafone-number strong {
+
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
+      font-size: 22px;
+
+      direction: ltr;
+
+      letter-spacing: 1px;
+    }
+
+    .copy-btn {
+
+      padding:
+        8px 11px;
+
+      border:
+        1px solid
+        rgba(139,61,255,.2);
+
+      border-radius: 9px;
+
+      background:
+        rgba(139,61,255,.08);
+
+      color:
+        var(--purple-2);
+
+      font-size: 9px;
+
+      font-weight: 800;
+    }
+
+    .instructions {
+
+      list-style: none;
+
+      display: grid;
+
+      gap: 10px;
+
+      margin-top: 14px;
+    }
+
+    .instructions li {
+
+      display: flex;
+
+      align-items: flex-start;
+
+      gap: 9px;
+
+      color:
+        #898994;
+
+      font-size: 10px;
+
+      line-height: 1.8;
+    }
+
+    .instruction-number {
+
+      width: 20px;
+      height: 20px;
+
+      display: grid;
+
+      place-items: center;
+
+      flex-shrink: 0;
+
+      border-radius: 7px;
+
+      background:
+        rgba(139,61,255,.10);
+
+      color:
+        var(--purple-2);
+
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
+      font-size: 9px;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       FORM
+    ========================= */
+
+    .form-group {
+
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+
+      display: block;
+
+      color:
+        #aaaab5;
+
+      font-size: 10px;
+
+      font-weight: 700;
+
+      margin-bottom: 7px;
+    }
+
+    .form-input {
+
+      width: 100%;
+
+      height: 48px;
+
+      padding:
+        0 14px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 12px;
+
+      outline: none;
+
+      background:
+        #0b0b11;
+
+      color:
+        #fff;
+
+      font-size: 12px;
+
+      transition: .2s ease;
+    }
+
+    .form-input:focus {
+
+      border-color:
+        rgba(139,61,255,.5);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(139,61,255,.07);
+    }
+
+    .form-input::placeholder {
+      color: #575762;
+    }
+
+    .amount-wrap {
+
+      position: relative;
+    }
+
+    .amount-wrap .form-input {
+
+      direction: ltr;
+
+      text-align: right;
+
+      padding-left: 50px;
+    }
+
+    .amount-currency {
+
+      position: absolute;
+
+      left: 14px;
+
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color:
+        #777783;
+
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
+      font-size: 11px;
+
+      pointer-events: none;
+    }
+
+    .submit-btn {
+
+      width: 100%;
+
+      height: 48px;
+
+      border: 0;
+
+      border-radius: 12px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #7e32ee,
+          #a452ff
+        );
+
+      color: #fff;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      box-shadow:
+        0 10px 30px
+        rgba(139,61,255,.15);
+
+      transition: .2s ease;
+    }
+
+    .submit-btn:hover {
+
+      transform:
+        translateY(-1px);
+
+      box-shadow:
+        0 14px 35px
+        rgba(139,61,255,.22);
+    }
+
+    .submit-btn:disabled {
+
+      opacity: .55;
+
+      cursor: not-allowed;
+
+      transform: none;
+    }
+
+
+    /* =========================
+       REQUESTS
+    ========================= */
+
+    .requests-card {
+
+      margin-top: 18px;
+    }
+
+    .requests-list {
+
+      display: grid;
+
+      gap: 10px;
+    }
+
+    .request-item {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 15px;
+
+      padding:
+        13px 14px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.06);
+
+      border-radius: 13px;
+
+      background:
+        rgba(255,255,255,.018);
+    }
+
+    .request-main {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+    }
+
+    .request-icon {
+
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+
+      place-items: center;
+
+      border-radius: 10px;
+
+      background:
+        rgba(139,61,255,.08);
+
+      color:
+        var(--purple-2);
+
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
+      font-size: 12px;
+    }
+
+    .request-amount {
+
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      direction: ltr;
+
+      text-align: right;
+    }
+
+    .request-date {
+
+      color:
+        #666672;
+
+      font-size: 8px;
+
+      margin-top: 2px;
+    }
+
+    .request-status {
+
+      padding:
+        6px 9px;
+
+      border-radius: 8px;
+
+      font-size: 8px;
+
+      font-weight: 800;
+
+      white-space: nowrap;
+    }
+
+    .status-pending {
+
+      color:
+        var(--warning);
+
+      background:
+        rgba(255,200,87,.08);
+    }
+
+    .status-approved {
+
+      color:
+        var(--success);
+
+      background:
+        rgba(53,208,127,.08);
+    }
+
+    .status-rejected {
+
+      color:
+        var(--danger);
+
+      background:
+        rgba(255,93,108,.08);
+    }
+
+    .empty-requests {
+
+      padding:
+        25px;
+
+      border:
+        1px dashed
+        rgba(255,255,255,.08);
+
+      border-radius: 13px;
+
+      text-align: center;
+
+      color:
+        #666672;
+
+      font-size: 10px;
+    }
+
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    .toast {
+
+      position: fixed;
+
+      right: 20px;
+
+      bottom: 20px;
+
+      z-index: 9999;
+
+      max-width:
+        min(
+          380px,
+          calc(100% - 40px)
+        );
+
+      padding:
+        13px 16px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 13px;
+
+      background:
+        #15151e;
+
+      box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.35);
+
+      color:
+        #fff;
+
+      font-size: 10px;
+
+      line-height: 1.8;
+
+      transform:
+        translateY(20px);
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition: .25s ease;
+    }
+
+    .toast.show {
+
+      transform:
+        translateY(0);
+
+      opacity: 1;
+    }
+
+    .toast.success {
+      border-color:
+        rgba(53,208,127,.25);
+    }
+
+    .toast.error {
+      border-color:
+        rgba(255,93,108,.25);
+    }
+
+
+    /* =========================
+       LOADER
+    ========================= */
+
+    .loading-overlay {
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 10000;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background:
+        #07070b;
+    }
+
+    .loading-logo {
+
+      width: 70px;
+      height: 70px;
+
+      object-fit: contain;
+
+      animation:
+        logoFloat
+        1.5s
+        ease-in-out
+        infinite;
+
+      filter:
+        drop-shadow(
+          0 0 20px
+          rgba(139,61,255,.35)
+        );
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 950px) {
+
+      .nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .wallet-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .header-inner {
+
+        width:
+          calc(100% - 22px);
+
+        min-height: 70px;
+      }
+
+      .brand-logo {
+
+        width: 37px;
+        height: 37px;
+      }
+
+      .brand-name {
+        font-size: 22px;
+      }
+
+      .wallet-mini {
+        padding:
+          7px 9px;
+      }
+
+      .wallet-label {
+        display: none;
+      }
+
+      .wallet-value {
+        font-size: 11px;
+      }
+
+      .logout-btn {
+        display: none;
+      }
+
+      main {
+
+        width:
+          calc(100% - 22px);
+
+        padding-top: 28px;
+      }
+
+      .balance-card {
+        padding: 23px;
+      }
+
+      .card {
+        padding: 17px;
+      }
+
+      .vodafone-number strong {
+        font-size: 18px;
+      }
+
+      .request-item {
+        align-items: flex-start;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- LOADING -->
+
+  <div
+    class="loading-overlay"
+    id="loadingOverlay"
+  >
+
+    <img
+      src="logo.png"
+      alt="Mathix"
+      class="loading-logo"
+    >
+
+  </div>
+
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <div class="header-inner">
+
+
+      <a
+        href="dashboard.html"
+        class="brand"
+      >
+
+        <img
+          src="logo.png"
+          alt="Mathix"
+          class="brand-logo"
+        >
+
+        <div class="brand-name">
+          <span class="math">Math</span><span class="ix">ix</span>
+        </div>
+
+      </a>
+
+
+      <nav class="nav">
+
+        <a
+          href="dashboard.html"
+          class="nav-link"
+        >
+          الرئيسية
+        </a>
+
+        <a
+          href="subjects.html"
+          class="nav-link"
+        >
+          المواد
+        </a>
+
+        <a
+          href="revisions.html"
+          class="nav-link"
+        >
+          المراجعات
+        </a>
+
+        <a
+          href="wallet.html"
+          class="nav-link active"
+        >
+          المحفظة
+        </a>
+
+        <a
+          href="profile.html"
+          class="nav-link"
+        >
+          الملف الشخصي
+        </a>
+
+      </nav>
+
+
+      <div class="header-actions">
+
+
+        <a
+          href="wallet.html"
+          class="wallet-mini"
+        >
+
+          <div class="wallet-icon">
+            ج
+          </div>
+
+          <div class="wallet-info">
+
+            <span class="wallet-label">
+              الرصيد
+            </span>
+
+            <span
+              class="wallet-value"
+              id="headerBalance"
+            >
+              0.00 ج.م
+            </span>
+
+          </div>
+
+        </a>
+
+
+        <button
+          type="button"
+          class="logout-btn"
+          id="logoutBtn"
+        >
+          تسجيل الخروج
+        </button>
+
+
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+        >
+          ☰
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- MOBILE NAV -->
+
+  <div
+    class="mobile-nav"
+    id="mobileNav"
+  >
+
+    <a href="dashboard.html">
+      الرئيسية
+    </a>
+
+    <a href="subjects.html">
+      المواد
+    </a>
+
+    <a href="revisions.html">
+      المراجعات
+    </a>
+
+    <a href="wallet.html">
+      المحفظة
+    </a>
+
+    <a href="profile.html">
+      الملف الشخصي
+    </a>
+
+    <button
+      type="button"
+      id="mobileLogoutBtn"
+    >
+      تسجيل الخروج
+    </button>
+
+  </div>
+
+
+  <!-- MAIN -->
+
+  <main>
+
+
+    <section class="page-header">
+
+      <small>
+        Mathix Wallet
+      </small>
+
+      <h1>
+        محفظتك <span>الإلكترونية</span>
+      </h1>
+
+      <p>
+        اشحن رصيدك واستخدمه لشراء المحتوى التعليمي.
+      </p>
+
+    </section>
+
+
+    <!-- BALANCE -->
+
+    <section class="balance-card">
+
+      <div class="balance-label">
+        الرصيد الحالي
+      </div>
+
+      <div
+        class="balance-value"
+        id="mainBalance"
+      >
+        0.00 ج.م
+      </div>
+
+      <div class="balance-status">
+
+        <span class="status-dot"></span>
+
+        الرصيد يتم تحديثه لحظيًا
+
+      </div>
+
+    </section>
+
+
+    <!-- WALLET GRID -->
+
+    <section class="wallet-grid">
+
+
+      <!-- PAYMENT INSTRUCTIONS -->
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+
+            <div class="card-title">
+              شحن المحفظة
+            </div>
+
+            <div class="card-subtitle">
+              الشحن متاح حاليًا عن طريق Vodafone Cash فقط.
+            </div>
+
+          </div>
+
+          <div class="card-icon">
+            ج
+          </div>
+
+        </div>
+
+
+        <div class="vodafone-box">
+
+          <div class="vodafone-label">
+            حوّل المبلغ إلى الرقم التالي
+          </div>
+
+          <div class="vodafone-number">
+
+            <strong
+              id="vodafoneNumber"
+            >
+              01037500636
+            </strong>
+
+            <button
+              type="button"
+              class="copy-btn"
+              id="copyNumberBtn"
+            >
+              نسخ الرقم
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <ul class="instructions">
+
+          <li>
+
+            <span class="instruction-number">
+              1
+            </span>
+
+            <span>
+              حوّل المبلغ الذي تريد إضافته إلى رقم Vodafone Cash الموضح بالأعلى.
+            </span>
+
+          </li>
+
+
+          <li>
+
+            <span class="instruction-number">
+              2
+            </span>
+
+            <span>
+              احتفظ بعملية التحويل وأدخل المبلغ ورقم هاتفك الذي تم التحويل منه.
+            </span>
+
+          </li>
+
+
+          <li>
+
+            <span class="instruction-number">
+              3
+            </span>
+
+            <span>
+              أرسل طلب الشحن وانتظر مراجعة الإدارة.
+            </span>
+
+          </li>
+
+
+          <li>
+
+            <span class="instruction-number">
+              4
+            </span>
+
+            <span>
+              بعد الموافقة، سيتم إضافة المبلغ إلى رصيدك تلقائيًا.
+            </span>
+
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <!-- REQUEST FORM -->
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+
+            <div class="card-title">
+              طلب شحن جديد
+            </div>
+
+            <div class="card-subtitle">
+              أدخل بيانات التحويل بدقة.
+            </div>
+
+          </div>
+
+          <div class="card-icon">
+            +
+          </div>
+
+        </div>
+
+
+        <form
+          id="topupForm"
+        >
+
+
+          <div class="form-group">
+
+            <label
+              class="form-label"
+              for="amount"
+            >
+              المبلغ
+            </label>
+
+            <div class="amount-wrap">
+
+              <input
+                type="number"
+                id="amount"
+                class="form-input"
+                min="1"
+                step="1"
+                placeholder="مثال: 100"
+                required
+              >
+
+              <span class="amount-currency">
+                EGP
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label
+              class="form-label"
+              for="senderPhone"
+            >
+              رقم الهاتف الذي تم التحويل منه
+            </label>
+
+            <input
+              type="tel"
+              id="senderPhone"
+              class="form-input"
+              inputmode="numeric"
+              maxlength="11"
+              placeholder="01XXXXXXXXX"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label
+              class="form-label"
+              for="transferReference"
+            >
+              رقم العملية / المرجع
+            </label>
+
+            <input
+              type="text"
+              id="transferReference"
+              class="form-input"
+              maxlength="80"
+              placeholder="رقم العملية إن وجد"
+              required
+            >
+
+          </div>
+
+
+          <button
+            type="submit"
+            class="submit-btn"
+            id="submitBtn"
+          >
+            إرسال طلب الشحن
+          </button>
+
+
+        </form>
+
+      </div>
+
+
+    </section>
+
+
+    <!-- REQUESTS -->
+
+    <section class="card requests-card">
+
+      <div class="card-header">
+
+        <div>
+
+          <div class="card-title">
+            طلبات الشحن
+          </div>
+
+          <div class="card-subtitle">
+            تابع حالة طلبات الشحن الخاصة بك.
+          </div>
+
+        </div>
+
+        <div class="card-icon">
+          ↗
+        </div>
+
+      </div>
+
+
+      <div
+        class="requests-list"
+        id="requestsList"
+      >
+
+        <div class="empty-requests">
+          جاري تحميل الطلبات...
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- TOAST -->
+
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  <!-- FIREBASE -->
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from
+      "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from
+      "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+    import {
+      getFirestore,
+      doc,
+      onSnapshot,
+      collection,
+      query,
+      where,
+      orderBy,
+      addDoc,
+      serverTimestamp
+    } from
+      "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    /* =========================
+       FIREBASE CONFIG
+    ========================= */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk",
+
+      authDomain:
+        "mathix-2008.firebaseapp.com",
+
+      projectId:
+        "mathix-2008",
+
+      storageBucket:
+        "mathix-2008.firebasestorage.app",
+
+      messagingSenderId:
+        "561805658834",
+
+      appId:
+        "1:561805658834:web:c1db8ebc2d415be9497b0b",
+
+      measurementId:
+        "G-XWHKQ72FM0"
+
+    };
+
+
+    const app =
+      initializeApp(
+        firebaseConfig
+      );
+
+
+    const auth =
+      getAuth(app);
+
+
+    const db =
+      getFirestore(app);
+
+
+    /* =========================
+       ELEMENTS
+    ========================= */
+
+    const loadingOverlay =
+      document.getElementById(
+        "loadingOverlay"
+      );
+
+
+    const headerBalance =
+      document.getElementById(
+        "headerBalance"
+      );
+
+
+    const mainBalance =
+      document.getElementById(
+        "mainBalance"
+      );
+
+
+    const topupForm =
+      document.getElementById(
+        "topupForm"
+      );
+
+
+    const amountInput =
+      document.getElementById(
+        "amount"
+      );
+
+
+    const senderPhoneInput =
+      document.getElementById(
+        "senderPhone"
+      );
+
+
+    const transferReferenceInput =
+      document.getElementById(
+        "transferReference"
+      );
+
+
+    const submitBtn =
+      document.getElementById(
+        "submitBtn"
+      );
+
+
+    const requestsList =
+      document.getElementById(
+        "requestsList"
+      );
+
+
+    const toast =
+      document.getElementById(
+        "toast"
+      );
+
+
+    let currentUser =
+      null;
+
+
+    let currentUserData =
+      null;
+
+
+    let unsubscribeWallet =
+      null;
+
+
+    let unsubscribeRequests =
+      null;
+
+
+    /* =========================
+       HELPERS
+    ========================= */
+
+    function formatBalance(
+      value
+    ) {
+
+      return Number(
+        value || 0
+      ).toLocaleString(
+        "en-US",
+        {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }
+      );
+
+    }
+
+
+    function showBalance(
+      balance
+    ) {
+
+      const value =
+        `${formatBalance(balance)} ج.م`;
+
+
+      headerBalance.textContent =
+        value;
+
+
+      mainBalance.textContent =
+        value;
+
+    }
+
+
+    function showToast(
+      message,
+      type = "success"
+    ) {
+
+      toast.textContent =
+        message;
+
+
+      toast.className =
+        `toast ${type} show`;
+
+
+      clearTimeout(
+        window.toastTimer
+      );
+
+
+      window.toastTimer =
+        setTimeout(
+          () => {
+
+            toast.classList.remove(
+              "show"
+            );
+
+          },
+          3500
+        );
+
+    }
+
+
+    function escapeHTML(
+      value
+    ) {
+
+      return String(
+        value ?? ""
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    function formatDate(
+      timestamp
+    ) {
+
+      if (
+        !timestamp
+      ) {
+
+        return "منذ قليل";
+
+      }
+
+
+      try {
+
+        const date =
+          timestamp.toDate();
+
+
+        return date.toLocaleString(
+          "ar-EG",
+          {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          }
+        );
+
+      } catch {
+
+        return "منذ قليل";
+
+      }
+
+    }
+
+
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    const mobileMenuBtn =
+      document.getElementById(
+        "mobileMenuBtn"
+      );
+
+
+    const mobileNav =
+      document.getElementById(
+        "mobileNav"
+      );
+
+
+    mobileMenuBtn.addEventListener(
+      "click",
+      () => {
+
+        mobileNav.classList.toggle(
+          "open"
+        );
+
+
+        mobileMenuBtn.textContent =
+          mobileNav.classList.contains(
+            "open"
+          )
+            ? "×"
+            : "☰";
+
+      }
+    );
+
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    async function logout() {
+
+      try {
+
+        await signOut(
+          auth
+        );
+
+
+        window.location.replace(
+          "login.html"
+        );
+
+      } catch (error) {
+
+        console.error(error);
+
+        showToast(
+          "حدث خطأ أثناء تسجيل الخروج.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    document
+      .getElementById(
+        "logoutBtn"
+      )
+      .addEventListener(
+        "click",
+        logout
+      );
+
+
+    document
+      .getElementById(
+        "mobileLogoutBtn"
+      )
+      .addEventListener(
+        "click",
+        logout
+      );
+
+
+    /* =========================
+       COPY VODAFONE NUMBER
+    ========================= */
+
+    document
+      .getElementById(
+        "copyNumberBtn"
+      )
+      .addEventListener(
+        "click",
+        async () => {
+
+          const number =
+            "01037500636";
+
+
+          try {
+
+            await navigator.clipboard.writeText(
+              number
+            );
+
+
+            showToast(
+              "تم نسخ رقم Vodafone Cash.",
+              "success"
+            );
+
+          } catch {
+
+            showToast(
+              "تعذر نسخ الرقم تلقائيًا.",
+              "error"
+            );
+
+          }
+
+        }
+      );
+
+
+    /* =========================
+       PHONE VALIDATION
+    ========================= */
+
+    senderPhoneInput.addEventListener(
+      "input",
+      () => {
+
+        senderPhoneInput.value =
+          senderPhoneInput.value
+            .replace(
+              /[^0-9]/g,
+              ""
+            )
+            .slice(
+              0,
+              11
+            );
+
+      }
+    );
+
+
+    /* =========================
+       TOPUP REQUEST
+    ========================= */
+
+    topupForm.addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        if (
+          !currentUser
+        ) {
+
+          showToast(
+            "يجب تسجيل الدخول أولًا.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        const amount =
+          Number(
+            amountInput.value
+          );
+
+
+        const senderPhone =
+          senderPhoneInput.value.trim();
+
+
+        const reference =
+          transferReferenceInput.value.trim();
+
+
+        if (
+          !Number.isFinite(
+            amount
+          ) ||
+          amount <= 0
+        ) {
+
+          showToast(
+            "أدخل مبلغًا صحيحًا.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if (
+          !/^01[0-9]{9}$/.test(
+            senderPhone
+          )
+        ) {
+
+          showToast(
+            "رقم الهاتف يجب أن يكون 11 رقم ويبدأ بـ 01.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if (
+          reference.length < 2
+        ) {
+
+          showToast(
+            "أدخل رقم العملية أو المرجع.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        submitBtn.disabled =
+          true;
+
+
+        submitBtn.textContent =
+          "جاري إرسال الطلب...";
+
+
+        try {
+
+          /*
+            الطلب يبدأ بحالة pending.
+
+            الطالب لا يملك صلاحية
+            تغيير balance.
+
+            الإدارة هي التي توافق
+            على الطلب وتضيف الرصيد.
+          */
+
+          await addDoc(
+            collection(
+              db,
+              "walletRequests"
+            ),
+            {
+
+              uid:
+                currentUser.uid,
+
+              email:
+                currentUser.email || "",
+
+              amount:
+                amount,
+
+              senderPhone:
+                senderPhone,
+
+              transferReference:
+                reference,
+
+              method:
+                "Vodafone Cash",
+
+              status:
+                "pending",
+
+              createdAt:
+                serverTimestamp(),
+
+              updatedAt:
+                serverTimestamp()
+
+            }
+          );
+
+
+          topupForm.reset();
+
+
+          showToast(
+            "تم إرسال طلب الشحن بنجاح. سيتم مراجعته من الإدارة.",
+            "success"
+          );
+
+        } catch (error) {
+
+          console.error(
+            "Topup request error:",
+            error
+          );
+
+
+          showToast(
+            "تعذر إرسال الطلب. حاول مرة أخرى.",
+            "error"
+          );
+
+        } finally {
+
+          submitBtn.disabled =
+            false;
+
+          submitBtn.textContent =
+            "إرسال طلب الشحن";
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       REQUEST STATUS
+    ========================= */
+
+    function statusText(
+      status
+    ) {
+
+      if (
+        status ===
+        "approved"
+      ) {
+
+        return "تمت الموافقة";
+
+      }
+
+
+      if (
+        status ===
+        "rejected"
+      ) {
+
+        return "مرفوض";
+
+      }
+
+
+      return "قيد المراجعة";
+
+    }
+
+
+    function statusClass(
+      status
+    ) {
+
+      if (
+        status ===
+        "approved"
+      ) {
+
+        return "status-approved";
+
+      }
+
+
+      if (
+        status ===
+        "rejected"
+      ) {
+
+        return "status-rejected";
+
+      }
+
+
+      return "status-pending";
+
+    }
+
+
+    /* =========================
+       RENDER REQUESTS
+    ========================= */
+
+    function renderRequests(
+      snapshot
+    ) {
+
+      if (
+        snapshot.empty
+      ) {
+
+        requestsList.innerHTML = `
+
+          <div class="empty-requests">
+            لا توجد طلبات شحن حتى الآن.
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      requestsList.innerHTML =
+        "";
+
+
+      snapshot.forEach(
+        documentSnapshot => {
+
+          const data =
+            documentSnapshot.data();
+
+
+          const amount =
+            Number(
+              data.amount || 0
+            );
+
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+
+          item.className =
+            "request-item";
+
+
+          item.innerHTML = `
+
+            <div class="request-main">
+
+              <div class="request-icon">
+                ج
+              </div>
+
+              <div>
+
+                <div class="request-amount">
+                  ${formatBalance(amount)} ج.م
+                </div>
+
+                <div class="request-date">
+                  ${formatDate(
+                    data.createdAt
+                  )}
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div
+              class="request-status ${statusClass(
+                data.status
+              )}"
+            >
+              ${statusText(
+                data.status
+              )}
+            </div>
+
+          `;
+
+
+          requestsList.appendChild(
+            item
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       AUTH
+    ========================= */
+
+    onAuthStateChanged(
+      auth,
+      user => {
+
+        if (!user) {
+
+          window.location.replace(
+            "login.html"
+          );
+
+          return;
+
+        }
+
+
+        currentUser =
+          user;
+
+
+        loadingOverlay.style.display =
+          "none";
+
+
+        /* =====================
+           REALTIME WALLET
+        ===================== */
+
+        const walletRef =
+          doc(
+            db,
+            "wallets",
+            user.uid
+          );
+
+
+        unsubscribeWallet =
+          onSnapshot(
+            walletRef,
+
+            snapshot => {
+
+              if (
+                snapshot.exists()
+              ) {
+
+                const data =
+                  snapshot.data();
+
+
+                showBalance(
+                  Number(
+                    data.balance || 0
+                  )
+                );
+
+              } else {
+
+                showBalance(
+                  0
+                );
+
+              }
+
+            },
+
+            error => {
+
+              console.error(
+                "Wallet listener:",
+                error
+              );
+
+
+              showBalance(
+                0
+              );
+
+            }
+          );
+
+
+        /* =====================
+           REALTIME REQUESTS
+        ===================== */
+
+        const requestsQuery =
+          query(
+            collection(
+              db,
+              "walletRequests"
+            ),
+
+            where(
+              "uid",
+              "==",
+              user.uid
+            ),
+
+            orderBy(
+              "createdAt",
+              "desc"
+            )
+          );
+
+
+        unsubscribeRequests =
+          onSnapshot(
+            requestsQuery,
+
+            snapshot => {
+
+              renderRequests(
+                snapshot
+              );
+
+            },
+
+            error => {
+
+              console.error(
+                "Requests listener:",
+                error
+              );
+
+
+              requestsList.innerHTML = `
+
+                <div class="empty-requests">
+                  تعذر تحميل طلبات الشحن.
+                </div>
+
+              `;
+
+            }
+          );
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>
