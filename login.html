@@ -641,7 +641,8 @@
 
 
     import {
-      initializeAuth,
+      getAuth,
+      setPersistence,
       browserLocalPersistence,
       signInWithEmailAndPassword,
       sendPasswordResetEmail
@@ -680,18 +681,13 @@
 
 
     /*
-      تهيئة Firebase Auth
-      بالـLocal Persistence من البداية.
+      استخدام getAuth الطبيعي،
+      ثم إجبار Firebase على حفظ الجلسة
+      محليًا قبل أي Login.
     */
 
     const auth =
-      initializeAuth(
-        app,
-        {
-          persistence:
-            browserLocalPersistence
-        }
-      );
+      getAuth(app);
 
 
     const form =
@@ -773,6 +769,18 @@
     );
 
 
+    /*
+      تجهيز Persistence مرة واحدة
+      قبل تنفيذ تسجيل الدخول.
+    */
+
+    const persistenceReady =
+      setPersistence(
+        auth,
+        browserLocalPersistence
+      );
+
+
     form.addEventListener(
       "submit",
       async event => {
@@ -818,6 +826,15 @@
 
         try {
 
+          /*
+            مهم جدًا:
+            لا نعمل Login قبل التأكد
+            أن Local Persistence جاهزة.
+          */
+
+          await persistenceReady;
+
+
           const credential =
             await signInWithEmailAndPassword(
               auth,
@@ -825,11 +842,6 @@
               password
             );
 
-
-          /*
-            تأكيد أن المستخدم موجود
-            بالفعل داخل Firebase Auth.
-          */
 
           if (
             !credential ||
@@ -844,9 +856,15 @@
 
 
           /*
-            الجلسة الآن محفوظة
-            في Local Persistence.
+            نتأكد أن Firebase يحتفظ
+            بالمستخدم قبل الانتقال.
           */
+
+          console.log(
+            "LOGIN SUCCESS:",
+            credential.user.uid
+          );
+
 
           showMessage(
             "تم تسجيل الدخول بنجاح. جاري فتح حسابك...",
@@ -855,11 +873,19 @@
 
 
           /*
-            ننتقل مباشرة.
+            نستخدم replace حتى لا يرجع
+            زر Back إلى صفحة Login القديمة.
           */
 
-          window.location.replace(
-            "dashboard.html"
+          setTimeout(
+            () => {
+
+              window.location.replace(
+                "./dashboard.html"
+              );
+
+            },
+            250
           );
 
         } catch (error) {
@@ -939,14 +965,6 @@
 
               break;
 
-
-            case "auth/popup-blocked":
-
-              errorMessage =
-                "المتصفح منع العملية.";
-
-              break;
-
           }
 
 
@@ -995,6 +1013,9 @@
 
 
         try {
+
+          await persistenceReady;
+
 
           await sendPasswordResetEmail(
             auth,
