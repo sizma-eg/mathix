@@ -4,6 +4,7 @@
 <head>
 
   <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -16,7 +17,7 @@
 
   <meta
     name="description"
-    content="Mathix - لوحة تحكم الطالب"
+    content="لوحة تحكم الطالب في Mathix"
   >
 
   <title>Mathix | لوحة الطالب</title>
@@ -50,47 +51,41 @@
 
     :root {
       --bg: #07070b;
-      --bg-2: #0b0b11;
-      --card: #101018;
-      --card-2: #14141e;
+      --card: #101017;
+      --card-2: #15151d;
       --border: rgba(255,255,255,.08);
-      --border-purple: rgba(153, 82, 255, .25);
-
-      --white: #ffffff;
       --text: #f5f5f7;
-      --muted: #9696a5;
-
+      --muted: #92929f;
       --purple: #8b3dff;
       --purple-2: #a45cff;
-      --purple-soft: rgba(139,61,255,.12);
-
-      --success: #35d07f;
-      --danger: #ff5d6c;
-
-      --radius: 22px;
+      --green: #35d07f;
+      --red: #ff5d6c;
     }
 
     html {
-      scroll-behavior: smooth;
+      min-height: 100%;
     }
 
     body {
       min-height: 100vh;
+
       background:
         radial-gradient(
           circle at 85% 0%,
-          rgba(139,61,255,.14),
+          rgba(139,61,255,.13),
           transparent 30%
         ),
         radial-gradient(
-          circle at 10% 40%,
+          circle at 5% 90%,
           rgba(139,61,255,.07),
-          transparent 28%
+          transparent 30%
         ),
         var(--bg);
 
       color: var(--text);
+
       font-family: "Cairo", sans-serif;
+
       overflow-x: hidden;
     }
 
@@ -99,64 +94,75 @@
       text-decoration: none;
     }
 
-    button,
-    input {
+    button {
       font-family: inherit;
     }
 
-    button {
-      cursor: pointer;
-    }
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    .header {
+    .navbar {
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 100;
 
       width: 100%;
 
-      background: rgba(7,7,11,.78);
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.06);
+
+      background:
+        rgba(7,7,11,.82);
+
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-
-      border-bottom: 1px solid var(--border);
     }
 
-    .header-inner {
-      width: min(1250px, calc(100% - 32px));
-      min-height: 78px;
+    .nav-inner {
+      width:
+        min(
+          1180px,
+          calc(100% - 30px)
+        );
+
+      min-height: 72px;
+
       margin: auto;
 
       display: flex;
+
       align-items: center;
       justify-content: space-between;
+
       gap: 20px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 11px;
-      min-width: max-content;
+      gap: 10px;
+
+      flex-shrink: 0;
     }
 
     .brand-logo {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
 
       object-fit: contain;
 
-      animation: logoFloat 3.2s ease-in-out infinite;
+      animation:
+        floatLogo
+        3s
+        ease-in-out
+        infinite;
 
       filter:
-        drop-shadow(0 0 12px rgba(139,61,255,.2));
+        drop-shadow(
+          0 0 14px
+          rgba(139,61,255,.22)
+        );
     }
 
-    @keyframes logoFloat {
+    @keyframes floatLogo {
 
       0%,
       100% {
@@ -164,651 +170,647 @@
       }
 
       50% {
-        transform: translateY(-5px);
+        transform: translateY(-4px);
       }
 
     }
 
     .brand-name {
-      font-family: "Chakra Petch", sans-serif;
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
       font-size: 25px;
       font-weight: 700;
-      letter-spacing: .5px;
+
       direction: ltr;
     }
 
-    .brand-name .math {
+    .math {
       color: #fff;
     }
 
-    .brand-name .ix {
+    .ix {
       color: var(--purple-2);
     }
 
-    .nav {
+    .nav-links {
       display: flex;
       align-items: center;
       gap: 5px;
     }
 
     .nav-link {
-      color: #a8a8b5;
-      font-size: 14px;
-      font-weight: 600;
+      padding:
+        9px
+        12px;
 
-      padding: 10px 13px;
-      border-radius: 12px;
+      border-radius: 10px;
 
-      transition:
-        color .2s ease,
-        background .2s ease;
+      color: #a1a1ad;
+
+      font-size: 11px;
+
+      transition: .2s ease;
     }
 
-    .nav-link:hover,
+    .nav-link:hover {
+      color: #fff;
+
+      background:
+        rgba(255,255,255,.05);
+    }
+
     .nav-link.active {
       color: #fff;
-      background: rgba(139,61,255,.09);
-    }
 
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .wallet-mini {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      min-height: 42px;
-      padding: 8px 13px;
-
-      border: 1px solid var(--border);
-      border-radius: 13px;
-
-      background: rgba(255,255,255,.025);
-    }
-
-    .wallet-icon {
-      width: 28px;
-      height: 28px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 9px;
-
-      background: var(--purple-soft);
-      color: var(--purple-2);
-
-      font-size: 14px;
-    }
-
-    .wallet-mini-info {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
-
-    .wallet-mini-label {
-      color: #777784;
-      font-size: 9px;
-    }
-
-    .wallet-mini-value {
-      color: #fff;
-      font-family: "Chakra Petch", sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      direction: ltr;
+      background:
+        rgba(139,61,255,.12);
     }
 
     .logout-btn {
-      border: 1px solid rgba(255,255,255,.09);
-      background: transparent;
-      color: #aaaab5;
+      border:
+        1px solid
+        rgba(255,93,108,.15);
 
-      padding: 10px 14px;
-      border-radius: 12px;
+      background:
+        rgba(255,93,108,.05);
 
-      font-size: 12px;
+      color: #ff8792;
+
+      padding:
+        9px
+        13px;
+
+      border-radius: 10px;
+
+      font-size: 10px;
       font-weight: 700;
+
+      cursor: pointer;
 
       transition: .2s ease;
     }
 
     .logout-btn:hover {
-      color: #fff;
-      border-color: rgba(255,93,108,.35);
-      background: rgba(255,93,108,.07);
+      background:
+        rgba(255,93,108,.1);
+
+      border-color:
+        rgba(255,93,108,.25);
     }
 
-    .mobile-menu-btn {
-      display: none;
-
-      width: 42px;
-      height: 42px;
-
-      border: 1px solid var(--border);
-      border-radius: 12px;
-
-      background: rgba(255,255,255,.025);
-      color: #fff;
-
-      font-size: 20px;
+    .logout-btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
     }
 
-    /* =========================
-       MAIN
-    ========================= */
+    .page {
+      width:
+        min(
+          1180px,
+          calc(100% - 30px)
+        );
 
-    main {
-      width: min(1250px, calc(100% - 32px));
-      margin: auto;
-      padding: 42px 0 70px;
+      margin:
+        35px auto
+        70px;
     }
 
     .welcome {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 25px;
+      position: relative;
+      overflow: hidden;
 
-      margin-bottom: 28px;
-    }
+      padding: 30px;
 
-    .welcome-text small {
-      display: block;
+      border:
+        1px solid
+        var(--border);
 
-      color: var(--purple-2);
-      font-size: 13px;
-      font-weight: 700;
-
-      margin-bottom: 6px;
-    }
-
-    .welcome-text h1 {
-      font-size: clamp(27px, 4vw, 40px);
-      line-height: 1.2;
-      font-weight: 900;
-      letter-spacing: -.8px;
-    }
-
-    .welcome-text h1 span {
-      color: var(--purple-2);
-    }
-
-    .welcome-text p {
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 9px;
-    }
-
-    .student-code-box {
-      flex-shrink: 0;
-
-      padding: 14px 18px;
-
-      border: 1px solid var(--border-purple);
-      border-radius: 16px;
+      border-radius: 24px;
 
       background:
         linear-gradient(
           135deg,
-          rgba(139,61,255,.11),
+          rgba(139,61,255,.13),
           rgba(255,255,255,.025)
         );
+
+      margin-bottom: 22px;
     }
 
-    .student-code-label {
-      color: #7f7f8d;
-      font-size: 10px;
-      margin-bottom: 3px;
-    }
-
-    .student-code {
-      color: #fff;
-
-      font-family: "Chakra Petch", sans-serif;
-      font-size: 17px;
-      font-weight: 700;
-
-      direction: ltr;
-      text-align: right;
-    }
-
-    /* =========================
-       TOP CARDS
-    ========================= */
-
-    .top-grid {
-      display: grid;
-      grid-template-columns: 1.35fr .8fr .8fr;
-      gap: 16px;
-
-      margin-bottom: 35px;
-    }
-
-    .info-card {
-      min-height: 160px;
-
-      position: relative;
-      overflow: hidden;
-
-      padding: 22px;
-
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.045),
-          rgba(255,255,255,.015)
-        );
-
-      transition:
-        transform .25s ease,
-        border-color .25s ease;
-    }
-
-    .info-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(139,61,255,.25);
-    }
-
-    .info-card.wallet-card {
-      background:
-        radial-gradient(
-          circle at 90% 10%,
-          rgba(139,61,255,.20),
-          transparent 42%
-        ),
-        linear-gradient(
-          145deg,
-          rgba(139,61,255,.11),
-          rgba(255,255,255,.02)
-        );
-    }
-
-    .card-label {
-      color: #888894;
-      font-size: 11px;
-      font-weight: 600;
-
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .card-icon {
-      width: 31px;
-      height: 31px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 10px;
-
-      background: rgba(139,61,255,.12);
-      color: var(--purple-2);
-
-      margin-bottom: 17px;
-
-      font-size: 14px;
-    }
-
-    .wallet-balance {
-      margin-top: 10px;
-
-      font-family: "Chakra Petch", sans-serif;
-      font-size: clamp(28px, 3vw, 38px);
-      font-weight: 700;
-
-      direction: ltr;
-      text-align: right;
-    }
-
-    .currency {
-      color: var(--purple-2);
-      font-family: "Cairo", sans-serif;
-      font-size: 14px;
-      margin-right: 5px;
-    }
-
-    .wallet-link {
-      position: absolute;
-      bottom: 20px;
-      left: 22px;
-
-      color: var(--purple-2);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .student-name {
-      margin-top: 13px;
-
-      font-size: 21px;
-      font-weight: 800;
-
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .student-email {
-      margin-top: 5px;
-
-      color: #777783;
-      font-size: 11px;
-
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-
-      direction: ltr;
-      text-align: right;
-    }
-
-    .status-row {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-
-      margin-top: 17px;
-
-      color: #8e8e9a;
-      font-size: 11px;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-
-      border-radius: 50%;
-      background: var(--success);
-
-      box-shadow: 0 0 9px rgba(53,208,127,.55);
-    }
-
-    /* =========================
-       SECTION
-    ========================= */
-
-    .section-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-size: 21px;
-      font-weight: 800;
-    }
-
-    .section-title span {
-      color: var(--purple-2);
-    }
-
-    .section-link {
-      color: #8d8d99;
-      font-size: 12px;
-      font-weight: 600;
-
-      transition: color .2s ease;
-    }
-
-    .section-link:hover {
-      color: var(--purple-2);
-    }
-
-    /* =========================
-       SUBJECTS
-    ========================= */
-
-    .subjects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-
-      margin-bottom: 38px;
-    }
-
-    .subject-card {
-      position: relative;
-      overflow: hidden;
-
-      min-height: 150px;
-
-      padding: 21px;
-
-      border: 1px solid var(--border);
-      border-radius: 19px;
-
-      background: var(--card);
-
-      transition:
-        transform .25s ease,
-        border-color .25s ease,
-        background .25s ease;
-    }
-
-    .subject-card::after {
+    .welcome::before {
       content: "";
 
       position: absolute;
-      width: 110px;
-      height: 110px;
 
-      left: -55px;
-      bottom: -55px;
+      width: 260px;
+      height: 260px;
+
+      left: -100px;
+      top: -130px;
 
       border-radius: 50%;
 
-      background: rgba(139,61,255,.08);
+      background:
+        rgba(139,61,255,.12);
 
-      transition: .25s ease;
+      filter: blur(40px);
+
+      pointer-events: none;
     }
 
-    .subject-card:hover {
-      transform: translateY(-4px);
-
-      border-color: rgba(139,61,255,.28);
-
-      background: #12121b;
+    .welcome-content {
+      position: relative;
+      z-index: 1;
     }
 
-    .subject-card:hover::after {
-      transform: scale(1.5);
-    }
-
-    .subject-number {
-      position: absolute;
-      top: 16px;
-      left: 18px;
-
-      color: rgba(255,255,255,.08);
-
-      font-family: "Chakra Petch", sans-serif;
-      font-size: 28px;
-      font-weight: 700;
-    }
-
-    .subject-icon {
-      width: 42px;
-      height: 42px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 13px;
-
-      background: var(--purple-soft);
+    .welcome-label {
       color: var(--purple-2);
 
-      font-family: "Chakra Petch", sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-
-      margin-bottom: 15px;
-    }
-
-    .subject-name {
-      position: relative;
-      z-index: 2;
-
-      font-size: 16px;
+      font-size: 11px;
       font-weight: 800;
+
+      margin-bottom: 6px;
     }
 
-    .subject-desc {
-      position: relative;
-      z-index: 2;
+    .welcome h1 {
+      font-size: 27px;
+      font-weight: 900;
+    }
 
-      margin-top: 5px;
+    .welcome h1 span {
+      color: var(--purple-2);
+    }
 
-      color: #777783;
+    .welcome p {
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    .stats-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 16px;
+
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      padding: 21px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 19px;
+
+      background:
+        rgba(255,255,255,.025);
+
+      transition:
+        transform .2s ease,
+        border-color .2s ease;
+    }
+
+    .stat-card:hover {
+      transform:
+        translateY(-3px);
+
+      border-color:
+        rgba(139,61,255,.25);
+    }
+
+    .stat-top {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 10px;
+
+      margin-bottom: 13px;
+    }
+
+    .stat-label {
+      color: var(--muted);
       font-size: 10px;
     }
 
-    /* =========================
-       QUICK ACTIONS
-    ========================= */
-
-    .actions-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 13px;
-
-      margin-bottom: 40px;
-    }
-
-    .action-card {
-      min-height: 105px;
+    .stat-icon {
+      width: 33px;
+      height: 33px;
 
       display: flex;
+
       align-items: center;
-      gap: 14px;
+      justify-content: center;
+
+      border-radius: 10px;
+
+      background:
+        rgba(139,61,255,.1);
+
+      color:
+        var(--purple-2);
+
+      font-size: 14px;
+    }
+
+    .stat-value {
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
+      font-size: 25px;
+      font-weight: 700;
+
+      direction: ltr;
+      text-align: right;
+    }
+
+    .stat-value small {
+      font-family: "Cairo", sans-serif;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 600;
+
+      margin-right: 3px;
+    }
+
+    .main-grid {
+      display: grid;
+
+      grid-template-columns:
+        1.5fr 1fr;
+
+      gap: 22px;
+    }
+
+    .section {
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 22px;
+
+      background:
+        rgba(255,255,255,.022);
+
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      padding:
+        20px
+        21px;
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.055);
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .section-subtitle {
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+    }
+
+    .view-all {
+      color:
+        var(--purple-2);
+
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .subjects {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 12px;
 
       padding: 18px;
+    }
 
-      border: 1px solid var(--border);
-      border-radius: 17px;
+    .subject-card {
+      display: block;
 
-      background: rgba(255,255,255,.025);
+      padding: 17px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.06);
+
+      border-radius: 16px;
+
+      background:
+        rgba(0,0,0,.16);
+
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+    }
+
+    .subject-card:hover {
+      transform:
+        translateY(-3px);
+
+      border-color:
+        rgba(139,61,255,.25);
+
+      background:
+        rgba(139,61,255,.045);
+    }
+
+    .subject-icon {
+      width: 38px;
+      height: 38px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 11px;
+
+      border-radius: 11px;
+
+      background:
+        rgba(139,61,255,.1);
+
+      color:
+        var(--purple-2);
+
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .subject-name {
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .subject-description {
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+    }
+
+    .profile-content {
+      padding: 18px;
+    }
+
+    .profile-head {
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+
+      margin-bottom: 19px;
+
+      padding-bottom: 18px;
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.06);
+    }
+
+    .profile-avatar {
+      width: 51px;
+      height: 51px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      flex-shrink: 0;
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #7d2fff,
+          #a45cff
+        );
+
+      color: #fff;
+
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
+      font-size: 18px;
+      font-weight: 700;
+
+      box-shadow:
+        0 10px 30px
+        rgba(139,61,255,.18);
+    }
+
+    .profile-name {
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .profile-email {
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+
+      direction: ltr;
+      text-align: right;
+
+      word-break: break-all;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 11px;
+    }
+
+    .info-row {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      padding:
+        11px
+        12px;
+
+      border-radius: 11px;
+
+      background:
+        rgba(255,255,255,.025);
+    }
+
+    .info-label {
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .info-value {
+      color: #eee;
+
+      font-size: 9px;
+      font-weight: 700;
+
+      text-align: left;
+
+      word-break: break-word;
+    }
+
+    .status {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 5px;
+
+      color: var(--green);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background:
+        var(--green);
+
+      box-shadow:
+        0 0 8px
+        rgba(53,208,127,.6);
+    }
+
+    .quick-actions {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 10px;
+
+      padding: 18px;
+    }
+
+    .quick-card {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      padding: 13px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.06);
+
+      border-radius: 14px;
+
+      background:
+        rgba(0,0,0,.16);
 
       transition: .2s ease;
     }
 
-    .action-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(139,61,255,.25);
-      background: rgba(139,61,255,.05);
-    }
-
-    .action-icon {
-      flex-shrink: 0;
-
-      width: 43px;
-      height: 43px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 13px;
-
-      background: rgba(139,61,255,.11);
-      color: var(--purple-2);
-
-      font-family: "Chakra Petch", sans-serif;
-      font-weight: 700;
-    }
-
-    .action-title {
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .action-desc {
-      color: #72727f;
-      font-size: 9px;
-      margin-top: 3px;
-    }
-
-    /* =========================
-       ACCOUNT STATUS
-    ========================= */
-
-    .account-box {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-
-      padding: 22px 24px;
-
-      border: 1px solid var(--border);
-      border-radius: 20px;
+    .quick-card:hover {
+      border-color:
+        rgba(139,61,255,.25);
 
       background:
-        linear-gradient(
-          110deg,
-          rgba(139,61,255,.06),
-          rgba(255,255,255,.02)
-        );
+        rgba(139,61,255,.045);
+
+      transform:
+        translateY(-2px);
     }
 
-    .account-box h3 {
-      font-size: 15px;
-      font-weight: 800;
-    }
-
-    .account-box p {
-      color: #777783;
-      font-size: 11px;
-      margin-top: 4px;
-    }
-
-    .active-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-
-      padding: 9px 13px;
-
-      border: 1px solid rgba(53,208,127,.18);
-      border-radius: 11px;
-
-      background: rgba(53,208,127,.07);
-
-      color: var(--success);
-
-      font-size: 10px;
-      font-weight: 700;
-
-      white-space: nowrap;
-    }
-
-    /* =========================
-       LOADING
-    ========================= */
-
-    .loading-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
+    .quick-icon {
+      width: 35px;
+      height: 35px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
-      background: #07070b;
+      flex-shrink: 0;
 
-      transition: opacity .25s ease;
+      border-radius: 10px;
+
+      background:
+        rgba(139,61,255,.1);
+
+      color:
+        var(--purple-2);
+
+      font-size: 13px;
+    }
+
+    .quick-title {
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .quick-description {
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 7px;
+    }
+
+    .loading-screen {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 9999;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      background:
+        var(--bg);
     }
 
     .loading-box {
@@ -816,202 +818,237 @@
     }
 
     .loading-logo {
-      width: 70px;
-      height: 70px;
+      width: 65px;
+      height: 65px;
+
       object-fit: contain;
 
-      animation: logoFloat 2s ease-in-out infinite;
+      animation:
+        floatLogo
+        1.8s
+        ease-in-out
+        infinite;
 
-      margin-bottom: 20px;
-    }
-
-    .loader {
-      width: 32px;
-      height: 32px;
-
-      border: 3px solid rgba(255,255,255,.08);
-      border-top-color: var(--purple-2);
-
-      border-radius: 50%;
-
-      animation: spin .8s linear infinite;
-
-      margin: auto;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      filter:
+        drop-shadow(
+          0 0 18px
+          rgba(139,61,255,.3)
+        );
     }
 
     .loading-text {
-      color: #777783;
-      font-size: 11px;
-      margin-top: 13px;
+      margin-top: 15px;
+
+      color: var(--muted);
+
+      font-size: 10px;
     }
 
-    /* =========================
-       MOBILE NAV
-    ========================= */
+    .spinner {
+      width: 25px;
+      height: 25px;
 
-    .mobile-nav {
+      margin:
+        15px
+        auto
+        0;
+
+      border:
+        2px solid
+        rgba(255,255,255,.1);
+
+      border-top-color:
+        var(--purple-2);
+
+      border-radius: 50%;
+
+      animation:
+        spin .7s
+        linear
+        infinite;
+    }
+
+    @keyframes spin {
+
+      to {
+        transform: rotate(360deg);
+      }
+
+    }
+
+    .error-screen {
       display: none;
 
       position: fixed;
-      top: 79px;
-      right: 16px;
-      left: 16px;
 
-      z-index: 999;
+      inset: 0;
 
-      padding: 12px;
+      z-index: 10000;
 
-      border: 1px solid var(--border);
-      border-radius: 17px;
+      align-items: center;
+      justify-content: center;
 
-      background: rgba(15,15,22,.97);
-      backdrop-filter: blur(20px);
+      padding: 20px;
 
-      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      background:
+        var(--bg);
     }
 
-    .mobile-nav.open {
-      display: block;
+    .error-box {
+      width:
+        min(
+          420px,
+          100%
+        );
+
+      padding: 30px;
+
+      text-align: center;
+
+      border:
+        1px solid
+        rgba(255,93,108,.15);
+
+      border-radius: 22px;
+
+      background:
+        rgba(255,255,255,.025);
     }
 
-    .mobile-nav a,
-    .mobile-nav button {
-      width: 100%;
-
-      display: block;
-
-      padding: 13px;
-
-      border: 0;
-      border-radius: 11px;
-
-      background: transparent;
-      color: #aaaab5;
-
-      text-align: right;
-
-      font-size: 13px;
-      font-weight: 600;
+    .error-icon {
+      font-size: 35px;
+      margin-bottom: 13px;
     }
 
-    .mobile-nav a:hover,
-    .mobile-nav button:hover {
-      background: rgba(139,61,255,.08);
+    .error-box h2 {
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .error-box p {
+      margin-top: 8px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .error-login {
+      display: inline-flex;
+
+      margin-top: 18px;
+
+      padding:
+        11px
+        18px;
+
+      border-radius: 12px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #7d2fff,
+          #a45cff
+        );
+
       color: #fff;
+
+      font-size: 10px;
+      font-weight: 800;
     }
 
-    .mobile-nav button {
-      color: #ff7a85;
-    }
+    @media (max-width: 850px) {
 
-    /* =========================
-       RESPONSIVE
-    ========================= */
-
-    @media (max-width: 1000px) {
-
-      .nav {
+      .nav-links {
         display: none;
       }
 
-      .mobile-menu-btn {
-        display: block;
-      }
-
-      .top-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .wallet-card {
-        grid-column: span 2;
-      }
-
-      .subjects-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .actions-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .main-grid {
+        grid-template-columns:
+          1fr;
       }
 
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 600px) {
 
-      .header-inner {
-        min-height: 70px;
-        width: min(100% - 22px, 1250px);
+      .nav-inner {
+        min-height: 64px;
       }
 
-      .brand-logo {
-        width: 37px;
-        height: 37px;
+      .page {
+        width:
+          calc(100% - 20px);
+
+        margin-top: 20px;
       }
+
+      .welcome {
+        padding: 23px;
+        border-radius: 19px;
+      }
+
+      .welcome h1 {
+        font-size: 22px;
+      }
+
+      .stats-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 16px;
+      }
+
+      .stat-value {
+        font-size: 21px;
+      }
+
+      .subjects {
+        grid-template-columns:
+          1fr 1fr;
+
+        padding: 13px;
+        gap: 9px;
+      }
+
+      .quick-actions {
+        padding: 13px;
+      }
+
+    }
+
+    @media (max-width: 390px) {
 
       .brand-name {
         font-size: 22px;
       }
 
-      .header-actions {
-        gap: 6px;
-      }
-
-      .wallet-mini {
-        padding: 7px 9px;
-      }
-
-      .wallet-mini-label {
-        display: none;
-      }
-
-      .wallet-mini-value {
-        font-size: 11px;
+      .brand-logo {
+        width: 34px;
+        height: 34px;
       }
 
       .logout-btn {
-        display: none;
+        padding:
+          7px
+          9px;
+
+        font-size: 9px;
       }
 
-      main {
-        width: min(100% - 22px, 1250px);
-        padding-top: 28px;
+      .stats-grid {
+        grid-template-columns:
+          1fr;
       }
 
-      .welcome {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .student-code-box {
-        width: 100%;
-      }
-
-      .top-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .wallet-card {
-        grid-column: auto;
-      }
-
-      .subjects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .actions-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .account-box {
-        align-items: flex-start;
-        flex-direction: column;
+      .subjects {
+        grid-template-columns:
+          1fr;
       }
 
     }
@@ -1022,7 +1059,10 @@
 
 <body>
 
-  <!-- LOADING SCREEN -->
+
+  <!-- =========================
+       LOADING
+  ========================= -->
 
   <div
     class="loading-screen"
@@ -1037,10 +1077,10 @@
         class="loading-logo"
       >
 
-      <div class="loader"></div>
+      <div class="spinner"></div>
 
       <div class="loading-text">
-        جاري تحميل لوحة الطالب...
+        جاري تحميل حسابك...
       </div>
 
     </div>
@@ -1048,11 +1088,48 @@
   </div>
 
 
-  <!-- HEADER -->
+  <!-- =========================
+       ERROR
+  ========================= -->
 
-  <header class="header">
+  <div
+    class="error-screen"
+    id="errorScreen"
+  >
 
-    <div class="header-inner">
+    <div class="error-box">
+
+      <div class="error-icon">
+        ⚠️
+      </div>
+
+      <h2>
+        تعذر تحميل الحساب
+      </h2>
+
+      <p id="errorText">
+        حدث خطأ أثناء تحميل بيانات الحساب.
+      </p>
+
+      <a
+        href="login.html"
+        class="error-login"
+      >
+        العودة لتسجيل الدخول
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       NAVBAR
+  ========================= -->
+
+  <header class="navbar">
+
+    <div class="nav-inner">
 
       <a
         href="dashboard.html"
@@ -1066,13 +1143,21 @@
         >
 
         <div class="brand-name">
-          <span class="math">Math</span><span class="ix">ix</span>
+
+          <span class="math">
+            Math
+          </span>
+
+          <span class="ix">
+            ix
+          </span>
+
         </div>
 
       </a>
 
 
-      <nav class="nav">
+      <nav class="nav-links">
 
         <a
           href="dashboard.html"
@@ -1112,558 +1197,560 @@
       </nav>
 
 
-      <div class="header-actions">
-
-        <a
-          href="wallet.html"
-          class="wallet-mini"
-        >
-
-          <div class="wallet-icon">
-            ج
-          </div>
-
-          <div class="wallet-mini-info">
-
-            <span class="wallet-mini-label">
-              رصيد المحفظة
-            </span>
-
-            <span
-              class="wallet-mini-value"
-              id="headerBalance"
-            >
-              0.00 ج.م
-            </span>
-
-          </div>
-
-        </a>
-
-
-        <button
-          type="button"
-          class="logout-btn"
-          id="logoutBtn"
-        >
-          تسجيل الخروج
-        </button>
-
-
-        <button
-          type="button"
-          class="mobile-menu-btn"
-          id="mobileMenuBtn"
-          aria-label="فتح القائمة"
-        >
-          ☰
-        </button>
-
-      </div>
+      <button
+        class="logout-btn"
+        id="logoutBtn"
+        type="button"
+      >
+        تسجيل الخروج
+      </button>
 
     </div>
 
   </header>
 
 
-  <!-- MOBILE NAV -->
+  <!-- =========================
+       PAGE
+  ========================= -->
 
-  <div
-    class="mobile-nav"
-    id="mobileNav"
-  >
-
-    <a href="dashboard.html">
-      الرئيسية
-    </a>
-
-    <a href="subjects.html">
-      المواد
-    </a>
-
-    <a href="revisions.html">
-      المراجعات
-    </a>
-
-    <a href="wallet.html">
-      المحفظة
-    </a>
-
-    <a href="profile.html">
-      الملف الشخصي
-    </a>
-
-    <button
-      type="button"
-      id="mobileLogoutBtn"
-    >
-      تسجيل الخروج
-    </button>
-
-  </div>
+  <main class="page">
 
 
-  <!-- MAIN -->
-
-  <main>
+    <!-- WELCOME -->
 
     <section class="welcome">
 
-      <div class="welcome-text">
+      <div class="welcome-content">
 
-        <small>
-          مرحباً بك في Mathix
-        </small>
+        <div class="welcome-label">
+          مرحبًا بك في Mathix
+        </div>
 
         <h1>
           أهلاً يا
-          <span id="studentFirstName">
-            طالب
+          <span id="welcomeName">
+            الطالب
           </span>
-          👋
         </h1>
 
         <p>
-          كل أدوات مذاكرتك في مكان واحد.
+          كل اللي تحتاجه للمذاكرة والمراجعة في مكان واحد.
         </p>
 
       </div>
 
+    </section>
 
-      <div class="student-code-box">
 
-        <div class="student-code-label">
-          كود الطالب
+    <!-- STATS -->
+
+    <section class="stats-grid">
+
+
+      <div class="stat-card">
+
+        <div class="stat-top">
+
+          <div class="stat-label">
+            مستوى الطالب
+          </div>
+
+          <div class="stat-icon">
+            ★
+          </div>
+
         </div>
 
         <div
-          class="student-code"
-          id="studentCode"
+          class="stat-value"
+          id="studentLevel"
         >
-          —
+          Beginner
         </div>
 
       </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-top">
+
+          <div class="stat-label">
+            نسبة التقدم
+          </div>
+
+          <div class="stat-icon">
+            %
+          </div>
+
+        </div>
+
+        <div class="stat-value">
+
+          <span id="progressValue">
+            0
+          </span>
+
+          <small>
+            %
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-top">
+
+          <div class="stat-label">
+            رصيد المحفظة
+          </div>
+
+          <div class="stat-icon">
+            $
+          </div>
+
+        </div>
+
+        <div class="stat-value">
+
+          <span id="walletBalance">
+            0
+          </span>
+
+          <small>
+            جنيه
+          </small>
+
+        </div>
+
+      </div>
+
 
     </section>
 
 
-    <section class="top-grid">
+    <!-- MAIN GRID -->
 
-      <!-- Student -->
+    <section class="main-grid">
 
-      <div class="info-card">
 
-        <div class="card-icon">
-          ◉
-        </div>
+      <!-- SUBJECTS -->
 
-        <div class="card-label">
-          بيانات الحساب
-        </div>
+      <div class="section">
 
-        <div
-          class="student-name"
-          id="studentFullName"
-        >
-          جاري التحميل...
-        </div>
-
-        <div
-          class="student-email"
-          id="studentEmail"
-        >
-          —
-        </div>
-
-        <div class="status-row">
-
-          <span class="status-dot"></span>
-
-          <span>
-            الحساب نشط
-          </span>
-
-        </div>
-
-      </div>
-
-
-      <!-- Wallet -->
-
-      <div class="info-card wallet-card">
-
-        <div class="card-icon">
-          ج
-        </div>
-
-        <div class="card-label">
-          رصيد المحفظة
-        </div>
-
-        <div class="wallet-balance">
-
-          <span id="mainBalance">
-            0.00
-          </span>
-
-          <span class="currency">
-            ج.م
-          </span>
-
-        </div>
-
-        <a
-          href="wallet.html"
-          class="wallet-link"
-        >
-          إدارة المحفظة ←
-        </a>
-
-      </div>
-
-
-      <!-- Account -->
-
-      <div class="info-card">
-
-        <div class="card-icon">
-          ✓
-        </div>
-
-        <div class="card-label">
-          حالة الحساب
-        </div>
-
-        <div class="student-name">
-          طالب Mathix
-        </div>
-
-        <div class="status-row">
-
-          <span class="status-dot"></span>
-
-          <span>
-            الحساب نشط
-          </span>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- Subjects -->
-
-    <section>
-
-      <div class="section-head">
-
-        <h2 class="section-title">
-          موادك <span>الدراسية</span>
-        </h2>
-
-        <a
-          href="subjects.html"
-          class="section-link"
-        >
-          عرض كل المواد ←
-        </a>
-
-      </div>
-
-
-      <div class="subjects-grid">
-
-        <a
-          href="subjects.html?subject=arabic"
-          class="subject-card"
-        >
-
-          <span class="subject-number">
-            01
-          </span>
-
-          <div class="subject-icon">
-            ع
-          </div>
-
-          <div class="subject-name">
-            اللغة العربية
-          </div>
-
-          <div class="subject-desc">
-            نحو · أدب · بلاغة
-          </div>
-
-        </a>
-
-
-        <a
-          href="subjects.html?subject=english"
-          class="subject-card"
-        >
-
-          <span class="subject-number">
-            02
-          </span>
-
-          <div class="subject-icon">
-            EN
-          </div>
-
-          <div class="subject-name">
-            اللغة الإنجليزية
-          </div>
-
-          <div class="subject-desc">
-            Grammar · Vocabulary · Reading
-          </div>
-
-        </a>
-
-
-        <a
-          href="subjects.html?subject=physics"
-          class="subject-card"
-        >
-
-          <span class="subject-number">
-            03
-          </span>
-
-          <div class="subject-icon">
-            Φ
-          </div>
-
-          <div class="subject-name">
-            Physics
-          </div>
-
-          <div class="subject-desc">
-            Mechanics · Electricity · Waves
-          </div>
-
-        </a>
-
-
-        <a
-          href="subjects.html?subject=chemistry"
-          class="subject-card"
-        >
-
-          <span class="subject-number">
-            04
-          </span>
-
-          <div class="subject-icon">
-            C
-          </div>
-
-          <div class="subject-name">
-            Chemistry
-          </div>
-
-          <div class="subject-desc">
-            Organic · Inorganic · Physical
-          </div>
-
-        </a>
-
-
-        <a
-          href="subjects.html?subject=solid"
-          class="subject-card"
-        >
-
-          <span class="subject-number">
-            05
-          </span>
-
-          <div class="subject-icon">
-            ∠
-          </div>
-
-          <div class="subject-name">
-            Solid Geometry
-          </div>
-
-          <div class="subject-desc">
-            Geometry · Vectors · Space
-          </div>
-
-        </a>
-
-
-        <a
-          href="subjects.html?subject=algebra"
-          class="subject-card"
-        >
-
-          <span class="subject-number">
-            06
-          </span>
-
-          <div class="subject-icon">
-            x²
-          </div>
-
-          <div class="subject-name">
-            Algebra
-          </div>
-
-          <div class="subject-desc">
-            Equations · Functions · Algebra
-          </div>
-
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- Quick Actions -->
-
-    <section>
-
-      <div class="section-head">
-
-        <h2 class="section-title">
-          الوصول <span>السريع</span>
-        </h2>
-
-      </div>
-
-
-      <div class="actions-grid">
-
-        <a
-          href="subjects.html"
-          class="action-card"
-        >
-
-          <div class="action-icon">
-            Σ
-          </div>
+        <div class="section-header">
 
           <div>
 
-            <div class="action-title">
-              المواد
+            <div class="section-title">
+              المواد الدراسية
             </div>
 
-            <div class="action-desc">
-              تصفح دروسك وملخصاتك
-            </div>
-
-          </div>
-
-        </a>
-
-
-        <a
-          href="revisions.html"
-          class="action-card"
-        >
-
-          <div class="action-icon">
-            ↻
-          </div>
-
-          <div>
-
-            <div class="action-title">
-              المراجعات
-            </div>
-
-            <div class="action-desc">
-              راجع أهم أجزاء المنهج
+            <div class="section-subtitle">
+              اختار المادة وابدأ المذاكرة
             </div>
 
           </div>
 
-        </a>
+          <a
+            href="subjects.html"
+            class="view-all"
+          >
+            عرض الكل
+          </a>
+
+        </div>
 
 
-        <a
-          href="wallet.html"
-          class="action-card"
-        >
+        <div class="subjects">
 
-          <div class="action-icon">
-            ج
-          </div>
 
-          <div>
+          <a
+            href="subjects.html?subject=arabic"
+            class="subject-card"
+          >
 
-            <div class="action-title">
-              المحفظة
+            <div class="subject-icon">
+              ع
             </div>
 
-            <div class="action-desc">
-              شحن ومتابعة رصيدك
+            <div class="subject-name">
+              اللغة العربية
             </div>
 
-          </div>
-
-        </a>
-
-
-        <a
-          href="profile.html"
-          class="action-card"
-        >
-
-          <div class="action-icon">
-            ◉
-          </div>
-
-          <div>
-
-            <div class="action-title">
-              الملف الشخصي
+            <div class="subject-description">
+              نحو، أدب، بلاغة ومراجعات
             </div>
 
-            <div class="action-desc">
-              بيانات حسابك الشخصية
+          </a>
+
+
+          <a
+            href="subjects.html?subject=english"
+            class="subject-card"
+          >
+
+            <div class="subject-icon">
+              EN
             </div>
 
-          </div>
+            <div class="subject-name">
+              اللغة الإنجليزية
+            </div>
 
-        </a>
+            <div class="subject-description">
+              Grammar، Vocabulary ومراجعات
+            </div>
+
+          </a>
+
+
+          <a
+            href="subjects.html?subject=physics"
+            class="subject-card"
+          >
+
+            <div class="subject-icon">
+              Φ
+            </div>
+
+            <div class="subject-name">
+              Physics
+            </div>
+
+            <div class="subject-description">
+              شرح وقوانين ومسائل
+            </div>
+
+          </a>
+
+
+          <a
+            href="subjects.html?subject=chemistry"
+            class="subject-card"
+          >
+
+            <div class="subject-icon">
+              Ch
+            </div>
+
+            <div class="subject-name">
+              Chemistry
+            </div>
+
+            <div class="subject-description">
+              شرح وتدريبات ومراجعات
+            </div>
+
+          </a>
+
+
+          <a
+            href="subjects.html?subject=solid"
+            class="subject-card"
+          >
+
+            <div class="subject-icon">
+              ∆
+            </div>
+
+            <div class="subject-name">
+              Solid Geometry
+            </div>
+
+            <div class="subject-description">
+              هندسة فراغية ومسائل
+            </div>
+
+          </a>
+
+
+          <a
+            href="subjects.html?subject=algebra"
+            class="subject-card"
+          >
+
+            <div class="subject-icon">
+              x²
+            </div>
+
+            <div class="subject-name">
+              Algebra
+            </div>
+
+            <div class="subject-description">
+              جبر وتدريبات ومسائل
+            </div>
+
+          </a>
+
+
+        </div>
 
       </div>
 
-    </section>
+
+      <!-- RIGHT COLUMN -->
+
+      <div
+        style="
+          display:grid;
+          gap:22px;
+        "
+      >
 
 
-    <!-- Account Status -->
+        <!-- PROFILE -->
 
-    <section class="account-box">
+        <div class="section">
 
-      <div>
+          <div class="section-header">
 
-        <h3>
-          حسابك جاهز للمذاكرة 🚀
-        </h3>
+            <div>
 
-        <p>
-          استخدم رصيد المحفظة لشراء الملخصات والمحتوى المدفوع.
-        </p>
+              <div class="section-title">
+                بيانات الحساب
+              </div>
 
-      </div>
+              <div class="section-subtitle">
+                معلومات حسابك في Mathix
+              </div>
 
-      <div class="active-badge">
+            </div>
 
-        <span>
-          ✓
-        </span>
+            <a
+              href="profile.html"
+              class="view-all"
+            >
+              تعديل
+            </a>
 
-        <span>
-          الحساب نشط
-        </span>
+          </div>
+
+
+          <div class="profile-content">
+
+            <div class="profile-head">
+
+              <div
+                class="profile-avatar"
+                id="profileAvatar"
+              >
+                M
+              </div>
+
+              <div>
+
+                <div
+                  class="profile-name"
+                  id="profileName"
+                >
+                  جاري التحميل...
+                </div>
+
+                <div
+                  class="profile-email"
+                  id="profileEmail"
+                >
+                  ...
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="info-list">
+
+
+              <div class="info-row">
+
+                <div class="info-label">
+                  كود الطالب
+                </div>
+
+                <div
+                  class="info-value"
+                  id="studentCode"
+                >
+                  ...
+                </div>
+
+              </div>
+
+
+              <div class="info-row">
+
+                <div class="info-label">
+                  رقم الهاتف
+                </div>
+
+                <div
+                  class="info-value"
+                  id="studentPhone"
+                >
+                  ...
+                </div>
+
+              </div>
+
+
+              <div class="info-row">
+
+                <div class="info-label">
+                  حالة الحساب
+                </div>
+
+                <div class="info-value">
+
+                  <span class="status">
+
+                    <span class="status-dot"></span>
+
+                    نشط
+
+                  </span>
+
+                </div>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="section">
+
+          <div class="section-header">
+
+            <div>
+
+              <div class="section-title">
+                الوصول السريع
+              </div>
+
+              <div class="section-subtitle">
+                أهم الأدوات
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="quick-actions">
+
+
+            <a
+              href="subjects.html"
+              class="quick-card"
+            >
+
+              <div class="quick-icon">
+                📚
+              </div>
+
+              <div>
+
+                <div class="quick-title">
+                  المواد
+                </div>
+
+                <div class="quick-description">
+                  الدروس والمحتوى
+                </div>
+
+              </div>
+
+            </a>
+
+
+            <a
+              href="revisions.html"
+              class="quick-card"
+            >
+
+              <div class="quick-icon">
+                📝
+              </div>
+
+              <div>
+
+                <div class="quick-title">
+                  المراجعات
+                </div>
+
+                <div class="quick-description">
+                  راجع قبل الامتحان
+                </div>
+
+              </div>
+
+            </a>
+
+
+            <a
+              href="wallet.html"
+              class="quick-card"
+            >
+
+              <div class="quick-icon">
+                💳
+              </div>
+
+              <div>
+
+                <div class="quick-title">
+                  المحفظة
+                </div>
+
+                <div class="quick-description">
+                  الرصيد والشحن
+                </div>
+
+              </div>
+
+            </a>
+
+
+            <a
+              href="profile.html"
+              class="quick-card"
+            >
+
+              <div class="quick-icon">
+                👤
+              </div>
+
+              <div>
+
+                <div class="quick-title">
+                  الملف الشخصي
+                </div>
+
+                <div class="quick-description">
+                  بيانات الحساب
+                </div>
+
+              </div>
+
+            </a>
+
+
+          </div>
+
+        </div>
+
 
       </div>
 
@@ -1672,25 +1759,28 @@
   </main>
 
 
-  <!-- FIREBASE -->
-
   <script type="module">
 
     import {
       initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    } from
+      "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
     import {
-      getAuth,
-      onAuthStateChanged,
+      initializeAuth,
+      browserLocalPersistence,
       signOut
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    } from
+      "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 
     import {
       getFirestore,
       doc,
       onSnapshot
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    } from
+      "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
     /* =========================
@@ -1700,7 +1790,7 @@
     const firebaseConfig = {
 
       apiKey:
-        "AIzaSyCH--HkIXYn3qhXZ9TwR9ItZrnMOIx_lWXk",
+        "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk",
 
       authDomain:
         "mathix-2008.firebaseapp.com",
@@ -1723,15 +1813,26 @@
     };
 
 
-    /* =========================
-       INIT
-    ========================= */
+    const app =
+      initializeApp(firebaseConfig);
 
-    const app = initializeApp(firebaseConfig);
 
-    const auth = getAuth(app);
+    /*
+      نفس طريقة Login بالضبط.
+    */
 
-    const db = getFirestore(app);
+    const auth =
+      initializeAuth(
+        app,
+        {
+          persistence:
+            browserLocalPersistence
+        }
+      );
+
+
+    const db =
+      getFirestore(app);
 
 
     /* =========================
@@ -1739,381 +1840,385 @@
     ========================= */
 
     const loadingScreen =
-      document.getElementById("loadingScreen");
+      document.getElementById(
+        "loadingScreen"
+      );
 
-    const studentFirstName =
-      document.getElementById("studentFirstName");
+    const errorScreen =
+      document.getElementById(
+        "errorScreen"
+      );
 
-    const studentFullName =
-      document.getElementById("studentFullName");
+    const errorText =
+      document.getElementById(
+        "errorText"
+      );
 
-    const studentEmail =
-      document.getElementById("studentEmail");
+    const welcomeName =
+      document.getElementById(
+        "welcomeName"
+      );
+
+    const profileName =
+      document.getElementById(
+        "profileName"
+      );
+
+    const profileEmail =
+      document.getElementById(
+        "profileEmail"
+      );
+
+    const profileAvatar =
+      document.getElementById(
+        "profileAvatar"
+      );
 
     const studentCode =
-      document.getElementById("studentCode");
+      document.getElementById(
+        "studentCode"
+      );
 
-    const mainBalance =
-      document.getElementById("mainBalance");
+    const studentPhone =
+      document.getElementById(
+        "studentPhone"
+      );
 
-    const headerBalance =
-      document.getElementById("headerBalance");
+    const walletBalance =
+      document.getElementById(
+        "walletBalance"
+      );
 
     const logoutBtn =
-      document.getElementById("logoutBtn");
-
-    const mobileLogoutBtn =
-      document.getElementById("mobileLogoutBtn");
-
-    const mobileMenuBtn =
-      document.getElementById("mobileMenuBtn");
-
-    const mobileNav =
-      document.getElementById("mobileNav");
+      document.getElementById(
+        "logoutBtn"
+      );
 
 
     /* =========================
-       MOBILE MENU
+       ERROR
     ========================= */
 
-    mobileMenuBtn.addEventListener(
-      "click",
-      () => {
+    function showError(text) {
 
-        mobileNav.classList.toggle("open");
+      loadingScreen.style.display =
+        "none";
 
-        mobileMenuBtn.textContent =
-          mobileNav.classList.contains("open")
-            ? "×"
-            : "☰";
+      errorText.textContent =
+        text;
 
-      }
-    );
+      errorScreen.style.display =
+        "flex";
+
+    }
 
 
-    document
-      .querySelectorAll(".mobile-nav a")
-      .forEach(link => {
+    /* =========================
+       AUTH CHECK
+    ========================= */
 
-        link.addEventListener(
-          "click",
-          () => {
+    try {
 
-            mobileNav.classList.remove("open");
+      /*
+        انتظر حتى Firebase يقرأ
+        الـLocal Persistence.
 
-            mobileMenuBtn.textContent = "☰";
+        لا يوجد onAuthStateChanged
+        هنا ولا redirect متسرع.
+      */
 
-          }
+      await auth.authStateReady();
+
+
+      const user =
+        auth.currentUser;
+
+
+      console.log(
+        "Mathix Auth User:",
+        user
+      );
+
+
+      if (!user) {
+
+        /*
+          لا يوجد مستخدم محفوظ.
+        */
+
+        window.location.replace(
+          "login.html"
         );
 
-      });
+      } else {
+
+        /*
+          المستخدم موجود.
+        */
+
+        console.log(
+          "Mathix UID:",
+          user.uid
+        );
+
+
+        loadUserData(
+          user.uid,
+          user.email || ""
+        );
+
+
+        loadWallet(
+          user.uid
+        );
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "AUTH INITIALIZATION ERROR:",
+        error
+      );
+
+
+      showError(
+        "تعذر تشغيل نظام تسجيل الدخول. افتح Console لمعرفة الخطأ."
+      );
+
+    }
+
+
+    /* =========================
+       USER DATA
+    ========================= */
+
+    function loadUserData(
+      uid,
+      authEmail
+    ) {
+
+      const userRef =
+        doc(
+          db,
+          "users",
+          uid
+        );
+
+
+      onSnapshot(
+        userRef,
+
+        snapshot => {
+
+          if (!snapshot.exists()) {
+
+            showError(
+              "تم تسجيل الدخول، لكن بيانات الطالب غير موجودة في Firestore."
+            );
+
+            return;
+
+          }
+
+
+          const data =
+            snapshot.data();
+
+
+          const firstName =
+            data.firstName ||
+            "";
+
+
+          const secondName =
+            data.secondName ||
+            "";
+
+
+          const fullName =
+            data.fullName ||
+            `${firstName} ${secondName}`.trim() ||
+            "الطالب";
+
+
+          const email =
+            data.email ||
+            authEmail ||
+            "";
+
+
+          const code =
+            data.studentCode ||
+            "غير متوفر";
+
+
+          const phone =
+            data.phone ||
+            "غير متوفر";
+
+
+          welcomeName.textContent =
+            firstName ||
+            fullName.split(" ")[0] ||
+            "الطالب";
+
+
+          profileName.textContent =
+            fullName;
+
+
+          profileEmail.textContent =
+            email;
+
+
+          studentCode.textContent =
+            code;
+
+
+          studentPhone.textContent =
+            phone;
+
+
+          profileAvatar.textContent =
+            (
+              firstName ||
+              fullName ||
+              "M"
+            )
+            .charAt(0)
+            .toUpperCase();
+
+
+          loadingScreen.style.display =
+            "none";
+
+        },
+
+        error => {
+
+          console.error(
+            "USER FIRESTORE ERROR:",
+            error
+          );
+
+
+          showError(
+            "تعذر تحميل بيانات الطالب من Firestore."
+          );
+
+        }
+
+      );
+
+    }
+
+
+    /* =========================
+       WALLET
+    ========================= */
+
+    function loadWallet(uid) {
+
+      const walletRef =
+        doc(
+          db,
+          "wallets",
+          uid
+        );
+
+
+      onSnapshot(
+        walletRef,
+
+        snapshot => {
+
+          if (!snapshot.exists()) {
+
+            walletBalance.textContent =
+              "0";
+
+            return;
+
+          }
+
+
+          const data =
+            snapshot.data();
+
+
+          const balance =
+            Number(
+              data.balance || 0
+            );
+
+
+          walletBalance.textContent =
+            balance.toLocaleString(
+              "ar-EG"
+            );
+
+        },
+
+        error => {
+
+          console.error(
+            "WALLET FIRESTORE ERROR:",
+            error
+          );
+
+
+          walletBalance.textContent =
+            "0";
+
+        }
+
+      );
+
+    }
 
 
     /* =========================
        LOGOUT
     ========================= */
 
-    async function logout() {
-
-      try {
-
-        await signOut(auth);
-
-        window.location.href =
-          "login.html";
-
-      } catch (error) {
-
-        console.error(
-          "Logout error:",
-          error
-        );
-
-        alert(
-          "حدث خطأ أثناء تسجيل الخروج."
-        );
-
-      }
-
-    }
-
-
     logoutBtn.addEventListener(
       "click",
-      logout
-    );
+      async () => {
 
-    mobileLogoutBtn.addEventListener(
-      "click",
-      logout
-    );
+        logoutBtn.disabled =
+          true;
 
-
-    /* =========================
-       FORMAT BALANCE
-    ========================= */
-
-    function formatBalance(value) {
-
-      const number =
-        Number(value || 0);
-
-      return number.toLocaleString(
-        "ar-EG",
-        {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        }
-      );
-
-    }
+        logoutBtn.textContent =
+          "جاري الخروج...";
 
 
-    /* =========================
-       HIDE LOADING
-    ========================= */
+        try {
 
-    function hideLoading() {
+          await signOut(
+            auth
+          );
 
-      loadingScreen.style.opacity = "0";
-
-      loadingScreen.style.pointerEvents =
-        "none";
-
-      setTimeout(
-        () => {
-          if (loadingScreen) {
-            loadingScreen.remove();
-          }
-        },
-        300
-      );
-
-    }
-
-
-    /* =========================
-       AUTH STATE
-    ========================= */
-
-    onAuthStateChanged(
-      auth,
-      (user) => {
-
-        /*
-          لو مفيش مستخدم مسجل دخول
-          نرجعه للـ Login.
-        */
-
-        if (!user) {
 
           window.location.replace(
             "login.html"
           );
 
-          return;
+        } catch (error) {
+
+          console.error(
+            "LOGOUT ERROR:",
+            error
+          );
+
+
+          logoutBtn.disabled =
+            false;
+
+          logoutBtn.textContent =
+            "تسجيل الخروج";
 
         }
-
-
-        /*
-          مهم:
-          لا يوجد أي فحص لـ emailVerified.
-          المستخدم يدخل مباشرة بعد تسجيل الدخول.
-        */
-
-
-        /* =========================
-           STUDENT DATA
-        ========================= */
-
-        const userRef =
-          doc(
-            db,
-            "users",
-            user.uid
-          );
-
-
-        onSnapshot(
-          userRef,
-
-          (snapshot) => {
-
-            /*
-              لو بيانات الطالب موجودة
-            */
-
-            if (snapshot.exists()) {
-
-              const data =
-                snapshot.data();
-
-
-              studentFirstName.textContent =
-                data.firstName ||
-                "طالب";
-
-
-              const fullName =
-                data.fullName ||
-                `${data.firstName || ""} ${data.secondName || ""}`.trim() ||
-                "طالب Mathix";
-
-
-              studentFullName.textContent =
-                fullName;
-
-
-              studentEmail.textContent =
-                data.email ||
-                user.email ||
-                "—";
-
-
-              studentCode.textContent =
-                data.studentCode ||
-                "—";
-
-            } else {
-
-              /*
-                لو المستخدم موجود في Firebase Auth
-                لكن مستند users غير موجود،
-                لا نطرده من الـDashboard.
-              */
-
-              console.warn(
-                "Student document not found."
-              );
-
-
-              studentFirstName.textContent =
-                user.displayName ||
-                "طالب";
-
-
-              studentFullName.textContent =
-                user.displayName ||
-                "طالب Mathix";
-
-
-              studentEmail.textContent =
-                user.email ||
-                "—";
-
-
-              studentCode.textContent =
-                "—";
-
-            }
-
-
-            hideLoading();
-
-          },
-
-          (error) => {
-
-            console.error(
-              "User snapshot error:",
-              error
-            );
-
-
-            /*
-              حتى لو حصل خطأ في Firestore،
-              لا نعمل Logout للمستخدم.
-            */
-
-            studentFirstName.textContent =
-              user.displayName ||
-              "طالب";
-
-
-            studentFullName.textContent =
-              user.displayName ||
-              "طالب Mathix";
-
-
-            studentEmail.textContent =
-              user.email ||
-              "—";
-
-
-            studentCode.textContent =
-              "—";
-
-
-            hideLoading();
-
-          }
-
-        );
-
-
-        /* =========================
-           WALLET
-        ========================= */
-
-        const walletRef =
-          doc(
-            db,
-            "wallets",
-            user.uid
-          );
-
-
-        onSnapshot(
-          walletRef,
-
-          (snapshot) => {
-
-            let balance = 0;
-
-
-            if (snapshot.exists()) {
-
-              const data =
-                snapshot.data();
-
-              balance =
-                Number(data.balance || 0);
-
-            }
-
-
-            const formatted =
-              formatBalance(balance);
-
-
-            mainBalance.textContent =
-              formatted;
-
-
-            headerBalance.textContent =
-              `${formatted} ج.م`;
-
-          },
-
-          (error) => {
-
-            console.error(
-              "Wallet snapshot error:",
-              error
-            );
-
-
-            mainBalance.textContent =
-              "0.00";
-
-
-            headerBalance.textContent =
-              "0.00 ج.م";
-
-          }
-
-        );
 
       }
     );
