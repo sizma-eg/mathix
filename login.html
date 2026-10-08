@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -21,10 +22,7 @@
 
   <title>تسجيل الدخول — Mathix</title>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 
   <link
     rel="preconnect"
@@ -38,6 +36,7 @@
   >
 
   <style>
+
     :root {
       --bg: #050507;
       --bg-2: #08080d;
@@ -67,19 +66,23 @@
       --radius-sm: 16px;
     }
 
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+
     html {
       min-height: 100%;
       background: var(--bg);
     }
 
+
     body {
       min-height: 100vh;
+
       background:
         radial-gradient(
           circle at 88% 8%,
@@ -94,12 +97,16 @@
         var(--bg);
 
       color: var(--text);
+
       font-family: "Cairo", sans-serif;
+
       overflow-x: hidden;
     }
 
+
     body::before {
       content: "";
+
       position: fixed;
       inset: 0;
 
@@ -118,28 +125,33 @@
 
       background-size: 45px 45px;
 
-      mask-image: linear-gradient(
-        to bottom,
-        black,
-        transparent 90%
-      );
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 90%
+        );
 
       z-index: 0;
     }
+
 
     button,
     input {
       font: inherit;
     }
 
+
     button {
       border: 0;
     }
+
 
     a {
       color: inherit;
       text-decoration: none;
     }
+
 
     /* =========================
        LOADING
@@ -148,6 +160,7 @@
     .loading-screen {
       position: fixed;
       inset: 0;
+
       z-index: 9999;
 
       display: flex;
@@ -167,16 +180,20 @@
         visibility .45s ease;
     }
 
+
     .loading-screen.hidden {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
 
+
     .loading-content {
       width: min(90%, 320px);
+
       text-align: center;
     }
+
 
     .loading-logo {
       width: 68px;
@@ -202,29 +219,39 @@
         inset 0 1px 0 rgba(255,255,255,.25);
 
       font-family: "Chakra Petch", sans-serif;
+
       font-size: 32px;
       font-weight: 700;
+
       color: white;
 
-      animation: logoPulse 1.8s ease-in-out infinite;
+      animation:
+        logoPulse 1.8s ease-in-out infinite;
     }
 
+
     .loading-title {
+      margin-bottom: 14px;
+
       font-size: 15px;
       font-weight: 700;
+
       color: var(--text);
-      margin-bottom: 14px;
     }
+
 
     .loading-line {
       width: 100%;
       height: 3px;
 
       overflow: hidden;
+
       border-radius: 99px;
 
-      background: rgba(255,255,255,.06);
+      background:
+        rgba(255,255,255,.06);
     }
+
 
     .loading-line::after {
       content: "";
@@ -246,10 +273,13 @@
       box-shadow:
         0 0 18px rgba(139,61,255,.7);
 
-      animation: loadingMove 1.2s ease-in-out infinite;
+      animation:
+        loadingMove 1.2s ease-in-out infinite;
     }
 
+
     @keyframes loadingMove {
+
       0% {
         transform: translateX(-130%);
       }
@@ -257,12 +287,16 @@
       100% {
         transform: translateX(330%);
       }
+
     }
 
+
     @keyframes logoPulse {
+
       0%,
       100% {
         transform: translateY(0);
+
         box-shadow:
           0 0 45px rgba(139,61,255,.35),
           inset 0 1px 0 rgba(255,255,255,.25);
@@ -270,11 +304,14 @@
 
       50% {
         transform: translateY(-5px);
+
         box-shadow:
           0 0 65px rgba(139,61,255,.52),
           inset 0 1px 0 rgba(255,255,255,.3);
       }
+
     }
+
 
     /* =========================
        PAGE
@@ -282,21 +319,25 @@
 
     .page {
       position: relative;
+
       z-index: 1;
 
       min-height: 100vh;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
       padding: 30px 20px;
     }
 
+
     .login-shell {
       width: 100%;
       max-width: 470px;
     }
+
 
     /* =========================
        BRAND
@@ -304,6 +345,7 @@
 
     .brand {
       display: flex;
+
       align-items: center;
       justify-content: center;
 
@@ -312,11 +354,13 @@
       margin-bottom: 28px;
     }
 
+
     .brand-mark {
       width: 46px;
       height: 46px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
@@ -333,24 +377,33 @@
         0 0 32px rgba(139,61,255,.28),
         inset 0 1px 0 rgba(255,255,255,.22);
 
-      font-family: "Chakra Petch", sans-serif;
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
       font-size: 22px;
       font-weight: 700;
     }
 
+
     .brand-name {
       direction: ltr;
 
-      font-family: "Chakra Petch", sans-serif;
+      font-family:
+        "Chakra Petch",
+        sans-serif;
+
       font-size: 29px;
       font-weight: 700;
 
       letter-spacing: -.8px;
     }
 
+
     .brand-name span {
       color: var(--purple-2);
     }
+
 
     /* =========================
        CARD
@@ -363,8 +416,11 @@
 
       overflow: hidden;
 
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        var(--radius);
 
       background:
         linear-gradient(
@@ -373,13 +429,17 @@
           rgba(11,11,17,.78)
         );
 
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter:
+        blur(24px);
+
+      -webkit-backdrop-filter:
+        blur(24px);
 
       box-shadow:
         var(--shadow),
         0 0 80px rgba(139,61,255,.07);
     }
+
 
     .login-card::before {
       content: "";
@@ -394,12 +454,14 @@
 
       border-radius: 50%;
 
-      background: rgba(139,61,255,.15);
+      background:
+        rgba(139,61,255,.15);
 
       filter: blur(25px);
 
       pointer-events: none;
     }
+
 
     .login-card::after {
       content: "";
@@ -421,17 +483,21 @@
         );
     }
 
+
     .card-content {
       position: relative;
       z-index: 1;
     }
 
+
     .welcome {
       margin-bottom: 28px;
     }
 
+
     .welcome-badge {
       display: inline-flex;
+
       align-items: center;
 
       gap: 7px;
@@ -440,16 +506,21 @@
 
       padding: 6px 11px;
 
-      border: 1px solid var(--border-purple);
+      border:
+        1px solid var(--border-purple);
+
       border-radius: 999px;
 
-      background: rgba(139,61,255,.07);
+      background:
+        rgba(139,61,255,.07);
 
-      color: var(--purple-3);
+      color:
+        var(--purple-3);
 
       font-size: 11px;
       font-weight: 700;
     }
+
 
     .welcome-badge-dot {
       width: 6px;
@@ -457,25 +528,33 @@
 
       border-radius: 50%;
 
-      background: var(--purple-2);
+      background:
+        var(--purple-2);
 
       box-shadow:
         0 0 10px rgba(167,92,255,.8);
     }
 
+
     .welcome h1 {
       font-size: 27px;
+
       line-height: 1.45;
+
       font-weight: 900;
 
       margin-bottom: 6px;
     }
 
+
     .welcome p {
       color: var(--muted);
+
       font-size: 13px;
+
       line-height: 1.8;
     }
+
 
     /* =========================
        FORM
@@ -485,8 +564,10 @@
       margin-bottom: 18px;
     }
 
+
     .form-label {
       display: flex;
+
       align-items: center;
       justify-content: space-between;
 
@@ -494,12 +575,15 @@
 
       font-size: 12px;
       font-weight: 700;
+
       color: #dcd8e8;
     }
+
 
     .input-wrap {
       position: relative;
     }
+
 
     .input-icon {
       position: absolute;
@@ -510,29 +594,38 @@
       width: 19px;
       height: 19px;
 
-      transform: translateY(-50%);
+      transform:
+        translateY(-50%);
 
-      color: var(--muted-2);
+      color:
+        var(--muted-2);
 
       pointer-events: none;
 
-      transition: color .2s ease;
+      transition:
+        color .2s ease;
     }
+
 
     .form-input {
       width: 100%;
       height: 53px;
 
-      padding: 0 46px 0 15px;
+      padding:
+        0 46px 0 15px;
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-radius: 15px;
 
       outline: none;
 
-      background: rgba(255,255,255,.035);
+      background:
+        rgba(255,255,255,.035);
 
-      color: var(--text);
+      color:
+        var(--text);
 
       font-size: 13px;
 
@@ -542,26 +635,36 @@
         box-shadow .2s ease;
     }
 
+
     .form-input::placeholder {
       color: #5f5c68;
     }
 
+
     .form-input:hover {
-      border-color: rgba(255,255,255,.11);
+      border-color:
+        rgba(255,255,255,.11);
     }
+
 
     .form-input:focus {
-      border-color: rgba(139,61,255,.58);
+      border-color:
+        rgba(139,61,255,.58);
 
-      background: rgba(139,61,255,.045);
+      background:
+        rgba(139,61,255,.045);
 
       box-shadow:
-        0 0 0 4px rgba(139,61,255,.08);
+        0 0 0 4px
+        rgba(139,61,255,.08);
     }
 
+
     .form-input:focus + .input-icon {
-      color: var(--purple-2);
+      color:
+        var(--purple-2);
     }
+
 
     .password-toggle {
       position: absolute;
@@ -569,18 +672,21 @@
       left: 13px;
       top: 50%;
 
-      transform: translateY(-50%);
+      transform:
+        translateY(-50%);
 
       width: 30px;
       height: 30px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
       background: transparent;
 
-      color: var(--muted-2);
+      color:
+        var(--muted-2);
 
       cursor: pointer;
 
@@ -591,13 +697,18 @@
         background .2s ease;
     }
 
+
     .password-toggle:hover {
       color: var(--text);
-      background: rgba(255,255,255,.05);
+
+      background:
+        rgba(255,255,255,.05);
     }
+
 
     .form-row {
       display: flex;
+
       align-items: center;
       justify-content: space-between;
 
@@ -605,18 +716,22 @@
       margin-bottom: 23px;
     }
 
+
     .remember {
       display: flex;
+
       align-items: center;
 
       gap: 8px;
 
       cursor: pointer;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
       font-size: 11px;
     }
+
 
     .remember input {
       appearance: none;
@@ -624,10 +739,13 @@
       width: 17px;
       height: 17px;
 
-      border: 1px solid rgba(255,255,255,.13);
+      border:
+        1px solid rgba(255,255,255,.13);
+
       border-radius: 5px;
 
-      background: rgba(255,255,255,.03);
+      background:
+        rgba(255,255,255,.03);
 
       cursor: pointer;
 
@@ -636,10 +754,15 @@
       transition: .2s ease;
     }
 
+
     .remember input:checked {
-      border-color: var(--purple);
-      background: var(--purple);
+      border-color:
+        var(--purple);
+
+      background:
+        var(--purple);
     }
+
 
     .remember input:checked::after {
       content: "";
@@ -658,21 +781,27 @@
       border-width:
         0 2px 2px 0;
 
-      transform: rotate(45deg);
+      transform:
+        rotate(45deg);
     }
 
+
     .forgot {
-      color: var(--purple-3);
+      color:
+        var(--purple-3);
 
       font-size: 11px;
       font-weight: 700;
 
-      transition: color .2s ease;
+      transition:
+        color .2s ease;
     }
+
 
     .forgot:hover {
       color: white;
     }
+
 
     /* =========================
        BUTTON
@@ -685,6 +814,7 @@
       height: 54px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
@@ -709,13 +839,15 @@
       overflow: hidden;
 
       box-shadow:
-        0 12px 32px rgba(139,61,255,.24);
+        0 12px 32px
+        rgba(139,61,255,.24);
 
       transition:
         transform .2s ease,
         box-shadow .2s ease,
         filter .2s ease;
     }
+
 
     .login-button::before {
       content: "";
@@ -736,53 +868,74 @@
           transparent
         );
 
-      transform: skewX(-20deg);
+      transform:
+        skewX(-20deg);
 
-      transition: left .6s ease;
+      transition:
+        left .6s ease;
     }
+
 
     .login-button:hover {
-      transform: translateY(-2px);
+      transform:
+        translateY(-2px);
 
       box-shadow:
-        0 16px 42px rgba(139,61,255,.34);
+        0 16px 42px
+        rgba(139,61,255,.34);
 
-      filter: brightness(1.05);
+      filter:
+        brightness(1.05);
     }
+
 
     .login-button:hover::before {
       left: 150%;
     }
 
+
     .login-button:active {
-      transform: translateY(0);
+      transform:
+        translateY(0);
     }
+
 
     .login-button:disabled {
       opacity: .7;
+
       cursor: not-allowed;
+
       transform: none;
     }
+
 
     .button-spinner {
       width: 18px;
       height: 18px;
 
       border:
-        2px solid rgba(255,255,255,.3);
+        2px solid
+        rgba(255,255,255,.3);
 
-      border-top-color: white;
+      border-top-color:
+        white;
 
       border-radius: 50%;
 
-      animation: spin .7s linear infinite;
+      animation:
+        spin .7s linear infinite;
     }
 
+
     @keyframes spin {
+
       to {
-        transform: rotate(360deg);
+        transform:
+          rotate(360deg);
       }
+
     }
+
 
     /* =========================
        DIVIDER
@@ -790,12 +943,14 @@
 
     .divider {
       display: flex;
+
       align-items: center;
 
       gap: 13px;
 
       margin: 25px 0;
     }
+
 
     .divider::before,
     .divider::after {
@@ -805,14 +960,19 @@
 
       height: 1px;
 
-      background: rgba(255,255,255,.07);
+      background:
+        rgba(255,255,255,.07);
     }
 
+
     .divider span {
-      color: var(--muted-2);
+      color:
+        var(--muted-2);
+
       font-size: 10px;
       font-weight: 600;
     }
+
 
     /* =========================
        SIGNUP
@@ -821,21 +981,28 @@
     .signup {
       text-align: center;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
       font-size: 12px;
     }
 
+
     .signup a {
-      color: var(--purple-3);
+      color:
+        var(--purple-3);
+
       font-weight: 800;
 
-      transition: color .2s ease;
+      transition:
+        color .2s ease;
     }
+
 
     .signup a:hover {
       color: white;
     }
+
 
     /* =========================
        SECURITY
@@ -843,6 +1010,7 @@
 
     .security {
       display: flex;
+
       align-items: center;
       justify-content: center;
 
@@ -850,14 +1018,18 @@
 
       margin-top: 22px;
 
-      color: var(--muted-2);
+      color:
+        var(--muted-2);
 
       font-size: 10px;
     }
 
+
     .security svg {
-      color: var(--green);
+      color:
+        var(--green);
     }
+
 
     /* =========================
        TOAST
@@ -872,17 +1044,21 @@
       z-index: 10000;
 
       display: flex;
+
       flex-direction: column;
 
       gap: 10px;
 
-      width: min(360px, calc(100% - 40px));
+      width:
+        min(360px, calc(100% - 40px));
 
       pointer-events: none;
     }
 
+
     .toast {
       display: flex;
+
       align-items: flex-start;
 
       gap: 11px;
@@ -890,18 +1066,23 @@
       padding: 13px 15px;
 
       border:
-        1px solid rgba(255,255,255,.08);
+        1px solid
+        rgba(255,255,255,.08);
 
       border-radius: 15px;
 
       background:
         rgba(18,18,25,.92);
 
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter:
+        blur(18px);
+
+      -webkit-backdrop-filter:
+        blur(18px);
 
       box-shadow:
-        0 15px 45px rgba(0,0,0,.35);
+        0 15px 45px
+        rgba(0,0,0,.35);
 
       animation:
         toastIn .3s ease forwards;
@@ -909,13 +1090,18 @@
       pointer-events: auto;
     }
 
+
     .toast.error {
-      border-color: rgba(255,88,112,.22);
+      border-color:
+        rgba(255,88,112,.22);
     }
 
+
     .toast.success {
-      border-color: rgba(53,220,136,.22);
+      border-color:
+        rgba(53,220,136,.22);
     }
+
 
     .toast-icon {
       width: 27px;
@@ -924,140 +1110,199 @@
       flex-shrink: 0;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
       border-radius: 9px;
 
-      background: rgba(255,255,255,.05);
+      background:
+        rgba(255,255,255,.05);
     }
+
 
     .toast.error .toast-icon {
-      color: var(--red);
-      background: rgba(255,88,112,.08);
+      color:
+        var(--red);
+
+      background:
+        rgba(255,88,112,.08);
     }
 
+
     .toast.success .toast-icon {
-      color: var(--green);
-      background: rgba(53,220,136,.08);
+      color:
+        var(--green);
+
+      background:
+        rgba(53,220,136,.08);
     }
+
 
     .toast-text {
       font-size: 11px;
+
       line-height: 1.7;
-      color: #ddd9e7;
+
+      color:
+        #ddd9e7;
     }
 
+
     @keyframes toastIn {
+
       from {
         opacity: 0;
-        transform: translateY(15px);
+
+        transform:
+          translateY(15px);
       }
 
       to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+          translateY(0);
       }
+
     }
+
 
     /* =========================
        RESPONSIVE
     ========================= */
 
     @media (max-width: 600px) {
+
       .page {
-        padding: 20px 14px;
+        padding:
+          20px 14px;
       }
+
 
       .login-card {
-        padding: 27px 21px;
-        border-radius: 21px;
+        padding:
+          27px 21px;
+
+        border-radius:
+          21px;
       }
 
+
       .brand {
-        margin-bottom: 22px;
+        margin-bottom:
+          22px;
       }
+
 
       .brand-mark {
         width: 42px;
         height: 42px;
       }
 
+
       .brand-name {
         font-size: 27px;
       }
+
 
       .welcome h1 {
         font-size: 23px;
       }
 
+
       .welcome p {
         font-size: 12px;
       }
+
 
       .form-input {
         height: 51px;
       }
 
+
       .login-button {
         height: 52px;
       }
+
 
       .toast-container {
         left: 14px;
         bottom: 14px;
 
-        width: calc(100% - 28px);
+        width:
+          calc(100% - 28px);
       }
+
     }
 
-    @media (max-height: 700px) and (min-width: 601px) {
+
+    @media (
+      max-height: 700px
+    ) and (
+      min-width: 601px
+    ) {
+
       .page {
         padding-top: 18px;
         padding-bottom: 18px;
       }
 
+
       .brand {
         margin-bottom: 16px;
       }
 
+
       .login-card {
-        padding: 25px 32px;
+        padding:
+          25px 32px;
       }
+
 
       .welcome {
         margin-bottom: 19px;
       }
 
+
       .form-group {
         margin-bottom: 13px;
       }
+
 
       .form-row {
         margin-bottom: 17px;
       }
 
+
       .divider {
         margin: 17px 0;
       }
 
+
       .security {
         margin-top: 15px;
       }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
+
   <!-- =========================
-       LOADING SCREEN
+       LOADING
   ========================== -->
 
   <div
     class="loading-screen"
     id="loadingScreen"
   >
+
     <div class="loading-content">
 
       <div class="loading-logo">
@@ -1071,6 +1316,7 @@
       <div class="loading-line"></div>
 
     </div>
+
   </div>
 
 
@@ -1081,6 +1327,7 @@
   <main class="page">
 
     <div class="login-shell">
+
 
       <!-- BRAND -->
 
@@ -1097,25 +1344,32 @@
       </div>
 
 
-      <!-- LOGIN CARD -->
+      <!-- CARD -->
 
       <section class="login-card">
 
         <div class="card-content">
 
+
+          <!-- WELCOME -->
+
           <div class="welcome">
 
             <div class="welcome-badge">
 
-              <span class="welcome-badge-dot"></span>
+              <span
+                class="welcome-badge-dot"
+              ></span>
 
               منصة علمي رياضة
 
             </div>
 
+
             <h1>
               أهلاً بيك 👋
             </h1>
+
 
             <p>
               سجل دخولك وكمل رحلتك في Mathix
@@ -1128,6 +1382,7 @@
 
           <form id="loginForm">
 
+
             <!-- EMAIL -->
 
             <div class="form-group">
@@ -1138,6 +1393,7 @@
               >
                 البريد الإلكتروني
               </label>
+
 
               <div class="input-wrap">
 
@@ -1150,6 +1406,7 @@
                   required
                 >
 
+
                 <svg
                   class="input-icon"
                   viewBox="0 0 24 24"
@@ -1158,8 +1415,8 @@
                   stroke-width="1.8"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  aria-hidden="true"
                 >
+
                   <rect
                     x="3"
                     y="5"
@@ -1171,6 +1428,7 @@
                   <path
                     d="m3 7 9 6 9-6"
                   ></path>
+
                 </svg>
 
               </div>
@@ -1189,6 +1447,7 @@
                 كلمة المرور
               </label>
 
+
               <div class="input-wrap">
 
                 <input
@@ -1200,6 +1459,7 @@
                   required
                 >
 
+
                 <svg
                   class="input-icon"
                   viewBox="0 0 24 24"
@@ -1208,8 +1468,8 @@
                   stroke-width="1.8"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  aria-hidden="true"
                 >
+
                   <rect
                     x="5"
                     y="10"
@@ -1221,7 +1481,9 @@
                   <path
                     d="M8 10V7a4 4 0 0 1 8 0v3"
                   ></path>
+
                 </svg>
+
 
                 <button
                   type="button"
@@ -1241,6 +1503,7 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
+
                     <path
                       d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"
                     ></path>
@@ -1250,6 +1513,7 @@
                       cy="12"
                       r="2.5"
                     ></circle>
+
                   </svg>
 
                 </button>
@@ -1262,6 +1526,7 @@
             <!-- OPTIONS -->
 
             <div class="form-row">
+
 
               <label class="remember">
 
@@ -1277,6 +1542,7 @@
 
               </label>
 
+
               <a
                 href="#"
                 class="forgot"
@@ -1288,7 +1554,7 @@
             </div>
 
 
-            <!-- BUTTON -->
+            <!-- LOGIN -->
 
             <button
               type="submit"
@@ -1308,7 +1574,11 @@
           <!-- DIVIDER -->
 
           <div class="divider">
-            <span>أو</span>
+
+            <span>
+              أو
+            </span>
+
           </div>
 
 
@@ -1339,6 +1609,7 @@
               stroke-linecap="round"
               stroke-linejoin="round"
             >
+
               <path
                 d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"
               ></path>
@@ -1346,11 +1617,13 @@
               <path
                 d="m9 12 2 2 4-4"
               ></path>
+
             </svg>
 
             تسجيل دخول آمن ومحمي بواسطة Firebase
 
           </div>
+
 
         </div>
 
@@ -1377,7 +1650,10 @@
 
     import {
       initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    }
+    from
+      "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
     import {
       getAuth,
@@ -1387,7 +1663,9 @@
       browserLocalPersistence,
       browserSessionPersistence,
       sendPasswordResetEmail
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    }
+    from
+      "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
     /* =========================
@@ -1421,7 +1699,7 @@
 
 
     /* =========================
-       INIT
+       FIREBASE INIT
     ========================== */
 
     const app =
@@ -1436,141 +1714,111 @@
     ========================== */
 
     const loadingScreen =
-      document.getElementById("loadingScreen");
+      document.getElementById(
+        "loadingScreen"
+      );
+
 
     const loginForm =
-      document.getElementById("loginForm");
+      document.getElementById(
+        "loginForm"
+      );
+
 
     const emailInput =
-      document.getElementById("email");
+      document.getElementById(
+        "email"
+      );
+
 
     const passwordInput =
-      document.getElementById("password");
+      document.getElementById(
+        "password"
+      );
+
 
     const rememberInput =
-      document.getElementById("remember");
+      document.getElementById(
+        "remember"
+      );
+
 
     const loginButton =
-      document.getElementById("loginButton");
+      document.getElementById(
+        "loginButton"
+      );
+
 
     const loginButtonText =
-      document.getElementById("loginButtonText");
+      document.getElementById(
+        "loginButtonText"
+      );
+
 
     const passwordToggle =
-      document.getElementById("passwordToggle");
+      document.getElementById(
+        "passwordToggle"
+      );
+
 
     const eyeIcon =
-      document.getElementById("eyeIcon");
+      document.getElementById(
+        "eyeIcon"
+      );
+
 
     const forgotPassword =
-      document.getElementById("forgotPassword");
+      document.getElementById(
+        "forgotPassword"
+      );
+
 
     const toastContainer =
-      document.getElementById("toastContainer");
+      document.getElementById(
+        "toastContainer"
+      );
 
 
     /* =========================
        STATE
     ========================== */
 
-    let authChecked = false;
+    let authStateResolved = false;
+
     let redirecting = false;
+
     let submitting = false;
 
 
     /* =========================
-       TOAST
+       HIDE LOADING
     ========================== */
 
-    function showToast(
-      message,
-      type = "error"
-    ) {
+    function hideLoading() {
 
-      const toast =
-        document.createElement("div");
+      loadingScreen.classList.add(
+        "hidden"
+      );
 
-      toast.className =
-        `toast ${type}`;
-
-      const icon =
-        type === "success"
-          ? `
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="m5 12 4 4L19 6"></path>
-            </svg>
-          `
-          : `
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="9"
-              ></circle>
-
-              <path d="M12 8v4"></path>
-
-              <path d="M12 16h.01"></path>
-            </svg>
-          `;
-
-      toast.innerHTML = `
-
-        <div class="toast-icon">
-          ${icon}
-        </div>
-
-        <div class="toast-text">
-          ${escapeHTML(message)}
-        </div>
-
-      `;
-
-      toastContainer.appendChild(toast);
-
-      setTimeout(() => {
-
-        toast.style.opacity = "0";
-        toast.style.transform =
-          "translateY(10px)";
-
-        toast.style.transition =
-          "opacity .25s ease, transform .25s ease";
-
-        setTimeout(() => {
-          toast.remove();
-        }, 250);
-
-      }, 4000);
     }
 
 
-    function escapeHTML(value) {
+    /* =========================
+       REDIRECT DASHBOARD
+    ========================== */
 
-      return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    function goToDashboard() {
+
+      if (redirecting) {
+        return;
+      }
+
+      redirecting = true;
+
+      window.location.replace(
+        "./dashboard.html"
+      );
+
     }
 
 
@@ -1582,26 +1830,45 @@
       auth,
       (user) => {
 
-        authChecked = true;
+        /*
+          مهم:
+          هنا يوجد Redirect واحد فقط.
+          لا يوجد pageshow.
+          لا يوجد setTimeout.
+          لا يوجد Redirect ثاني.
+        */
+
+        if (authStateResolved) {
+          return;
+        }
+
+        authStateResolved = true;
+
 
         if (user) {
 
-          redirecting = true;
-
-          window.location.replace(
-            "./dashboard.html"
-          );
+          goToDashboard();
 
           return;
         }
 
-        loadingScreen.classList.add("hidden");
+
+        hideLoading();
+
 
         setTimeout(() => {
 
-          emailInput.focus();
+          if (
+            !redirecting &&
+            !document.hidden
+          ) {
 
-        }, 250);
+            emailInput.focus();
+
+          }
+
+        }, 200);
+
       }
     );
 
@@ -1617,10 +1884,12 @@
         const isPassword =
           passwordInput.type === "password";
 
+
         passwordInput.type =
           isPassword
             ? "text"
             : "password";
+
 
         passwordToggle.setAttribute(
           "aria-label",
@@ -1629,9 +1898,11 @@
             : "إظهار كلمة المرور"
         );
 
+
         if (isPassword) {
 
           eyeIcon.innerHTML = `
+
             <path
               d="M3 3l18 18"
             ></path>
@@ -1647,11 +1918,14 @@
             <path
               d="M6.1 6.1C3.7 7.7 2.5 12 2.5 12s3.5 8 9.5 8c1.6 0 3-.4 4.2-1"
             ></path>
+
           `;
 
-        } else {
+        }
+        else {
 
           eyeIcon.innerHTML = `
+
             <path
               d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"
             ></path>
@@ -1661,8 +1935,11 @@
               cy="12"
               r="2.5"
             ></circle>
+
           `;
+
         }
+
       }
     );
 
@@ -1677,15 +1954,24 @@
 
         event.preventDefault();
 
-        if (submitting || redirecting) {
+
+        if (
+          submitting ||
+          redirecting
+        ) {
+
           return;
+
         }
+
 
         const email =
           emailInput.value.trim();
 
+
         const password =
           passwordInput.value;
+
 
         if (!email) {
 
@@ -1696,7 +1982,9 @@
           emailInput.focus();
 
           return;
+
         }
+
 
         if (!password) {
 
@@ -1707,16 +1995,26 @@
           passwordInput.focus();
 
           return;
+
         }
+
 
         submitting = true;
 
+
         loginButton.disabled = true;
 
+
         loginButtonText.innerHTML = `
-          <span class="button-spinner"></span>
+
+          <span
+            class="button-spinner"
+          ></span>
+
           جاري تسجيل الدخول...
+
         `;
+
 
         try {
 
@@ -1727,46 +2025,57 @@
               : browserSessionPersistence
           );
 
+
           await signInWithEmailAndPassword(
             auth,
             email,
             password
           );
 
+
+          /*
+            لا نعمل Redirect هنا.
+
+            Firebase سيطلق
+            onAuthStateChanged
+            تلقائياً.
+
+            وهو المسؤول الوحيد عن
+            نقل المستخدم للداشبورد.
+          */
+
+          loginButtonText.textContent =
+            "تم تسجيل الدخول ✓";
+
+
           showToast(
             "تم تسجيل الدخول بنجاح.",
             "success"
           );
 
-          loginButtonText.textContent =
-            "تم الدخول ✓";
 
-          redirecting = true;
-
-          setTimeout(() => {
-
-            window.location.replace(
-              "./dashboard.html"
-            );
-
-          }, 400);
-
-        } catch (error) {
+        }
+        catch (error) {
 
           console.error(
             "Login error:",
             error
           );
 
+
           submitting = false;
 
           loginButton.disabled = false;
 
+
           loginButtonText.textContent =
             "تسجيل الدخول";
 
+
           handleAuthError(error);
+
         }
+
       }
     );
 
@@ -1781,8 +2090,10 @@
 
         event.preventDefault();
 
+
         const email =
           emailInput.value.trim();
+
 
         if (!email) {
 
@@ -1793,7 +2104,9 @@
           emailInput.focus();
 
           return;
+
         }
+
 
         try {
 
@@ -1802,12 +2115,14 @@
             email
           );
 
+
           showToast(
             "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.",
             "success"
           );
 
-        } catch (error) {
+        }
+        catch (error) {
 
           console.error(
             "Password reset error:",
@@ -1815,13 +2130,15 @@
           );
 
           handleAuthError(error);
+
         }
+
       }
     );
 
 
     /* =========================
-       AUTH ERRORS
+       ERROR HANDLER
     ========================== */
 
     function handleAuthError(error) {
@@ -1829,10 +2146,13 @@
       const code =
         error?.code || "";
 
+
       let message =
         "حصل خطأ أثناء تسجيل الدخول. حاول مرة أخرى.";
 
+
       switch (code) {
+
 
         case "auth/invalid-credential":
 
@@ -1907,43 +2227,175 @@
         default:
 
           if (
-            String(error?.message || "")
-              .toLowerCase()
-              .includes("api key")
+            String(
+              error?.message || ""
+            )
+            .toLowerCase()
+            .includes("api key")
           ) {
 
             message =
               "مفتاح Firebase غير صحيح أو غير مفعّل.";
+
           }
 
           break;
+
       }
 
+
       showToast(message);
+
     }
 
 
     /* =========================
-       PAGE SHOW SAFETY
+       TOAST
     ========================== */
 
-    window.addEventListener(
-      "pageshow",
-      () => {
+    function showToast(
+      message,
+      type = "error"
+    ) {
 
-        if (
-          auth.currentUser &&
-          !redirecting
-        ) {
+      const toast =
+        document.createElement("div");
 
-          redirecting = true;
 
-          window.location.replace(
-            "./dashboard.html"
-          );
-        }
-      }
-    );
+      toast.className =
+        `toast ${type}`;
+
+
+      const icon =
+        type === "success"
+
+          ? `
+
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+
+              <path
+                d="m5 12 4 4L19 6"
+              ></path>
+
+            </svg>
+
+          `
+
+          : `
+
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+              ></circle>
+
+              <path
+                d="M12 8v4"
+              ></path>
+
+              <path
+                d="M12 16h.01"
+              ></path>
+
+            </svg>
+
+          `;
+
+
+      toast.innerHTML = `
+
+        <div class="toast-icon">
+          ${icon}
+        </div>
+
+        <div class="toast-text">
+          ${escapeHTML(message)}
+        </div>
+
+      `;
+
+
+      toastContainer.appendChild(
+        toast
+      );
+
+
+      setTimeout(() => {
+
+        toast.style.opacity = "0";
+
+        toast.style.transform =
+          "translateY(10px)";
+
+        toast.style.transition =
+          "opacity .25s ease, transform .25s ease";
+
+
+        setTimeout(() => {
+
+          toast.remove();
+
+        }, 250);
+
+      }, 4000);
+
+    }
+
+
+    /* =========================
+       ESCAPE HTML
+    ========================== */
+
+    function escapeHTML(value) {
+
+      return String(value)
+
+        .replaceAll(
+          "&",
+          "&amp;"
+        )
+
+        .replaceAll(
+          "<",
+          "&lt;"
+        )
+
+        .replaceAll(
+          ">",
+          "&gt;"
+        )
+
+        .replaceAll(
+          '"',
+          "&quot;"
+        )
+
+        .replaceAll(
+          "'",
+          "&#039;"
+        );
+
+    }
 
   </script>
 
