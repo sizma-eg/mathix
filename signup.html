@@ -1,1217 +1,136 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
-
 <head>
-
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="theme-color"
-    content="#07070b"
-  >
-
-  <meta
-    name="description"
-    content="إنشاء حساب طالب جديد على Mathix"
-  >
-
-  <title>Mathix | إنشاء حساب</title>
-
-  <link
-    rel="icon"
-    type="image/png"
-    href="logo.png"
-  >
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
-
-  <style>
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --bg: #07070b;
-      --card: #101018;
-      --border: rgba(255,255,255,.08);
-
-      --white: #fff;
-      --text: #f5f5f7;
-      --muted: #92929f;
-
-      --purple: #8b3dff;
-      --purple-2: #a45cff;
-      --purple-soft: rgba(139,61,255,.12);
-
-      --danger: #ff5d6c;
-      --success: #35d07f;
-    }
-
-    html {
-      min-height: 100%;
-    }
-
-    body {
-      min-height: 100vh;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 30px 15px;
-
-      background:
-        radial-gradient(
-          circle at 85% 5%,
-          rgba(139,61,255,.15),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 10% 90%,
-          rgba(139,61,255,.08),
-          transparent 30%
-        ),
-        var(--bg);
-
-      color: var(--text);
-
-      font-family: "Cairo", sans-serif;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input {
-      font-family: inherit;
-    }
-
-    .page {
-      width: 100%;
-      max-width: 500px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      gap: 11px;
-
-      margin-bottom: 25px;
-    }
-
-    .brand-logo {
-      width: 48px;
-      height: 48px;
-
-      object-fit: contain;
-
-      animation: floatLogo 3s ease-in-out infinite;
-
-      filter:
-        drop-shadow(
-          0 0 14px
-          rgba(139,61,255,.22)
-        );
-    }
-
-    @keyframes floatLogo {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-5px);
-      }
-
-    }
-
-    .brand-name {
-      font-family: "Chakra Petch", sans-serif;
-
-      font-size: 29px;
-      font-weight: 700;
-
-      direction: ltr;
-    }
-
-    .math {
-      color: #fff;
-    }
-
-    .ix {
-      color: var(--purple-2);
-    }
-
-    .card {
-      padding: 30px;
-
-      border: 1px solid var(--border);
-      border-radius: 24px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.045),
-          rgba(255,255,255,.015)
-        );
-
-      box-shadow:
-        0 30px 90px rgba(0,0,0,.35);
-    }
-
-    .heading {
-      text-align: center;
-
-      margin-bottom: 25px;
-    }
-
-    .heading h1 {
-      font-size: 25px;
-      font-weight: 900;
-    }
-
-    .heading p {
-      margin-top: 7px;
-
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-
-      gap: 14px;
-    }
-
-    .field {
-      margin-bottom: 14px;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      display: block;
-
-      margin-bottom: 7px;
-
-      color: #b5b5c0;
-
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    input {
-      width: 100%;
-      height: 48px;
-
-      padding: 0 14px;
-
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 13px;
-
-      outline: none;
-
-      background: rgba(0,0,0,.22);
-
-      color: #fff;
-
-      font-size: 12px;
-
-      transition:
-        border-color .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
-    }
-
-    input:focus {
-      border-color: rgba(139,61,255,.6);
-
-      background: rgba(139,61,255,.035);
-
-      box-shadow:
-        0 0 0 3px
-        rgba(139,61,255,.08);
-    }
-
-    input::placeholder {
-      color: #5f5f6b;
-    }
-
-    .password-wrap {
-      position: relative;
-    }
-
-    .password-wrap input {
-      padding-left: 50px;
-    }
-
-    .show-password {
-      position: absolute;
-
-      left: 8px;
-      top: 50%;
-
-      transform: translateY(-50%);
-
-      width: 34px;
-      height: 34px;
-
-      border: 0;
-      border-radius: 9px;
-
-      background: transparent;
-
-      color: #777783;
-
-      font-size: 14px;
-    }
-
-    .show-password:hover {
-      color: #fff;
-      background: rgba(255,255,255,.05);
-    }
-
-    .password-note {
-      margin-top: 6px;
-
-      color: #676773;
-
-      font-size: 9px;
-      line-height: 1.6;
-    }
-
-    .terms {
-      display: flex;
-      align-items: flex-start;
-
-      gap: 9px;
-
-      margin: 4px 0 18px;
-    }
-
-    .terms input {
-      width: 16px;
-      height: 16px;
-
-      flex-shrink: 0;
-
-      margin-top: 2px;
-
-      accent-color: var(--purple);
-    }
-
-    .terms label {
-      margin: 0;
-
-      color: #777783;
-
-      font-size: 10px;
-      line-height: 1.7;
-
-      cursor: pointer;
-    }
-
-    .terms label strong {
-      color: var(--purple-2);
-    }
-
-    .submit-btn {
-      width: 100%;
-      height: 51px;
-
-      border: 0;
-      border-radius: 14px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #7d2fff,
-          #a45cff
-        );
-
-      color: #fff;
-
-      font-size: 13px;
-      font-weight: 800;
-
-      box-shadow:
-        0 12px 35px
-        rgba(139,61,255,.2);
-
-      transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        opacity .2s ease;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-2px);
-
-      box-shadow:
-        0 16px 40px
-        rgba(139,61,255,.3);
-    }
-
-    .submit-btn:disabled {
-      cursor: not-allowed;
-      opacity: .6;
-      transform: none;
-    }
-
-    .message {
-      display: none;
-
-      margin-bottom: 15px;
-
-      padding: 12px 14px;
-
-      border-radius: 12px;
-
-      font-size: 10px;
-      line-height: 1.7;
-    }
-
-    .message.error {
-      display: block;
-
-      color: #ff9ba4;
-
-      border: 1px solid rgba(255,93,108,.2);
-
-      background: rgba(255,93,108,.07);
-    }
-
-    .message.success {
-      display: block;
-
-      color: #75e7a8;
-
-      border: 1px solid rgba(53,208,127,.2);
-
-      background: rgba(53,208,127,.07);
-    }
-
-    .login-link {
-      margin-top: 20px;
-
-      text-align: center;
-
-      color: #777783;
-
-      font-size: 11px;
-    }
-
-    .login-link a {
-      color: var(--purple-2);
-      font-weight: 700;
-    }
-
-    .login-link a:hover {
-      text-decoration: underline;
-    }
-
-    .back-home {
-      display: block;
-
-      margin-top: 18px;
-
-      color: #666672;
-
-      text-align: center;
-
-      font-size: 10px;
-    }
-
-    .back-home:hover {
-      color: #aaaab5;
-    }
-
-    .loading {
-      display: inline-flex;
-
-      align-items: center;
-      justify-content: center;
-
-      gap: 8px;
-    }
-
-    .spinner {
-      width: 15px;
-      height: 15px;
-
-      border: 2px solid rgba(255,255,255,.3);
-      border-top-color: #fff;
-
-      border-radius: 50%;
-
-      animation: spin .7s linear infinite;
-    }
-
-    @keyframes spin {
-
-      to {
-        transform: rotate(360deg);
-      }
-
-    }
-
-    @media (max-width: 520px) {
-
-      .card {
-        padding: 23px 18px;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-
-      .field.full {
-        grid-column: auto;
-      }
-
-    }
-
-  </style>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050507">
+  <meta name="description" content="تسجيل الدخول إلى منصة Mathix التعليمية">
+  <title>تسجيل الدخول | Mathix</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Chakra+Petch:wght@500;600;700&display=swap');
+:root{color-scheme:dark;--bg:#050507;--panel:#111119;--panel2:#171521;--purple:#8b3dff;--purple2:#a75cff;--text:#f7f5ff;--muted:#94919f;--line:rgba(255,255,255,.09);--danger:#ff647c;--success:#5ee6a8}
+*{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{margin:0;min-height:100vh;font-family:'Cairo',sans-serif;color:var(--text);background:radial-gradient(ellipse at 12% 15%,rgba(139,61,255,.15),transparent 38%),radial-gradient(ellipse at 90% 85%,rgba(100,35,180,.12),transparent 34%),var(--bg);display:grid;place-items:center;padding:24px}
+button,input{font:inherit}.auth-shell{width:min(100%,980px);min-height:620px;display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:rgba(13,13,19,.88);box-shadow:0 28px 100px #0009;backdrop-filter:blur(18px)}
+.visual{position:relative;overflow:hidden;padding:42px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,rgba(139,61,255,.22),rgba(17,17,25,.3) 55%),#0c0b12;border-left:1px solid var(--line)}
+.visual:before,.visual:after{content:"";position:absolute;border:1px solid rgba(167,92,255,.22);border-radius:50%;width:360px;height:360px;left:-130px;bottom:-150px;box-shadow:0 0 70px rgba(139,61,255,.12),inset 0 0 60px rgba(139,61,255,.07)}
+.visual:after{width:250px;height:250px;left:-75px;bottom:-95px}
+.brand{display:flex;align-items:center;gap:12px;position:relative;z-index:1}.brand img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 0 14px #8b3dff40)}.brand-name{font-family:'Chakra Petch','Cairo',sans-serif;font-size:28px;font-weight:700;letter-spacing:.2px}.brand-name span{color:var(--purple2)}
+.visual-copy{position:relative;z-index:1;margin:40px 0}.eyebrow{display:inline-flex;border:1px solid #a75cff45;background:#8b3dff18;color:#cbaaff;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:700;letter-spacing:.3px}.visual h1{font-size:clamp(30px,4vw,46px);line-height:1.35;margin:20px 0 14px;font-weight:800}.visual h1 span{color:var(--purple2)}.visual p{color:#b7b2c5;line-height:2;max-width:360px;margin:0}.visual-foot{position:relative;z-index:1;color:#777282;font-size:12px}
+.form-side{padding:48px clamp(24px,5vw,58px);display:flex;align-items:center;justify-content:center}.form-wrap{width:100%;max-width:370px}.mobile-brand{display:none}.form-wrap h2{font-size:29px;margin:0 0 7px;font-weight:800}.sub{margin:0 0 28px;color:var(--muted);font-size:14px;line-height:1.9}.field{display:block;margin:0 0 17px}.field label{display:block;font-size:13px;font-weight:700;margin:0 0 8px;color:#e8e4f2}.input-wrap{position:relative}.field input{width:100%;height:51px;border:1px solid #ffffff16;background:#09090f;border-radius:13px;padding:0 15px;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s}.field input:focus{border-color:#8b3dffb8;box-shadow:0 0 0 3px #8b3dff20}.field input::placeholder{color:#625e6c}.toggle-pass{position:absolute;left:9px;top:7px;height:37px;padding:0 9px;background:transparent;border:0;color:#aaa2b8;cursor:pointer;font-size:12px}.primary{width:100%;min-height:51px;border:0;border-radius:13px;background:linear-gradient(100deg,#7c2ff0,#a052ff);color:white;font-weight:800;cursor:pointer;box-shadow:0 9px 28px #8b3dff2b;transition:transform .2s,filter .2s}.primary:hover{filter:brightness(1.08);transform:translateY(-1px)}.primary:disabled{opacity:.65;cursor:wait;transform:none}.message{display:none;margin:0 0 17px;padding:11px 13px;border:1px solid transparent;border-radius:12px;font-size:13px;line-height:1.8}.message.show{display:block}.message.error{color:#ffb0bd;background:#ff647c12;border-color:#ff647c30}.message.success{color:#91f3c2;background:#5ee6a810;border-color:#5ee6a830}.form-bottom{text-align:center;color:var(--muted);font-size:13px;margin:22px 0 0}.form-bottom a,.text-link{color:#c39aff;text-decoration:none;font-weight:700}.form-bottom a:hover,.text-link:hover{color:#fff}.form-note{color:#777282;font-size:11px;line-height:1.8;margin-top:19px;text-align:center}
+@media(max-width:760px){body{padding:14px;display:block}.auth-shell{width:min(100%,480px);min-height:0;margin:12px auto;display:block;border-radius:22px}.visual{display:none}.form-side{padding:28px 23px 30px}.mobile-brand{display:flex;margin-bottom:30px}.mobile-brand .brand-name{font-size:25px}.form-wrap h2{font-size:26px}.sub{margin-bottom:23px}.form-note{margin-top:16px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
-
 <body>
-
-  <div class="page">
-
-    <a
-      href="index.html"
-      class="brand"
-    >
-
-      <img
-        src="logo.png"
-        alt="Mathix"
-        class="brand-logo"
-      >
-
-      <div class="brand-name">
-        <span class="math">Math</span><span class="ix">ix</span>
+  <main class="auth-shell">
+    <aside class="visual" aria-label="Mathix">
+      <a class="brand" href="index.html" aria-label="Mathix - الرئيسية">
+        <img src="logo.png" alt="شعار Mathix" onerror="this.style.display='none'">
+        <span class="brand-name">Math<span>ix</span></span>
+      </a>
+      <div class="visual-copy">
+        <span class="eyebrow">YOUR NEXT LEVEL STARTS HERE</span>
+        <h1>كل يوم خطوة<br>أقرب <span>للهدف.</span></h1>
+        <p>ملخصاتك ومراجعاتك في مكان واحد. ركّز في مذاكرتك وسيب تنظيم المحتوى علينا.</p>
       </div>
-
-    </a>
-
-
-    <div class="card">
-
-      <div class="heading">
-
-        <h1>
-          إنشاء حساب جديد
-        </h1>
-
-        <p>
-          ابدأ رحلتك الدراسية مع Mathix
-        </p>
-
-      </div>
-
-
-      <div
-        class="message"
-        id="message"
-      ></div>
-
-
-      <form id="signupForm">
-
-        <div class="form-grid">
-
-
-          <div class="field">
-
-            <label for="firstName">
-              الاسم الأول
-            </label>
-
-            <input
-              id="firstName"
-              type="text"
-              placeholder="مثال: زياد"
-              autocomplete="given-name"
-              maxlength="30"
-              required
-            >
-
-          </div>
-
-
-          <div class="field">
-
-            <label for="secondName">
-              الاسم الثاني
-            </label>
-
-            <input
-              id="secondName"
-              type="text"
-              placeholder="مثال: وائل"
-              autocomplete="family-name"
-              maxlength="30"
-              required
-            >
-
-          </div>
-
-
-          <div class="field full">
-
-            <label for="phone">
-              رقم الهاتف
-            </label>
-
-            <input
-              id="phone"
-              type="tel"
-              inputmode="numeric"
-              placeholder="01xxxxxxxxx"
-              autocomplete="tel"
-              maxlength="11"
-              required
-            >
-
-          </div>
-
-
-          <div class="field full">
-
-            <label for="email">
-              البريد الإلكتروني
-            </label>
-
-            <input
-              id="email"
-              type="email"
-              placeholder="example@gmail.com"
-              autocomplete="email"
-              required
-            >
-
-          </div>
-
-
-          <div class="field">
-
-            <label for="password">
-              كلمة المرور
-            </label>
-
-            <div class="password-wrap">
-
-              <input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                autocomplete="new-password"
-                minlength="6"
-                required
-              >
-
-              <button
-                type="button"
-                class="show-password"
-                data-target="password"
-              >
-                ◉
-              </button>
-
-            </div>
-
-          </div>
-
-
-          <div class="field">
-
-            <label for="confirmPassword">
-              تأكيد كلمة المرور
-            </label>
-
-            <div class="password-wrap">
-
-              <input
-                id="confirmPassword"
-                type="password"
-                placeholder="••••••••"
-                autocomplete="new-password"
-                minlength="6"
-                required
-              >
-
-              <button
-                type="button"
-                class="show-password"
-                data-target="confirmPassword"
-              >
-                ◉
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="password-note">
-          كلمة المرور يجب ألا تقل عن 6 أحرف.
-        </div>
-
-
-        <div class="terms">
-
-          <input
-            id="terms"
-            type="checkbox"
-            required
-          >
-
-          <label for="terms">
-            أوافق على إنشاء حساب واستخدام منصة
-            <strong>Mathix</strong>
-            التعليمية.
-          </label>
-
-        </div>
-
-
-        <button
-          type="submit"
-          class="submit-btn"
-          id="submitBtn"
-        >
-          إنشاء الحساب
-        </button>
-
-      </form>
-
-
-      <div class="login-link">
-
-        لديك حساب بالفعل؟
-
-        <a href="login.html">
-          تسجيل الدخول
+      <div class="visual-foot">© Mathix — منصة تعليمية لطلاب الثانوية العامة</div>
+    </aside>
+    <section class="form-side">
+      <div class="form-wrap">
+        <a class="brand mobile-brand" href="index.html">
+          <img src="logo.png" alt="شعار Mathix" onerror="this.style.display='none'">
+          <span class="brand-name">Math<span>ix</span></span>
         </a>
-
+        <h2>أهلاً بعودتك 👋</h2>
+        <p class="sub">سجّل دخولك وكمّل رحلتك التعليمية.</p>
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+        <form id="loginForm">
+          <div class="field">
+            <label for="email">البريد الإلكتروني</label>
+            <input id="email" name="email" type="email" placeholder="أدخل بريدك الإلكتروني" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="password">كلمة المرور</label>
+            <div class="input-wrap">
+              <input id="password" name="password" type="password" placeholder="أدخل كلمة المرور" autocomplete="current-password" minlength="6" required>
+              <button class="toggle-pass" type="button" data-toggle="password" aria-label="إظهار كلمة المرور">إظهار</button>
+            </div>
+          </div>
+          <button id="submitBtn" class="primary" type="submit">تسجيل الدخول</button>
+        </form>
+        <p class="form-bottom">لسه معندكش حساب؟ <a href="signup.html">إنشاء حساب جديد</a></p>
+        <p class="form-note">بتسجيل الدخول، أنت تستخدم حسابك الشخصي على منصة Mathix.</p>
       </div>
-
-    </div>
-
-
-    <a
-      href="index.html"
-      class="back-home"
-    >
-      ← العودة إلى الصفحة الرئيسية
-    </a>
-
-  </div>
-
-
+    </section>
+  </main>
   <script type="module">
+    import { auth, authReady } from "./firebase-config.js";
+    import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-    import {
-      initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    const form = document.getElementById("loginForm");
+    const btn = document.getElementById("submitBtn");
+    const message = document.getElementById("message");
+    let submitting = false;
+    let authResolved = false;
 
-    import {
-      getAuth,
-      createUserWithEmailAndPassword
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-    import {
-      getFirestore,
-      doc,
-      setDoc,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-
-    /* =========================
-       FIREBASE CONFIG
-    ========================= */
-
-    const firebaseConfig = {
-
-      apiKey:
-        "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk",
-
-      authDomain:
-        "mathix-2008.firebaseapp.com",
-
-      projectId:
-        "mathix-2008",
-
-      storageBucket:
-        "mathix-2008.firebasestorage.app",
-
-      messagingSenderId:
-        "561805658834",
-
-      appId:
-        "1:561805658834:web:c1db8ebc2d415be9497b0b",
-
-      measurementId:
-        "G-XWHKQ72FM0"
-
-    };
-
-
-    const app =
-      initializeApp(firebaseConfig);
-
-    const auth =
-      getAuth(app);
-
-    const db =
-      getFirestore(app);
-
-
-    /* =========================
-       ELEMENTS
-    ========================= */
-
-    const form =
-      document.getElementById("signupForm");
-
-    const message =
-      document.getElementById("message");
-
-    const submitBtn =
-      document.getElementById("submitBtn");
-
-
-    /* =========================
-       MESSAGE
-    ========================= */
-
-    function showMessage(
-      text,
-      type = "error"
-    ) {
-
+    function showMessage(text, type = "error") {
       message.textContent = text;
-
-      message.className =
-        `message ${type}`;
-
+      message.className = "message show " + type;
+    }
+    function friendlyError(error) {
+      const code = error?.code || "";
+      const map = {
+        "auth/invalid-email": "اكتب بريد إلكتروني صحيح.",
+        "auth/invalid-credential": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+        "auth/user-not-found": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+        "auth/wrong-password": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+        "auth/too-many-requests": "محاولات كتير في وقت قصير. جرّب تاني بعد شوية.",
+        "auth/network-request-failed": "في مشكلة في الاتصال بالإنترنت. جرّب تاني.",
+        "auth/user-disabled": "الحساب ده متوقف. تواصل مع إدارة المنصة.",
+        "auth/operation-not-allowed": "تسجيل الدخول بالبريد وكلمة المرور مش مفعّل في Firebase."
+      };
+      return map[code] || "حصلت مشكلة أثناء تسجيل الدخول. راجع إعدادات Firebase وحاول تاني.";
     }
 
-
-    /* =========================
-       PASSWORD TOGGLE
-    ========================= */
-
-    document
-      .querySelectorAll(".show-password")
-      .forEach(button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            const targetId =
-              button.dataset.target;
-
-            const input =
-              document.getElementById(targetId);
-
-            if (
-              input.type === "password"
-            ) {
-
-              input.type = "text";
-
-              button.textContent = "◌";
-
-            } else {
-
-              input.type = "password";
-
-              button.textContent = "◉";
-
-            }
-
-          }
-        );
-
-      });
-
-
-    /* =========================
-       HELPERS
-    ========================= */
-
-    function generateStudentCode() {
-
-      const random =
-        Math.floor(
-          100000 +
-          Math.random() * 900000
-        );
-
-      return `Mathix-${random}`;
-
-    }
-
-
-    function isArabicName(name) {
-
-      return /^[\u0600-\u06FF]+$/.test(
-        name
-      );
-
-    }
-
-
-    function isValidPhone(phone) {
-
-      return /^01[0-9]{9}$/.test(
-        phone
-      );
-
-    }
-
-
-    /* =========================
-       SIGNUP
-    ========================= */
-
-    form.addEventListener(
-      "submit",
-      async event => {
-
-        event.preventDefault();
-
-
-        const firstName =
-          document
-            .getElementById("firstName")
-            .value
-            .trim();
-
-
-        const secondName =
-          document
-            .getElementById("secondName")
-            .value
-            .trim();
-
-
-        const phone =
-          document
-            .getElementById("phone")
-            .value
-            .trim();
-
-
-        const email =
-          document
-            .getElementById("email")
-            .value
-            .trim()
-            .toLowerCase();
-
-
-        const password =
-          document
-            .getElementById("password")
-            .value;
-
-
-        const confirmPassword =
-          document
-            .getElementById("confirmPassword")
-            .value;
-
-
-        /* =====================
-           VALIDATION
-        ===================== */
-
-        if (
-          !isArabicName(firstName) ||
-          !isArabicName(secondName)
-        ) {
-
-          showMessage(
-            "الاسم الأول والثاني يجب أن يكونا بالعربي ومن كلمة واحدة."
-          );
-
-          return;
-
-        }
-
-
-        if (!isValidPhone(phone)) {
-
-          showMessage(
-            "رقم الهاتف يجب أن يبدأ بـ 01 ويتكون من 11 رقمًا."
-          );
-
-          return;
-
-        }
-
-
-        if (password.length < 6) {
-
-          showMessage(
-            "كلمة المرور يجب ألا تقل عن 6 أحرف."
-          );
-
-          return;
-
-        }
-
-
-        if (password !== confirmPassword) {
-
-          showMessage(
-            "كلمتا المرور غير متطابقتين."
-          );
-
-          return;
-
-        }
-
-
-        /* =====================
-           LOADING
-        ===================== */
-
-        submitBtn.disabled = true;
-
-        submitBtn.innerHTML = `
-          <span class="loading">
-            <span class="spinner"></span>
-            جاري إنشاء الحساب...
-          </span>
-        `;
-
-
-        try {
-
-          /* ===================
-             CREATE AUTH USER
-          =================== */
-
-          const result =
-            await createUserWithEmailAndPassword(
-              auth,
-              email,
-              password
-            );
-
-
-          const user =
-            result.user;
-
-
-          /* ===================
-             STUDENT CODE
-          =================== */
-
-          const studentCode =
-            generateStudentCode();
-
-
-          /* ===================
-             USERS DOCUMENT
-          =================== */
-
-          await setDoc(
-            doc(
-              db,
-              "users",
-              user.uid
-            ),
-            {
-
-              uid:
-                user.uid,
-
-              studentCode:
-                studentCode,
-
-              firstName:
-                firstName,
-
-              secondName:
-                secondName,
-
-              fullName:
-                `${firstName} ${secondName}`,
-
-              phone:
-                phone,
-
-              email:
-                email,
-
-              role:
-                "student",
-
-              createdAt:
-                serverTimestamp()
-
-            }
-          );
-
-
-          /* ===================
-             WALLET
-          =================== */
-
-          await setDoc(
-            doc(
-              db,
-              "wallets",
-              user.uid
-            ),
-            {
-
-              uid:
-                user.uid,
-
-              balance:
-                0,
-
-              createdAt:
-                serverTimestamp(),
-
-              updatedAt:
-                serverTimestamp()
-
-            }
-          );
-
-
-          showMessage(
-            "تم إنشاء الحساب بنجاح. جاري تحويلك لتسجيل الدخول...",
-            "success"
-          );
-
-
-          setTimeout(
-            () => {
-
-              window.location.href =
-                "login.html";
-
-            },
-            1800
-          );
-
-
-        } catch (error) {
-
-          console.error(
-            "Signup error:",
-            error
-          );
-
-
-          let errorMessage =
-            "حدث خطأ أثناء إنشاء الحساب.";
-
-
-          switch (error.code) {
-
-            case "auth/email-already-in-use":
-
-              errorMessage =
-                "البريد الإلكتروني مستخدم بالفعل.";
-
-              break;
-
-
-            case "auth/invalid-email":
-
-              errorMessage =
-                "البريد الإلكتروني غير صحيح.";
-
-              break;
-
-
-            case "auth/weak-password":
-
-              errorMessage =
-                "كلمة المرور ضعيفة. استخدم 6 أحرف على الأقل.";
-
-              break;
-
-
-            case "auth/network-request-failed":
-
-              errorMessage =
-                "تأكد من اتصالك بالإنترنت.";
-
-              break;
-
-
-            case "auth/operation-not-allowed":
-
-              errorMessage =
-                "تسجيل الدخول بالبريد وكلمة المرور غير مفعّل في Firebase.";
-
-              break;
-
-          }
-
-
-          showMessage(
-            errorMessage
-          );
-
-
-          submitBtn.disabled =
-            false;
-
-          submitBtn.textContent =
-            "إنشاء الحساب";
-
-        }
-
+    // Wait for Firebase to restore the persisted session before deciding to redirect.
+    onAuthStateChanged(auth, async (user) => {
+      authResolved = true;
+      if (user && !submitting) {
+        window.location.replace("dashboard.html");
       }
-    );
+    });
 
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (submitting) return;
+      submitting = true;
+      btn.disabled = true;
+      btn.textContent = "جاري تسجيل الدخول...";
+      message.className = "message";
+      try {
+        await authReady;
+        const email = form.email.value.trim();
+        const password = form.password.value;
+        await signInWithEmailAndPassword(auth, email, password);
+        showMessage("تم تسجيل الدخول بنجاح، جاري فتح حسابك...", "success");
+        window.location.replace("dashboard.html");
+      } catch (error) {
+        showMessage(friendlyError(error));
+        submitting = false;
+        btn.disabled = false;
+        btn.textContent = "تسجيل الدخول";
+      }
+    });
+
+    document.querySelectorAll("[data-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const input = document.getElementById(button.dataset.toggle);
+        const visible = input.type === "password";
+        input.type = visible ? "text" : "password";
+        button.textContent = visible ? "إخفاء" : "إظهار";
+        button.setAttribute("aria-label", visible ? "إخفاء كلمة المرور" : "إظهار كلمة المرور");
+      });
+    });
   </script>
-
 </body>
-
 </html>
