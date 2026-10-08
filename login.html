@@ -2,7 +2,6 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -17,10 +16,10 @@
 
   <meta
     name="description"
-    content="Mathix — منصة علمي رياضة"
+    content="تسجيل الدخول إلى Mathix"
   >
 
-  <title>تسجيل الدخول | Mathix</title>
+  <title>تسجيل الدخول — Mathix</title>
 
   <link
     rel="preconnect"
@@ -39,7 +38,6 @@
   >
 
   <style>
-
     :root {
       --bg: #050507;
       --bg-2: #08080d;
@@ -82,134 +80,101 @@
 
     body {
       min-height: 100vh;
-      overflow-x: hidden;
-
-      font-family: "Cairo", sans-serif;
-
-      color: var(--text);
       background:
         radial-gradient(
-          circle at 90% 5%,
-          rgba(139,61,255,.16),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 10% 95%,
-          rgba(139,61,255,.11),
+          circle at 88% 8%,
+          rgba(139,61,255,.13),
           transparent 28%
         ),
-        linear-gradient(
-          135deg,
-          var(--bg),
-          var(--bg-2)
-        );
-    }
+        radial-gradient(
+          circle at 10% 92%,
+          rgba(139,61,255,.08),
+          transparent 26%
+        ),
+        var(--bg);
 
-    /* =========================
-       GRID BACKGROUND
-    ========================= */
+      color: var(--text);
+      font-family: "Cairo", sans-serif;
+      overflow-x: hidden;
+    }
 
     body::before {
       content: "";
-
       position: fixed;
       inset: 0;
 
       pointer-events: none;
-      z-index: 0;
-
-      opacity: .25;
 
       background-image:
         linear-gradient(
-          rgba(255,255,255,.025) 1px,
+          rgba(255,255,255,.018) 1px,
           transparent 1px
         ),
         linear-gradient(
           90deg,
-          rgba(255,255,255,.025) 1px,
+          rgba(255,255,255,.018) 1px,
           transparent 1px
         );
 
       background-size: 45px 45px;
 
-      mask-image:
-        radial-gradient(
-          ellipse at center,
-          black 20%,
-          transparent 85%
-        );
-    }
+      mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+      );
 
-    /* =========================
-       PURPLE AMBIENT LIGHT
-    ========================= */
-
-    .ambient {
-      position: fixed;
-      width: 420px;
-      height: 420px;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(139,61,255,.13),
-          rgba(139,61,255,.035) 45%,
-          transparent 72%
-        );
-
-      filter: blur(10px);
-
-      pointer-events: none;
       z-index: 0;
     }
 
-    .ambient.one {
-      top: -180px;
-      right: -130px;
+    button,
+    input {
+      font: inherit;
     }
 
-    .ambient.two {
-      bottom: -190px;
-      left: -130px;
+    button {
+      border: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     /* =========================
-       LOADING SCREEN
+       LOADING
     ========================= */
 
-    #loadingScreen {
+    .loading-screen {
       position: fixed;
       inset: 0;
-
       z-index: 9999;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      background: #050507;
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(139,61,255,.10),
+          transparent 35%
+        ),
+        #050507;
 
       transition:
-        opacity .35s ease,
-        visibility .35s ease;
+        opacity .45s ease,
+        visibility .45s ease;
     }
 
-    #loadingScreen.hidden {
+    .loading-screen.hidden {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
 
-    .loading-box {
-      width: min(90%, 340px);
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
+    .loading-content {
+      width: min(90%, 320px);
       text-align: center;
     }
 
@@ -217,66 +182,56 @@
       width: 68px;
       height: 68px;
 
+      margin: 0 auto 22px;
+
       display: flex;
       align-items: center;
       justify-content: center;
 
-      border-radius: 20px;
-
-      font-family: "Chakra Petch", sans-serif;
-      font-size: 32px;
-      font-weight: 700;
-
-      color: #fff;
+      border-radius: 21px;
 
       background:
         linear-gradient(
           145deg,
           rgba(167,92,255,.95),
-          rgba(112,42,230,.82)
+          rgba(101,35,220,.75)
         );
 
-      border: 1px solid rgba(255,255,255,.1);
-
       box-shadow:
-        0 0 40px rgba(139,61,255,.35),
-        inset 0 1px 0 rgba(255,255,255,.18);
+        0 0 45px rgba(139,61,255,.35),
+        inset 0 1px 0 rgba(255,255,255,.25);
 
-      animation: loadingPulse 1.7s ease-in-out infinite;
+      font-family: "Chakra Petch", sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+
+      animation: logoPulse 1.8s ease-in-out infinite;
     }
 
-    .loading-text {
-      margin-top: 22px;
-
-      color: var(--text);
-
-      font-size: 14px;
+    .loading-title {
+      font-size: 15px;
       font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
     }
 
     .loading-line {
-      position: relative;
-
-      width: 150px;
+      width: 100%;
       height: 3px;
 
-      margin-top: 14px;
-
       overflow: hidden;
-
       border-radius: 99px;
 
-      background: rgba(255,255,255,.07);
+      background: rgba(255,255,255,.06);
     }
 
     .loading-line::after {
       content: "";
 
-      position: absolute;
-      top: 0;
-      right: 0;
+      display: block;
 
-      width: 65%;
+      width: 42%;
       height: 100%;
 
       border-radius: inherit;
@@ -284,37 +239,40 @@
       background:
         linear-gradient(
           90deg,
-          transparent,
-          var(--purple-2),
+          var(--purple),
           var(--purple-3)
         );
 
-      animation: loadingLine 1.25s ease-in-out infinite;
+      box-shadow:
+        0 0 18px rgba(139,61,255,.7);
+
+      animation: loadingMove 1.2s ease-in-out infinite;
     }
 
-    @keyframes loadingPulse {
-      0%, 100% {
-        transform: scale(1);
-        box-shadow:
-          0 0 35px rgba(139,61,255,.28),
-          inset 0 1px 0 rgba(255,255,255,.18);
-      }
-
-      50% {
-        transform: scale(1.04);
-        box-shadow:
-          0 0 55px rgba(139,61,255,.45),
-          inset 0 1px 0 rgba(255,255,255,.18);
-      }
-    }
-
-    @keyframes loadingLine {
+    @keyframes loadingMove {
       0% {
-        transform: translateX(120px);
+        transform: translateX(-130%);
       }
 
       100% {
-        transform: translateX(-180px);
+        transform: translateX(330%);
+      }
+    }
+
+    @keyframes logoPulse {
+      0%,
+      100% {
+        transform: translateY(0);
+        box-shadow:
+          0 0 45px rgba(139,61,255,.35),
+          inset 0 1px 0 rgba(255,255,255,.25);
+      }
+
+      50% {
+        transform: translateY(-5px);
+        box-shadow:
+          0 0 65px rgba(139,61,255,.52),
+          inset 0 1px 0 rgba(255,255,255,.3);
       }
     }
 
@@ -332,104 +290,12 @@
       align-items: center;
       justify-content: center;
 
-      padding: 30px 18px;
+      padding: 30px 20px;
     }
 
-    /* =========================
-       LOGIN CARD
-    ========================= */
-
-    .login-card {
-      position: relative;
-
-      width: min(100%, 470px);
-
-      padding: 38px;
-
-      overflow: hidden;
-
-      border-radius: var(--radius);
-
-      border: 1px solid var(--border);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(25,24,36,.88),
-          rgba(12,12,18,.76)
-        );
-
-      box-shadow:
-        var(--shadow),
-        var(--glow);
-
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-
-      animation: cardIn .55s ease both;
-    }
-
-    .login-card::before {
-      content: "";
-
-      position: absolute;
-
-      top: -170px;
-      right: -160px;
-
-      width: 360px;
-      height: 360px;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(139,61,255,.20),
-          transparent 68%
-        );
-
-      pointer-events: none;
-    }
-
-    .login-card::after {
-      content: "";
-
-      position: absolute;
-
-      left: -100px;
-      bottom: -180px;
-
-      width: 300px;
-      height: 300px;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(139,61,255,.09),
-          transparent 70%
-        );
-
-      pointer-events: none;
-    }
-
-    @keyframes cardIn {
-      from {
-        opacity: 0;
-        transform: translateY(18px) scale(.98);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .card-content {
-      position: relative;
-      z-index: 2;
+    .login-shell {
+      width: 100%;
+      max-width: 470px;
     }
 
     /* =========================
@@ -441,51 +307,45 @@
       align-items: center;
       justify-content: center;
 
-      gap: 12px;
+      gap: 11px;
 
       margin-bottom: 28px;
     }
 
     .brand-mark {
-      width: 52px;
-      height: 52px;
+      width: 46px;
+      height: 46px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      border-radius: 16px;
-
-      font-family: "Chakra Petch", sans-serif;
-      font-size: 27px;
-      font-weight: 700;
-
-      color: white;
+      border-radius: 14px;
 
       background:
         linear-gradient(
           145deg,
           var(--purple-2),
-          #6d25d7
+          #6320d8
         );
-
-      border: 1px solid rgba(255,255,255,.10);
 
       box-shadow:
         0 0 32px rgba(139,61,255,.28),
-        inset 0 1px 0 rgba(255,255,255,.18);
+        inset 0 1px 0 rgba(255,255,255,.22);
+
+      font-family: "Chakra Petch", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
     }
 
     .brand-name {
+      direction: ltr;
+
       font-family: "Chakra Petch", sans-serif;
-
-      font-size: 30px;
-      line-height: 1;
-
+      font-size: 29px;
       font-weight: 700;
-      letter-spacing: -.5px;
 
-      color: #fff;
+      letter-spacing: -.8px;
     }
 
     .brand-name span {
@@ -493,29 +353,126 @@
     }
 
     /* =========================
-       HEADING
+       CARD
     ========================= */
 
-    .heading {
-      text-align: center;
+    .login-card {
+      position: relative;
 
+      padding: 34px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(22,22,31,.84),
+          rgba(11,11,17,.78)
+        );
+
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+
+      box-shadow:
+        var(--shadow),
+        0 0 80px rgba(139,61,255,.07);
+    }
+
+    .login-card::before {
+      content: "";
+
+      position: absolute;
+
+      width: 260px;
+      height: 260px;
+
+      top: -170px;
+      right: -100px;
+
+      border-radius: 50%;
+
+      background: rgba(139,61,255,.15);
+
+      filter: blur(25px);
+
+      pointer-events: none;
+    }
+
+    .login-card::after {
+      content: "";
+
+      position: absolute;
+
+      left: 15%;
+      right: 15%;
+      top: 0;
+
+      height: 1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(167,92,255,.65),
+          transparent
+        );
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .welcome {
       margin-bottom: 28px;
     }
 
-    .heading h1 {
-      font-size: 27px;
-      line-height: 1.35;
+    .welcome-badge {
+      display: inline-flex;
+      align-items: center;
 
-      font-weight: 900;
+      gap: 7px;
 
-      color: var(--text);
+      margin-bottom: 13px;
 
-      margin-bottom: 8px;
+      padding: 6px 11px;
+
+      border: 1px solid var(--border-purple);
+      border-radius: 999px;
+
+      background: rgba(139,61,255,.07);
+
+      color: var(--purple-3);
+
+      font-size: 11px;
+      font-weight: 700;
     }
 
-    .heading p {
-      color: var(--muted);
+    .welcome-badge-dot {
+      width: 6px;
+      height: 6px;
 
+      border-radius: 50%;
+
+      background: var(--purple-2);
+
+      box-shadow:
+        0 0 10px rgba(167,92,255,.8);
+    }
+
+    .welcome h1 {
+      font-size: 27px;
+      line-height: 1.45;
+      font-weight: 900;
+
+      margin-bottom: 6px;
+    }
+
+    .welcome p {
+      color: var(--muted);
       font-size: 13px;
       line-height: 1.8;
     }
@@ -524,121 +481,110 @@
        FORM
     ========================= */
 
-    .form {
-      display: flex;
-      flex-direction: column;
-
-      gap: 17px;
+    .form-group {
+      margin-bottom: 18px;
     }
 
-    .field {
-      display: flex;
-      flex-direction: column;
-
-      gap: 8px;
-    }
-
-    .field-label {
+    .form-label {
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      font-size: 13px;
-      font-weight: 700;
+      margin-bottom: 8px;
 
-      color: #dcd8e7;
+      font-size: 12px;
+      font-weight: 700;
+      color: #dcd8e8;
     }
 
     .input-wrap {
       position: relative;
     }
 
-    .input {
-      width: 100%;
-      height: 54px;
-
-      padding:
-        0 48px
-        0 15px;
-
-      outline: none;
-
-      border-radius: var(--radius-sm);
-
-      border: 1px solid var(--border);
-
-      color: var(--text);
-
-      background:
-        rgba(5,5,9,.58);
-
-      font-family: "Cairo", sans-serif;
-      font-size: 14px;
-
-      transition:
-        border-color .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
-    }
-
-    .input::placeholder {
-      color: var(--muted-2);
-    }
-
-    .input:hover {
-      border-color: rgba(255,255,255,.11);
-    }
-
-    .input:focus {
-      border-color: var(--border-purple);
-
-      background:
-        rgba(10,8,17,.72);
-
-      box-shadow:
-        0 0 0 3px rgba(139,61,255,.08),
-        0 0 30px rgba(139,61,255,.07);
-    }
-
     .input-icon {
       position: absolute;
 
+      right: 15px;
       top: 50%;
-      right: 16px;
 
       width: 19px;
       height: 19px;
 
       transform: translateY(-50%);
 
-      color: var(--muted);
+      color: var(--muted-2);
 
       pointer-events: none;
+
+      transition: color .2s ease;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 53px;
+
+      padding: 0 46px 0 15px;
+
+      border: 1px solid var(--border);
+      border-radius: 15px;
+
+      outline: none;
+
+      background: rgba(255,255,255,.035);
+
+      color: var(--text);
+
+      font-size: 13px;
+
+      transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .form-input::placeholder {
+      color: #5f5c68;
+    }
+
+    .form-input:hover {
+      border-color: rgba(255,255,255,.11);
+    }
+
+    .form-input:focus {
+      border-color: rgba(139,61,255,.58);
+
+      background: rgba(139,61,255,.045);
+
+      box-shadow:
+        0 0 0 4px rgba(139,61,255,.08);
+    }
+
+    .form-input:focus + .input-icon {
+      color: var(--purple-2);
     }
 
     .password-toggle {
       position: absolute;
 
+      left: 13px;
       top: 50%;
-      left: 14px;
 
-      width: 32px;
-      height: 32px;
+      transform: translateY(-50%);
+
+      width: 30px;
+      height: 30px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      transform: translateY(-50%);
-
-      border: 0;
-      border-radius: 9px;
-
-      color: var(--muted);
-
       background: transparent;
 
+      color: var(--muted-2);
+
       cursor: pointer;
+
+      border-radius: 8px;
 
       transition:
         color .2s ease,
@@ -646,111 +592,90 @@
     }
 
     .password-toggle:hover {
-      color: var(--purple-3);
-      background: rgba(139,61,255,.09);
+      color: var(--text);
+      background: rgba(255,255,255,.05);
     }
 
-    .password-toggle svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    /* =========================
-       OPTIONS
-    ========================= */
-
-    .options {
+    .form-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      gap: 10px;
-
-      margin-top: -2px;
+      margin-top: 4px;
+      margin-bottom: 23px;
     }
 
     .remember {
-      display: inline-flex;
+      display: flex;
       align-items: center;
 
       gap: 8px;
 
-      color: var(--muted);
-
-      font-size: 12px;
-
       cursor: pointer;
 
-      user-select: none;
+      color: var(--muted);
+
+      font-size: 11px;
     }
 
     .remember input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
+      appearance: none;
 
-    .check {
-      width: 18px;
-      height: 18px;
+      width: 17px;
+      height: 17px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 5px;
 
-      border-radius: 6px;
+      background: rgba(255,255,255,.03);
 
-      border: 1px solid rgba(255,255,255,.12);
+      cursor: pointer;
 
-      background: rgba(255,255,255,.025);
+      position: relative;
 
       transition: .2s ease;
     }
 
-    .check svg {
-      width: 12px;
-      height: 12px;
-
-      opacity: 0;
-
-      transform: scale(.7);
-
-      transition: .2s ease;
-    }
-
-    .remember input:checked + .check {
+    .remember input:checked {
       border-color: var(--purple);
-
       background: var(--purple);
-
-      box-shadow:
-        0 0 15px rgba(139,61,255,.25);
     }
 
-    .remember input:checked + .check svg {
-      opacity: 1;
-      transform: scale(1);
+    .remember input:checked::after {
+      content: "";
+
+      position: absolute;
+
+      width: 5px;
+      height: 9px;
+
+      top: 2px;
+      left: 5px;
+
+      border:
+        solid white;
+
+      border-width:
+        0 2px 2px 0;
+
+      transform: rotate(45deg);
     }
 
     .forgot {
       color: var(--purple-3);
 
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
-
-      text-decoration: none;
-
-      cursor: pointer;
 
       transition: color .2s ease;
     }
 
     .forgot:hover {
-      color: #d4b5ff;
+      color: white;
     }
 
     /* =========================
-       LOGIN BUTTON
+       BUTTON
     ========================= */
 
     .login-button {
@@ -759,29 +684,24 @@
       width: 100%;
       height: 54px;
 
-      margin-top: 4px;
-
       display: flex;
       align-items: center;
       justify-content: center;
 
       gap: 9px;
 
-      border: 0;
-      border-radius: var(--radius-sm);
-
-      color: #fff;
+      border-radius: 15px;
 
       background:
         linear-gradient(
           135deg,
-          #9a4cff,
-          #7028df
+          #9b4cff,
+          #7124e5
         );
 
-      font-family: "Cairo", sans-serif;
+      color: white;
 
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
 
       cursor: pointer;
@@ -789,8 +709,7 @@
       overflow: hidden;
 
       box-shadow:
-        0 14px 32px rgba(111,38,220,.24),
-        inset 0 1px 0 rgba(255,255,255,.18);
+        0 12px 32px rgba(139,61,255,.24);
 
       transition:
         transform .2s ease,
@@ -804,37 +723,35 @@
       position: absolute;
 
       top: 0;
-      right: -80px;
+      left: -100%;
 
-      width: 70px;
+      width: 60%;
       height: 100%;
-
-      transform: skewX(-20deg);
 
       background:
         linear-gradient(
           90deg,
           transparent,
-          rgba(255,255,255,.17),
+          rgba(255,255,255,.16),
           transparent
         );
 
-      transition: right .6s ease;
+      transform: skewX(-20deg);
+
+      transition: left .6s ease;
     }
 
     .login-button:hover {
       transform: translateY(-2px);
 
-      filter: brightness(1.06);
-
       box-shadow:
-        0 18px 40px rgba(111,38,220,.30),
-        0 0 35px rgba(139,61,255,.14),
-        inset 0 1px 0 rgba(255,255,255,.18);
+        0 16px 42px rgba(139,61,255,.34);
+
+      filter: brightness(1.05);
     }
 
     .login-button:hover::before {
-      right: 110%;
+      left: 150%;
     }
 
     .login-button:active {
@@ -842,10 +759,8 @@
     }
 
     .login-button:disabled {
+      opacity: .7;
       cursor: not-allowed;
-
-      opacity: .72;
-
       transform: none;
     }
 
@@ -853,10 +768,12 @@
       width: 18px;
       height: 18px;
 
-      border-radius: 50%;
+      border:
+        2px solid rgba(255,255,255,.3);
 
-      border: 2px solid rgba(255,255,255,.28);
-      border-top-color: #fff;
+      border-top-color: white;
+
+      border-radius: 50%;
 
       animation: spin .7s linear infinite;
     }
@@ -875,13 +792,9 @@
       display: flex;
       align-items: center;
 
-      gap: 12px;
+      gap: 13px;
 
-      margin: 24px 0 20px;
-
-      color: var(--muted-2);
-
-      font-size: 11px;
+      margin: 25px 0;
     }
 
     .divider::before,
@@ -892,21 +805,13 @@
 
       height: 1px;
 
-      background:
-        linear-gradient(
-          90deg,
-          transparent,
-          rgba(255,255,255,.08)
-        );
+      background: rgba(255,255,255,.07);
     }
 
-    .divider::after {
-      background:
-        linear-gradient(
-          90deg,
-          rgba(255,255,255,.08),
-          transparent
-        );
+    .divider span {
+      color: var(--muted-2);
+      font-size: 10px;
+      font-weight: 600;
     }
 
     /* =========================
@@ -923,20 +828,17 @@
 
     .signup a {
       color: var(--purple-3);
-
       font-weight: 800;
-
-      text-decoration: none;
 
       transition: color .2s ease;
     }
 
     .signup a:hover {
-      color: #dfc8ff;
+      color: white;
     }
 
     /* =========================
-       SECURITY NOTE
+       SECURITY
     ========================= */
 
     .security {
@@ -954,21 +856,18 @@
     }
 
     .security svg {
-      width: 14px;
-      height: 14px;
-
-      color: var(--purple-2);
+      color: var(--green);
     }
 
     /* =========================
        TOAST
     ========================= */
 
-    #toastContainer {
+    .toast-container {
       position: fixed;
 
-      left: 22px;
-      bottom: 22px;
+      left: 20px;
+      bottom: 20px;
 
       z-index: 10000;
 
@@ -977,10 +876,7 @@
 
       gap: 10px;
 
-      width: min(
-        calc(100% - 44px),
-        360px
-      );
+      width: min(360px, calc(100% - 40px));
 
       pointer-events: none;
     }
@@ -991,22 +887,24 @@
 
       gap: 11px;
 
-      padding: 13px 14px;
+      padding: 13px 15px;
 
-      border-radius: 16px;
+      border:
+        1px solid rgba(255,255,255,.08);
 
-      border: 1px solid var(--border);
+      border-radius: 15px;
 
       background:
-        rgba(17,17,25,.92);
-
-      box-shadow:
-        0 18px 50px rgba(0,0,0,.35);
+        rgba(18,18,25,.92);
 
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
 
-      animation: toastIn .3s ease both;
+      box-shadow:
+        0 15px 45px rgba(0,0,0,.35);
+
+      animation:
+        toastIn .3s ease forwards;
 
       pointer-events: auto;
     }
@@ -1020,495 +918,460 @@
     }
 
     .toast-icon {
-      width: 32px;
-      height: 32px;
+      width: 27px;
+      height: 27px;
 
-      flex: 0 0 32px;
+      flex-shrink: 0;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      border-radius: 10px;
+      border-radius: 9px;
 
-      background: rgba(139,61,255,.10);
-
-      color: var(--purple-3);
+      background: rgba(255,255,255,.05);
     }
 
     .toast.error .toast-icon {
       color: var(--red);
-      background: rgba(255,88,112,.09);
+      background: rgba(255,88,112,.08);
     }
 
     .toast.success .toast-icon {
       color: var(--green);
-      background: rgba(53,220,136,.09);
+      background: rgba(53,220,136,.08);
     }
 
-    .toast-icon svg {
-      width: 17px;
-      height: 17px;
-    }
-
-    .toast-content {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .toast-title {
-      color: var(--text);
-
-      font-size: 12px;
-      font-weight: 800;
-
-      margin-bottom: 2px;
-    }
-
-    .toast-message {
-      color: var(--muted);
-
+    .toast-text {
       font-size: 11px;
-      line-height: 1.6;
+      line-height: 1.7;
+      color: #ddd9e7;
     }
 
     @keyframes toastIn {
       from {
         opacity: 0;
-        transform: translateY(10px) translateX(-8px);
+        transform: translateY(15px);
       }
 
       to {
         opacity: 1;
-        transform: translateY(0) translateX(0);
-      }
-    }
-
-    @keyframes toastOut {
-      to {
-        opacity: 0;
-        transform: translateY(8px) translateX(-8px);
+        transform: translateY(0);
       }
     }
 
     /* =========================
-       MOBILE
+       RESPONSIVE
     ========================= */
 
-    @media (max-width: 560px) {
-
+    @media (max-width: 600px) {
       .page {
-        padding: 18px 12px;
+        padding: 20px 14px;
       }
 
       .login-card {
-        padding: 27px 20px;
-
+        padding: 27px 21px;
         border-radius: 21px;
       }
 
       .brand {
-        margin-bottom: 23px;
+        margin-bottom: 22px;
       }
 
       .brand-mark {
-        width: 47px;
-        height: 47px;
-
-        border-radius: 14px;
-
-        font-size: 24px;
+        width: 42px;
+        height: 42px;
       }
 
       .brand-name {
         font-size: 27px;
       }
 
-      .heading h1 {
+      .welcome h1 {
         font-size: 23px;
       }
 
-      .heading p {
+      .welcome p {
         font-size: 12px;
       }
 
-      .form {
-        gap: 15px;
-      }
-
-      .input {
-        height: 52px;
+      .form-input {
+        height: 51px;
       }
 
       .login-button {
         height: 52px;
       }
 
-      #toastContainer {
-        left: 12px;
-        bottom: 12px;
+      .toast-container {
+        left: 14px;
+        bottom: 14px;
 
-        width: calc(100% - 24px);
+        width: calc(100% - 28px);
       }
     }
 
-    @media (max-height: 720px) and (min-width: 561px) {
-
+    @media (max-height: 700px) and (min-width: 601px) {
       .page {
         padding-top: 18px;
         padding-bottom: 18px;
       }
 
-      .login-card {
-        padding-top: 25px;
-        padding-bottom: 25px;
-      }
-
       .brand {
-        margin-bottom: 18px;
+        margin-bottom: 16px;
       }
 
-      .heading {
+      .login-card {
+        padding: 25px 32px;
+      }
+
+      .welcome {
         margin-bottom: 19px;
       }
 
+      .form-group {
+        margin-bottom: 13px;
+      }
+
+      .form-row {
+        margin-bottom: 17px;
+      }
+
+      .divider {
+        margin: 17px 0;
+      }
+
       .security {
-        margin-top: 14px;
+        margin-top: 15px;
       }
     }
-
   </style>
-
 </head>
 
 <body>
 
-  <div class="ambient one"></div>
-  <div class="ambient two"></div>
-
   <!-- =========================
-       LOADING
-  ========================= -->
+       LOADING SCREEN
+  ========================== -->
 
-  <div id="loadingScreen">
+  <div
+    class="loading-screen"
+    id="loadingScreen"
+  >
+    <div class="loading-content">
 
-    <div class="loading-box">
+      <div class="loading-logo">
+        M
+      </div>
 
-      <div class="loading-logo">M</div>
-
-      <div class="loading-text">
+      <div class="loading-title">
         جاري تجهيز عالم Mathix...
       </div>
 
       <div class="loading-line"></div>
 
     </div>
-
   </div>
 
+
   <!-- =========================
-       LOGIN PAGE
-  ========================= -->
+       PAGE
+  ========================== -->
 
   <main class="page">
 
-    <section class="login-card">
+    <div class="login-shell">
 
-      <div class="card-content">
+      <!-- BRAND -->
 
-        <!-- BRAND -->
+      <div class="brand">
 
-        <div class="brand">
-
-          <div class="brand-mark">
-            M
-          </div>
-
-          <div class="brand-name">
-            Mathi<span>x</span>
-          </div>
-
+        <div class="brand-mark">
+          M
         </div>
 
-        <!-- HEADING -->
-
-        <div class="heading">
-
-          <h1>
-            أهلاً بيك 👋
-          </h1>
-
-          <p>
-            سجل دخولك وكمل رحلتك في Mathix
-          </p>
-
+        <div class="brand-name">
+          Mathi<span>x</span>
         </div>
 
-        <!-- FORM -->
+      </div>
 
-        <form
-          class="form"
-          id="loginForm"
-          novalidate
-        >
 
-          <!-- EMAIL -->
+      <!-- LOGIN CARD -->
 
-          <div class="field">
+      <section class="login-card">
 
-            <label
-              class="field-label"
-              for="email"
-            >
-              البريد الإلكتروني
-            </label>
+        <div class="card-content">
 
-            <div class="input-wrap">
+          <div class="welcome">
 
-              <input
-                class="input"
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                placeholder="example@gmail.com"
-                required
-                dir="ltr"
-              >
+            <div class="welcome-badge">
 
-              <svg
-                class="input-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <rect
-                  x="3"
-                  y="5"
-                  width="18"
-                  height="14"
-                  rx="3"
-                ></rect>
+              <span class="welcome-badge-dot"></span>
 
-                <path
-                  d="m3 7 9 6 9-6"
-                ></path>
-              </svg>
+              منصة علمي رياضة
 
             </div>
 
+            <h1>
+              أهلاً بيك 👋
+            </h1>
+
+            <p>
+              سجل دخولك وكمل رحلتك في Mathix
+            </p>
+
           </div>
 
-          <!-- PASSWORD -->
 
-          <div class="field">
+          <!-- FORM -->
 
-            <label
-              class="field-label"
-              for="password"
-            >
-              كلمة المرور
-            </label>
+          <form id="loginForm">
 
-            <div class="input-wrap">
+            <!-- EMAIL -->
 
-              <input
-                class="input"
-                id="password"
-                name="password"
-                type="password"
-                autocomplete="current-password"
-                placeholder="اكتب كلمة المرور"
-                required
+            <div class="form-group">
+
+              <label
+                class="form-label"
+                for="email"
               >
+                البريد الإلكتروني
+              </label>
 
-              <svg
-                class="input-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <rect
-                  x="4"
-                  y="10"
-                  width="16"
-                  height="11"
-                  rx="2.5"
-                ></rect>
+              <div class="input-wrap">
 
-                <path
-                  d="M8 10V7a4 4 0 0 1 8 0v3"
-                ></path>
-
-                <path
-                  d="M12 14v3"
-                ></path>
-              </svg>
-
-              <button
-                type="button"
-                class="password-toggle"
-                id="togglePassword"
-                aria-label="إظهار كلمة المرور"
-              >
+                <input
+                  id="email"
+                  class="form-input"
+                  type="email"
+                  autocomplete="email"
+                  placeholder="example@gmail.com"
+                  required
+                >
 
                 <svg
-                  id="eyeIcon"
+                  class="input-icon"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="1.8"
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  aria-hidden="true"
                 >
-                  <path
-                    d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
-                  ></path>
+                  <rect
+                    x="3"
+                    y="5"
+                    width="18"
+                    height="14"
+                    rx="2"
+                  ></rect>
 
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="2.7"
-                  ></circle>
+                  <path
+                    d="m3 7 9 6 9-6"
+                  ></path>
                 </svg>
 
-              </button>
+              </div>
 
             </div>
 
-          </div>
 
-          <!-- OPTIONS -->
+            <!-- PASSWORD -->
 
-          <div class="options">
+            <div class="form-group">
 
-            <label class="remember">
-
-              <input
-                type="checkbox"
-                id="remember"
-                checked
+              <label
+                class="form-label"
+                for="password"
               >
+                كلمة المرور
+              </label>
 
-              <span class="check">
+              <div class="input-wrap">
+
+                <input
+                  id="password"
+                  class="form-input"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="اكتب كلمة المرور"
+                  required
+                >
 
                 <svg
+                  class="input-icon"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="3"
+                  stroke-width="1.8"
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  aria-hidden="true"
                 >
-                  <path d="m5 12 4 4L19 6"></path>
+                  <rect
+                    x="5"
+                    y="10"
+                    width="14"
+                    height="10"
+                    rx="2"
+                  ></rect>
+
+                  <path
+                    d="M8 10V7a4 4 0 0 1 8 0v3"
+                  ></path>
                 </svg>
 
+                <button
+                  type="button"
+                  class="password-toggle"
+                  id="passwordToggle"
+                  aria-label="إظهار كلمة المرور"
+                >
+
+                  <svg
+                    id="eyeIcon"
+                    width="17"
+                    height="17"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"
+                    ></path>
+
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="2.5"
+                    ></circle>
+                  </svg>
+
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- OPTIONS -->
+
+            <div class="form-row">
+
+              <label class="remember">
+
+                <input
+                  type="checkbox"
+                  id="remember"
+                  checked
+                >
+
+                <span>
+                  تذكرني
+                </span>
+
+              </label>
+
+              <a
+                href="#"
+                class="forgot"
+                id="forgotPassword"
+              >
+                نسيت كلمة المرور؟
+              </a>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <button
+              type="submit"
+              class="login-button"
+              id="loginButton"
+            >
+
+              <span id="loginButtonText">
+                تسجيل الدخول
               </span>
 
-              تذكرني
+            </button>
 
-            </label>
+          </form>
 
-            <a
-              href="#"
-              class="forgot"
-              id="forgotPassword"
-            >
-              نسيت كلمة المرور؟
+
+          <!-- DIVIDER -->
+
+          <div class="divider">
+            <span>أو</span>
+          </div>
+
+
+          <!-- SIGNUP -->
+
+          <div class="signup">
+
+            لسه معندكش حساب؟
+
+            <a href="./signup.html">
+              إنشاء حساب جديد
             </a>
 
           </div>
 
-          <!-- BUTTON -->
 
-          <button
-            type="submit"
-            class="login-button"
-            id="loginButton"
-          >
+          <!-- SECURITY -->
 
-            <span id="loginButtonText">
-              تسجيل الدخول
-            </span>
+          <div class="security">
 
-          </button>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"
+              ></path>
 
-        </form>
+              <path
+                d="m9 12 2 2 4-4"
+              ></path>
+            </svg>
 
-        <!-- DIVIDER -->
+            تسجيل دخول آمن ومحمي بواسطة Firebase
 
-        <div class="divider">
-          أو
-        </div>
-
-        <!-- SIGNUP -->
-
-        <div class="signup">
-
-          لسه معندكش حساب؟
-          <a href="./signup.html">
-            إنشاء حساب جديد
-          </a>
+          </div>
 
         </div>
 
-        <!-- SECURITY -->
+      </section>
 
-        <div class="security">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <rect
-              x="4"
-              y="10"
-              width="16"
-              height="11"
-              rx="2.5"
-            ></rect>
-
-            <path
-              d="M8 10V7a4 4 0 0 1 8 0v3"
-            ></path>
-
-            <path
-              d="M12 14v3"
-            ></path>
-          </svg>
-
-          تسجيل دخول آمن ومشفر
-
-        </div>
-
-      </div>
-
-    </section>
+    </div>
 
   </main>
 
-  <!-- =========================
-       TOASTS
-  ========================= -->
 
-  <div id="toastContainer"></div>
+  <!-- TOAST -->
+
+  <div
+    class="toast-container"
+    id="toastContainer"
+  ></div>
 
 
   <!-- =========================
        FIREBASE
-  ========================= -->
+  ========================== -->
 
   <script type="module">
 
@@ -1529,31 +1392,48 @@
 
     /* =========================
        FIREBASE CONFIG
-    ========================= */
+    ========================== */
 
     const firebaseConfig = {
-      apiKey: "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk4",
-      authDomain: "mathix-2008.firebaseapp.com",
-      projectId: "mathix-2008",
-      storageBucket: "mathix-2008.firebasestorage.app",
-      messagingSenderId: "561805658834",
-      appId: "1:561805658834:web:c1db8ebc2d415be9497b0b",
-      measurementId: "G-XWHKQ72FM0"
+
+      apiKey:
+        "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk",
+
+      authDomain:
+        "mathix-2008.firebaseapp.com",
+
+      projectId:
+        "mathix-2008",
+
+      storageBucket:
+        "mathix-2008.firebasestorage.app",
+
+      messagingSenderId:
+        "561805658834",
+
+      appId:
+        "1:561805658834:web:c1db8ebc2d415be9497b0b",
+
+      measurementId:
+        "G-XWHKQ72FM0"
+
     };
 
 
     /* =========================
-       FIREBASE INIT
-    ========================= */
+       INIT
+    ========================== */
 
-    const app = initializeApp(firebaseConfig);
+    const app =
+      initializeApp(firebaseConfig);
 
-    const auth = getAuth(app);
+    const auth =
+      getAuth(app);
 
 
     /* =========================
        ELEMENTS
-    ========================= */
+    ========================== */
 
     const loadingScreen =
       document.getElementById("loadingScreen");
@@ -1570,17 +1450,17 @@
     const rememberInput =
       document.getElementById("remember");
 
-    const togglePassword =
-      document.getElementById("togglePassword");
-
-    const eyeIcon =
-      document.getElementById("eyeIcon");
-
     const loginButton =
       document.getElementById("loginButton");
 
     const loginButtonText =
       document.getElementById("loginButtonText");
+
+    const passwordToggle =
+      document.getElementById("passwordToggle");
+
+    const eyeIcon =
+      document.getElementById("eyeIcon");
 
     const forgotPassword =
       document.getElementById("forgotPassword");
@@ -1591,7 +1471,7 @@
 
     /* =========================
        STATE
-    ========================= */
+    ========================== */
 
     let authChecked = false;
     let redirecting = false;
@@ -1599,24 +1479,12 @@
 
 
     /* =========================
-       LOADING
-    ========================= */
-
-    function hideLoading() {
-
-      loadingScreen.classList.add("hidden");
-
-    }
-
-
-    /* =========================
        TOAST
-    ========================= */
+    ========================== */
 
     function showToast(
       message,
-      type = "error",
-      title = ""
+      type = "error"
     ) {
 
       const toast =
@@ -1625,47 +1493,44 @@
       toast.className =
         `toast ${type}`;
 
-      let icon = "";
+      const icon =
+        type === "success"
+          ? `
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m5 12 4 4L19 6"></path>
+            </svg>
+          `
+          : `
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+              ></circle>
 
-      if (type === "success") {
+              <path d="M12 8v4"></path>
 
-        icon = `
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="m5 12 4 4L19 6"></path>
-          </svg>
-        `;
-
-      } else {
-
-        icon = `
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle
-              cx="12"
-              cy="12"
-              r="9"
-            ></circle>
-
-            <path d="M12 8v5"></path>
-
-            <path d="M12 16h.01"></path>
-          </svg>
-        `;
-
-      }
+              <path d="M12 16h.01"></path>
+            </svg>
+          `;
 
       toast.innerHTML = `
 
@@ -1673,18 +1538,8 @@
           ${icon}
         </div>
 
-        <div class="toast-content">
-
-          ${
-            title
-              ? `<div class="toast-title">${escapeHTML(title)}</div>`
-              : ""
-          }
-
-          <div class="toast-message">
-            ${escapeHTML(message)}
-          </div>
-
+        <div class="toast-text">
+          ${escapeHTML(message)}
         </div>
 
       `;
@@ -1693,15 +1548,18 @@
 
       setTimeout(() => {
 
-        toast.style.animation =
-          "toastOut .25s ease forwards";
+        toast.style.opacity = "0";
+        toast.style.transform =
+          "translateY(10px)";
+
+        toast.style.transition =
+          "opacity .25s ease, transform .25s ease";
 
         setTimeout(() => {
           toast.remove();
         }, 250);
 
-      }, 4200);
-
+      }, 4000);
     }
 
 
@@ -1713,80 +1571,12 @@
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
-
     }
 
 
     /* =========================
-       PASSWORD TOGGLE
-    ========================= */
-
-    togglePassword.addEventListener(
-      "click",
-      () => {
-
-        const isPassword =
-          passwordInput.type === "password";
-
-        passwordInput.type =
-          isPassword
-            ? "text"
-            : "password";
-
-        togglePassword.setAttribute(
-          "aria-label",
-          isPassword
-            ? "إخفاء كلمة المرور"
-            : "إظهار كلمة المرور"
-        );
-
-        if (isPassword) {
-
-          eyeIcon.innerHTML = `
-
-            <path
-              d="M3 3l18 18"
-            ></path>
-
-            <path
-              d="M10.6 10.6a2 2 0 0 0 2.8 2.8"
-            ></path>
-
-            <path
-              d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 3.9"
-            ></path>
-
-            <path
-              d="M6.1 6.1C3.5 8.2 2 12 2 12s3.5 7 10 7c1.5 0 2.8-.3 4-.8"
-            ></path>
-
-          `;
-
-        } else {
-
-          eyeIcon.innerHTML = `
-
-            <path
-              d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
-            ></path>
-
-            <circle
-              cx="12"
-              cy="12"
-              r="2.7"
-            ></circle>
-
-          `;
-
-        }
-
-      }
-    );
-
-
-    /* =========================
        AUTH STATE
-    ========================= */
+    ========================== */
 
     onAuthStateChanged(
       auth,
@@ -1803,29 +1593,83 @@
           );
 
           return;
-
         }
 
-        hideLoading();
+        loadingScreen.classList.add("hidden");
 
         setTimeout(() => {
 
-          if (
-            document.visibilityState === "visible" &&
-            !redirecting
-          ) {
-            emailInput.focus();
-          }
+          emailInput.focus();
 
-        }, 100);
+        }, 250);
+      }
+    );
 
+
+    /* =========================
+       PASSWORD TOGGLE
+    ========================== */
+
+    passwordToggle.addEventListener(
+      "click",
+      () => {
+
+        const isPassword =
+          passwordInput.type === "password";
+
+        passwordInput.type =
+          isPassword
+            ? "text"
+            : "password";
+
+        passwordToggle.setAttribute(
+          "aria-label",
+          isPassword
+            ? "إخفاء كلمة المرور"
+            : "إظهار كلمة المرور"
+        );
+
+        if (isPassword) {
+
+          eyeIcon.innerHTML = `
+            <path
+              d="M3 3l18 18"
+            ></path>
+
+            <path
+              d="M10.6 10.6a2 2 0 0 0 2.8 2.8"
+            ></path>
+
+            <path
+              d="M9.9 4.3A10.8 10.8 0 0 1 12 4c6 0 9.5 8 9.5 8a17.4 17.4 0 0 1-3.2 4.2"
+            ></path>
+
+            <path
+              d="M6.1 6.1C3.7 7.7 2.5 12 2.5 12s3.5 8 9.5 8c1.6 0 3-.4 4.2-1"
+            ></path>
+          `;
+
+        } else {
+
+          eyeIcon.innerHTML = `
+            <path
+              d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"
+            ></path>
+
+            <circle
+              cx="12"
+              cy="12"
+              r="2.5"
+            ></circle>
+          `;
+        }
       }
     );
 
 
     /* =========================
        LOGIN
-    ========================= */
+    ========================== */
 
     loginForm.addEventListener(
       "submit",
@@ -1833,7 +1677,7 @@
 
         event.preventDefault();
 
-        if (submitting) {
+        if (submitting || redirecting) {
           return;
         }
 
@@ -1846,22 +1690,7 @@
         if (!email) {
 
           showToast(
-            "اكتب البريد الإلكتروني الأول.",
-            "error",
-            "بيانات ناقصة"
-          );
-
-          emailInput.focus();
-
-          return;
-        }
-
-        if (!isValidEmail(email)) {
-
-          showToast(
-            "اكتب بريد إلكتروني صحيح.",
-            "error",
-            "البريد الإلكتروني"
+            "اكتب البريد الإلكتروني أولاً."
           );
 
           emailInput.focus();
@@ -1872,48 +1701,31 @@
         if (!password) {
 
           showToast(
-            "اكتب كلمة المرور.",
-            "error",
-            "بيانات ناقصة"
+            "اكتب كلمة المرور أولاً."
           );
 
           passwordInput.focus();
 
           return;
         }
-
-        if (password.length < 6) {
-
-          showToast(
-            "كلمة المرور غير صحيحة.",
-            "error",
-            "كلمة المرور"
-          );
-
-          passwordInput.focus();
-
-          return;
-        }
-
 
         submitting = true;
 
-        setLoginLoading(true);
+        loginButton.disabled = true;
 
+        loginButtonText.innerHTML = `
+          <span class="button-spinner"></span>
+          جاري تسجيل الدخول...
+        `;
 
         try {
 
-          const persistence =
-            rememberInput.checked
-              ? browserLocalPersistence
-              : browserSessionPersistence;
-
-
           await setPersistence(
             auth,
-            persistence
+            rememberInput.checked
+              ? browserLocalPersistence
+              : browserSessionPersistence
           );
-
 
           await signInWithEmailAndPassword(
             auth,
@@ -1921,16 +1733,15 @@
             password
           );
 
-
-          redirecting = true;
-
-
           showToast(
             "تم تسجيل الدخول بنجاح.",
-            "success",
-            "أهلاً بيك في Mathix"
+            "success"
           );
 
+          loginButtonText.textContent =
+            "تم الدخول ✓";
+
+          redirecting = true;
 
           setTimeout(() => {
 
@@ -1938,31 +1749,31 @@
               "./dashboard.html"
             );
 
-          }, 250);
-
+          }, 400);
 
         } catch (error) {
 
           console.error(
-            "Mathix login error:",
+            "Login error:",
             error
           );
 
-          setLoginLoading(false);
-
           submitting = false;
 
+          loginButton.disabled = false;
+
+          loginButtonText.textContent =
+            "تسجيل الدخول";
+
           handleAuthError(error);
-
         }
-
       }
     );
 
 
     /* =========================
-       FORGOT PASSWORD
-    ========================= */
+       PASSWORD RESET
+    ========================== */
 
     forgotPassword.addEventListener(
       "click",
@@ -1973,41 +1784,16 @@
         const email =
           emailInput.value.trim();
 
-
         if (!email) {
 
           showToast(
-            "اكتب البريد الإلكتروني الأول، وبعدها اضغط نسيت كلمة المرور.",
-            "error",
-            "استعادة كلمة المرور"
+            "اكتب بريدك الإلكتروني أولاً، وبعدها اضغط نسيت كلمة المرور."
           );
 
           emailInput.focus();
 
           return;
         }
-
-
-        if (!isValidEmail(email)) {
-
-          showToast(
-            "البريد الإلكتروني غير صحيح.",
-            "error",
-            "البريد الإلكتروني"
-          );
-
-          emailInput.focus();
-
-          return;
-        }
-
-
-        forgotPassword.style.pointerEvents =
-          "none";
-
-        forgotPassword.style.opacity =
-          ".55";
-
 
         try {
 
@@ -2016,299 +1802,136 @@
             email
           );
 
-
           showToast(
-            "لو الحساب موجود، هتوصلك رسالة لإعادة تعيين كلمة المرور.",
-            "success",
-            "تم إرسال الطلب"
+            "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.",
+            "success"
           );
-
 
         } catch (error) {
 
           console.error(
-            "Mathix password reset error:",
+            "Password reset error:",
             error
           );
 
-          handleResetError(error);
-
-        } finally {
-
-          setTimeout(() => {
-
-            forgotPassword.style.pointerEvents =
-              "";
-
-            forgotPassword.style.opacity =
-              "";
-
-          }, 2500);
-
+          handleAuthError(error);
         }
-
       }
     );
 
 
     /* =========================
-       HELPERS
-    ========================= */
-
-    function isValidEmail(email) {
-
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        .test(email);
-
-    }
-
-
-    function setLoginLoading(loading) {
-
-      loginButton.disabled =
-        loading;
-
-      if (loading) {
-
-        loginButtonText.innerHTML = `
-
-          <span class="button-spinner"></span>
-
-          جاري تسجيل الدخول...
-
-        `;
-
-      } else {
-
-        loginButtonText.textContent =
-          "تسجيل الدخول";
-
-      }
-
-    }
-
-
-    /* =========================
        AUTH ERRORS
-    ========================= */
+    ========================== */
 
     function handleAuthError(error) {
 
       const code =
         error?.code || "";
 
+      let message =
+        "حصل خطأ أثناء تسجيل الدخول. حاول مرة أخرى.";
 
-      if (
-        code ===
-        "auth/invalid-credential" ||
+      switch (code) {
 
-        code ===
-        "auth/invalid-login-credentials" ||
+        case "auth/invalid-credential":
 
-        code ===
-        "auth/wrong-password" ||
+        case "auth/wrong-password":
 
-        code ===
-        "auth/user-not-found"
-      ) {
+        case "auth/user-not-found":
 
-        showToast(
-          "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-          "error",
-          "تعذر تسجيل الدخول"
-        );
+          message =
+            "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
 
-        return;
+          break;
 
+
+        case "auth/invalid-email":
+
+          message =
+            "البريد الإلكتروني غير صحيح.";
+
+          break;
+
+
+        case "auth/user-disabled":
+
+          message =
+            "هذا الحساب تم تعطيله.";
+
+          break;
+
+
+        case "auth/too-many-requests":
+
+          message =
+            "تمت محاولات كثيرة. حاول مرة أخرى بعد قليل.";
+
+          break;
+
+
+        case "auth/network-request-failed":
+
+          message =
+            "تأكد من اتصال الإنترنت وحاول مرة أخرى.";
+
+          break;
+
+
+        case "auth/operation-not-allowed":
+
+          message =
+            "تسجيل الدخول بالبريد الإلكتروني غير مفعّل في Firebase.";
+
+          break;
+
+
+        case "auth/api-key-not-valid":
+
+        case "auth/invalid-api-key":
+
+          message =
+            "مفتاح Firebase غير صحيح. تأكد من إعدادات المشروع.";
+
+          break;
+
+
+        case "auth/internal-error":
+
+          message =
+            "حدث خطأ داخلي في Firebase. حاول مرة أخرى.";
+
+          break;
+
+
+        default:
+
+          if (
+            String(error?.message || "")
+              .toLowerCase()
+              .includes("api key")
+          ) {
+
+            message =
+              "مفتاح Firebase غير صحيح أو غير مفعّل.";
+          }
+
+          break;
       }
 
-
-      if (
-        code ===
-        "auth/too-many-requests"
-      ) {
-
-        showToast(
-          "محاولات تسجيل دخول كثيرة. استنى شوية وحاول تاني.",
-          "error",
-          "محاولات كثيرة"
-        );
-
-        return;
-
-      }
-
-
-      if (
-        code ===
-        "auth/user-disabled"
-      ) {
-
-        showToast(
-          "الحساب ده متوقف حاليًا. تواصل مع الإدارة.",
-          "error",
-          "الحساب متوقف"
-        );
-
-        return;
-
-      }
-
-
-      if (
-        code ===
-        "auth/invalid-email"
-      ) {
-
-        showToast(
-          "البريد الإلكتروني غير صحيح.",
-          "error",
-          "بيانات غير صحيحة"
-        );
-
-        return;
-
-      }
-
-
-      if (
-        code ===
-        "auth/network-request-failed"
-      ) {
-
-        showToast(
-          "تأكد من اتصالك بالإنترنت وحاول تاني.",
-          "error",
-          "مشكلة في الاتصال"
-        );
-
-        return;
-
-      }
-
-
-      if (
-        code ===
-        "auth/operation-not-allowed"
-      ) {
-
-        showToast(
-          "تسجيل الدخول بالبريد الإلكتروني غير مفعّل في Firebase.",
-          "error",
-          "إعدادات Firebase"
-        );
-
-        return;
-
-      }
-
-
-      showToast(
-        "حصلت مشكلة أثناء تسجيل الدخول. حاول تاني.",
-        "error",
-        "تعذر تسجيل الدخول"
-      );
-
+      showToast(message);
     }
 
 
     /* =========================
-       RESET ERRORS
-    ========================= */
-
-    function handleResetError(error) {
-
-      const code =
-        error?.code || "";
-
-
-      if (
-        code ===
-        "auth/invalid-email"
-      ) {
-
-        showToast(
-          "البريد الإلكتروني غير صحيح.",
-          "error",
-          "البريد الإلكتروني"
-        );
-
-        return;
-
-      }
-
-
-      if (
-        code ===
-        "auth/too-many-requests"
-      ) {
-
-        showToast(
-          "تم إرسال طلبات كثيرة. حاول بعد شوية.",
-          "error",
-          "محاولات كثيرة"
-        );
-
-        return;
-
-      }
-
-
-      if (
-        code ===
-        "auth/network-request-failed"
-      ) {
-
-        showToast(
-          "تأكد من الإنترنت وحاول تاني.",
-          "error",
-          "مشكلة في الاتصال"
-        );
-
-        return;
-
-      }
-
-
-      showToast(
-        "مش قادرين نرسل رابط إعادة تعيين كلمة المرور دلوقتي.",
-        "error",
-        "تعذر الإرسال"
-      );
-
-    }
-
-
-    /* =========================
-       ENTER KEY
-    ========================= */
-
-    passwordInput.addEventListener(
-      "keydown",
-      (event) => {
-
-        if (
-          event.key === "Enter"
-        ) {
-
-          loginForm.requestSubmit();
-
-        }
-
-      }
-    );
-
-
-    /* =========================
-       GLOBAL SAFETY
-    ========================= */
+       PAGE SHOW SAFETY
+    ========================== */
 
     window.addEventListener(
       "pageshow",
       () => {
 
         if (
-          authChecked &&
           auth.currentUser &&
           !redirecting
         ) {
@@ -2318,9 +1941,7 @@
           window.location.replace(
             "./dashboard.html"
           );
-
         }
-
       }
     );
 
