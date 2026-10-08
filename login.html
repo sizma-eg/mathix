@@ -17,13 +17,10 @@
 
   <meta
     name="description"
-    content="تسجيل الدخول إلى منصة Mathix"
+    content="Mathix — منصة علمي رياضة"
   >
 
   <title>تسجيل الدخول | Mathix</title>
-
-
-  <!-- Fonts -->
 
   <link
     rel="preconnect"
@@ -41,11 +38,9 @@
     rel="stylesheet"
   >
 
-
   <style>
 
     :root {
-
       --bg: #050507;
       --bg-2: #08080d;
 
@@ -57,26 +52,22 @@
       --purple-3: #c28cff;
 
       --text: #f7f5ff;
-
       --muted: #94919f;
       --muted-2: #6e6b78;
 
       --green: #35dc88;
       --red: #ff5870;
+      --yellow: #ffc857;
 
       --border: rgba(255,255,255,.075);
       --border-purple: rgba(139,61,255,.28);
 
-      --shadow:
-        0 25px 80px rgba(0,0,0,.55);
+      --shadow: 0 25px 80px rgba(0,0,0,.48);
+      --glow: 0 0 50px rgba(139,61,255,.14);
 
-      --glow:
-        0 0 60px rgba(139,61,255,.15);
-
-      --radius: 26px;
-
+      --radius: 24px;
+      --radius-sm: 16px;
     }
-
 
     * {
       box-sizing: border-box;
@@ -84,13 +75,256 @@
       padding: 0;
     }
 
-
     html {
-      scroll-behavior: smooth;
+      min-height: 100%;
+      background: var(--bg);
     }
 
-
     body {
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      font-family: "Cairo", sans-serif;
+
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at 90% 5%,
+          rgba(139,61,255,.16),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 10% 95%,
+          rgba(139,61,255,.11),
+          transparent 28%
+        ),
+        linear-gradient(
+          135deg,
+          var(--bg),
+          var(--bg-2)
+        );
+    }
+
+    /* =========================
+       GRID BACKGROUND
+    ========================= */
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+
+      pointer-events: none;
+      z-index: 0;
+
+      opacity: .25;
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        );
+
+      background-size: 45px 45px;
+
+      mask-image:
+        radial-gradient(
+          ellipse at center,
+          black 20%,
+          transparent 85%
+        );
+    }
+
+    /* =========================
+       PURPLE AMBIENT LIGHT
+    ========================= */
+
+    .ambient {
+      position: fixed;
+      width: 420px;
+      height: 420px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(139,61,255,.13),
+          rgba(139,61,255,.035) 45%,
+          transparent 72%
+        );
+
+      filter: blur(10px);
+
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient.one {
+      top: -180px;
+      right: -130px;
+    }
+
+    .ambient.two {
+      bottom: -190px;
+      left: -130px;
+    }
+
+    /* =========================
+       LOADING SCREEN
+    ========================= */
+
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+
+      z-index: 9999;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #050507;
+
+      transition:
+        opacity .35s ease,
+        visibility .35s ease;
+    }
+
+    #loadingScreen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loading-box {
+      width: min(90%, 340px);
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      text-align: center;
+    }
+
+    .loading-logo {
+      width: 68px;
+      height: 68px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 20px;
+
+      font-family: "Chakra Petch", sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(167,92,255,.95),
+          rgba(112,42,230,.82)
+        );
+
+      border: 1px solid rgba(255,255,255,.1);
+
+      box-shadow:
+        0 0 40px rgba(139,61,255,.35),
+        inset 0 1px 0 rgba(255,255,255,.18);
+
+      animation: loadingPulse 1.7s ease-in-out infinite;
+    }
+
+    .loading-text {
+      margin-top: 22px;
+
+      color: var(--text);
+
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .loading-line {
+      position: relative;
+
+      width: 150px;
+      height: 3px;
+
+      margin-top: 14px;
+
+      overflow: hidden;
+
+      border-radius: 99px;
+
+      background: rgba(255,255,255,.07);
+    }
+
+    .loading-line::after {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      width: 65%;
+      height: 100%;
+
+      border-radius: inherit;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          var(--purple-2),
+          var(--purple-3)
+        );
+
+      animation: loadingLine 1.25s ease-in-out infinite;
+    }
+
+    @keyframes loadingPulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow:
+          0 0 35px rgba(139,61,255,.28),
+          inset 0 1px 0 rgba(255,255,255,.18);
+      }
+
+      50% {
+        transform: scale(1.04);
+        box-shadow:
+          0 0 55px rgba(139,61,255,.45),
+          inset 0 1px 0 rgba(255,255,255,.18);
+      }
+    }
+
+    @keyframes loadingLine {
+      0% {
+        transform: translateX(120px);
+      }
+
+      100% {
+        transform: translateX(-180px);
+      }
+    }
+
+    /* =========================
+       PAGE
+    ========================= */
+
+    .page {
+      position: relative;
+      z-index: 1;
 
       min-height: 100vh;
 
@@ -98,1149 +332,560 @@
       align-items: center;
       justify-content: center;
 
-      padding: 25px;
-
-      overflow-x: hidden;
-
-      color: var(--text);
-
-      font-family: "Cairo", sans-serif;
-
-      background:
-
-        radial-gradient(
-          circle at 80% 10%,
-          rgba(139,61,255,.16),
-          transparent 30%
-        ),
-
-        radial-gradient(
-          circle at 10% 90%,
-          rgba(139,61,255,.10),
-          transparent 28%
-        ),
-
-        radial-gradient(
-          circle at 50% 50%,
-          rgba(255,255,255,.015),
-          transparent 45%
-        ),
-
-        var(--bg);
-
+      padding: 30px 18px;
     }
-
-
-    body::before {
-
-      content: "";
-
-      position: fixed;
-
-      inset: 0;
-
-      pointer-events: none;
-
-      background-image:
-        linear-gradient(
-          rgba(255,255,255,.012) 1px,
-          transparent 1px
-        ),
-        linear-gradient(
-          90deg,
-          rgba(255,255,255,.012) 1px,
-          transparent 1px
-        );
-
-      background-size: 45px 45px;
-
-      mask-image:
-        linear-gradient(
-          to bottom,
-          black,
-          transparent 80%
-        );
-
-      opacity: .45;
-
-    }
-
-
-    button,
-    input {
-      font: inherit;
-    }
-
-
-    button {
-      cursor: pointer;
-    }
-
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-
-    ::selection {
-
-      background:
-        rgba(139,61,255,.35);
-
-      color: white;
-
-    }
-
 
     /* =========================
-       LOADING
+       LOGIN CARD
     ========================= */
 
-    .loading-screen {
-
-      position: fixed;
-
-      inset: 0;
-
-      z-index: 99999;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      background: #050507;
-
-      transition:
-        opacity .4s ease,
-        visibility .4s ease;
-
-    }
-
-
-    .loading-screen.hidden {
-
-      opacity: 0;
-
-      visibility: hidden;
-
-      pointer-events: none;
-
-    }
-
-
-    .loader {
-
-      display: flex;
-
-      flex-direction: column;
-
-      align-items: center;
-
-      gap: 18px;
-
-    }
-
-
-    .loader-logo {
-
-      width: 66px;
-      height: 66px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 20px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(139,61,255,.25),
-          rgba(139,61,255,.04)
-        );
-
-      border:
-        1px solid var(--border-purple);
-
-      box-shadow:
-
-        0 0 45px
-        rgba(139,61,255,.24),
-
-        inset 0 0 30px
-        rgba(139,61,255,.08);
-
-      font-family:
-        "Chakra Petch",
-        sans-serif;
-
-      font-size: 25px;
-
-      font-weight: 800;
-
-      animation:
-        loaderPulse 1.5s
-        infinite ease-in-out;
-
-    }
-
-
-    .loader-ring {
-
-      width: 24px;
-      height: 24px;
-
-      border-radius: 50%;
-
-      border:
-        2px solid
-        rgba(255,255,255,.08);
-
-      border-top-color:
-        var(--purple-2);
-
-      animation:
-        spin .8s linear infinite;
-
-    }
-
-
-    @keyframes spin {
-
-      to {
-        transform: rotate(360deg);
-      }
-
-    }
-
-
-    @keyframes loaderPulse {
-
-      0%,100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.05);
-      }
-
-    }
-
-
-    /* =========================
-       PAGE
-    ========================= */
-
-    .page {
-
-      width: min(
-        1080px,
-        100%
-      );
-
-      min-height: 680px;
-
-      display: grid;
-
-      grid-template-columns:
-        1fr
-        1fr;
-
+    .login-card {
       position: relative;
+
+      width: min(100%, 470px);
+
+      padding: 38px;
 
       overflow: hidden;
 
-      border-radius: 32px;
+      border-radius: var(--radius);
+
+      border: 1px solid var(--border);
 
       background:
         linear-gradient(
           145deg,
-          rgba(20,19,28,.88),
-          rgba(8,8,12,.94)
+          rgba(25,24,36,.88),
+          rgba(12,12,18,.76)
         );
-
-      border:
-        1px solid
-        rgba(255,255,255,.08);
 
       box-shadow:
         var(--shadow),
         var(--glow);
 
-      backdrop-filter:
-        blur(25px);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
 
-      animation:
-        pageIn .7s ease both;
-
+      animation: cardIn .55s ease both;
     }
 
+    .login-card::before {
+      content: "";
 
-    @keyframes pageIn {
+      position: absolute;
 
+      top: -170px;
+      right: -160px;
+
+      width: 360px;
+      height: 360px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(139,61,255,.20),
+          transparent 68%
+        );
+
+      pointer-events: none;
+    }
+
+    .login-card::after {
+      content: "";
+
+      position: absolute;
+
+      left: -100px;
+      bottom: -180px;
+
+      width: 300px;
+      height: 300px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(139,61,255,.09),
+          transparent 70%
+        );
+
+      pointer-events: none;
+    }
+
+    @keyframes cardIn {
       from {
-
         opacity: 0;
-
-        transform:
-          translateY(20px)
-          scale(.98);
-
+        transform: translateY(18px) scale(.98);
       }
 
       to {
-
         opacity: 1;
-
-        transform:
-          translateY(0)
-          scale(1);
-
+        transform: translateY(0) scale(1);
       }
-
     }
 
+    .card-content {
+      position: relative;
+      z-index: 2;
+    }
 
     /* =========================
-       LEFT SIDE
+       BRAND
     ========================= */
 
-    .visual {
-
-      position: relative;
-
+    .brand {
       display: flex;
-
-      flex-direction: column;
-
-      justify-content: center;
-
-      align-items: center;
-
-      padding: 55px;
-
-      overflow: hidden;
-
-      background:
-
-        radial-gradient(
-          circle at 50% 40%,
-          rgba(139,61,255,.18),
-          transparent 42%
-        ),
-
-        linear-gradient(
-          145deg,
-          rgba(139,61,255,.06),
-          transparent 70%
-        );
-
-      border-left:
-        1px solid
-        rgba(255,255,255,.055);
-
-    }
-
-
-    .visual::before {
-
-      content: "";
-
-      position: absolute;
-
-      width: 430px;
-      height: 430px;
-
-      border-radius: 50%;
-
-      background:
-        rgba(139,61,255,.09);
-
-      filter: blur(80px);
-
-      pointer-events: none;
-
-    }
-
-
-    .visual-grid {
-
-      position: absolute;
-
-      inset: 0;
-
-      background-image:
-
-        linear-gradient(
-          rgba(255,255,255,.018) 1px,
-          transparent 1px
-        ),
-
-        linear-gradient(
-          90deg,
-          rgba(255,255,255,.018) 1px,
-          transparent 1px
-        );
-
-      background-size: 35px 35px;
-
-      mask-image:
-        radial-gradient(
-          circle at center,
-          black,
-          transparent 72%
-        );
-
-      opacity: .7;
-
-    }
-
-
-    .visual-content {
-
-      position: relative;
-
-      z-index: 2;
-
-      text-align: center;
-
-    }
-
-
-    .logo-orb {
-
-      position: relative;
-
-      width: 190px;
-      height: 190px;
-
-      margin:
-        0 auto
-        30px;
-
-      display: flex;
-
       align-items: center;
       justify-content: center;
 
-      border-radius: 50%;
+      gap: 12px;
 
-      background:
-
-        radial-gradient(
-          circle,
-          rgba(139,61,255,.23),
-          rgba(139,61,255,.05) 55%,
-          transparent 70%
-        );
-
-      border:
-        1px solid
-        rgba(167,92,255,.2);
-
-      box-shadow:
-
-        0 0 90px
-        rgba(139,61,255,.16),
-
-        inset 0 0 60px
-        rgba(139,61,255,.08);
-
-      animation:
-        floatOrb 5s
-        ease-in-out
-        infinite;
-
+      margin-bottom: 28px;
     }
 
+    .brand-mark {
+      width: 52px;
+      height: 52px;
 
-    .logo-orb::before {
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      content: "";
+      border-radius: 16px;
 
-      position: absolute;
-
-      inset: 18px;
-
-      border-radius: 50%;
-
-      border:
-        1px solid
-        rgba(167,92,255,.16);
-
-    }
-
-
-    .logo-orb::after {
-
-      content: "";
-
-      position: absolute;
-
-      inset: 40px;
-
-      border-radius: 50%;
-
-      border:
-        1px solid
-        rgba(167,92,255,.13);
-
-    }
-
-
-    .logo-letter {
-
-      position: relative;
-
-      z-index: 2;
-
-      font-family:
-        "Chakra Petch",
-        sans-serif;
-
-      font-size: 76px;
-
+      font-family: "Chakra Petch", sans-serif;
+      font-size: 27px;
       font-weight: 700;
 
       color: white;
 
-      text-shadow:
-
-        0 0 30px
-        rgba(167,92,255,.65),
-
-        0 0 70px
-        rgba(139,61,255,.35);
-
-    }
-
-
-    @keyframes floatOrb {
-
-      0%,100% {
-
-        transform:
-          translateY(0)
-          rotate(0deg);
-
-      }
-
-      50% {
-
-        transform:
-          translateY(-10px)
-          rotate(2deg);
-
-      }
-
-    }
-
-
-    .brand-name {
-
-      font-family:
-        "Chakra Petch",
-        sans-serif;
-
-      font-size: 42px;
-
-      font-weight: 700;
-
-      letter-spacing: 1px;
-
-    }
-
-
-    .brand-name span {
-
-      color:
-        var(--purple-2);
-
-      text-shadow:
-        0 0 25px
-        rgba(167,92,255,.35);
-
-    }
-
-
-    .visual-title {
-
-      margin-top: 10px;
-
-      color:
-        var(--muted);
-
-      font-size: 13px;
-
-      line-height: 1.9;
-
-    }
-
-
-    .visual-pills {
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      flex-wrap: wrap;
-
-      gap: 8px;
-
-      margin-top: 22px;
-
-    }
-
-
-    .visual-pill {
-
-      padding:
-        7px 12px;
-
-      border-radius: 10px;
-
       background:
-        rgba(255,255,255,.025);
+        linear-gradient(
+          145deg,
+          var(--purple-2),
+          #6d25d7
+        );
 
-      border:
-        1px solid
-        rgba(255,255,255,.07);
-
-      color:
-        var(--muted);
-
-      font-size: 9px;
-
-      font-weight: 700;
-
-    }
-
-
-    /* =========================
-       FORM SIDE
-    ========================= */
-
-    .form-side {
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding: 55px;
-
-      background:
-        rgba(7,7,10,.35);
-
-    }
-
-
-    .form-box {
-
-      width: min(
-        390px,
-        100%
-      );
-
-    }
-
-
-    .form-header {
-
-      margin-bottom: 28px;
-
-    }
-
-
-    .eyebrow {
-
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 7px;
-
-      margin-bottom: 11px;
-
-      color:
-        var(--purple-3);
-
-      font-size: 10px;
-
-      font-weight: 800;
-
-    }
-
-
-    .eyebrow span {
-
-      width: 6px;
-      height: 6px;
-
-      border-radius: 50%;
-
-      background:
-        var(--purple-2);
+      border: 1px solid rgba(255,255,255,.10);
 
       box-shadow:
-        0 0 12px
-        rgba(167,92,255,.8);
-
+        0 0 32px rgba(139,61,255,.28),
+        inset 0 1px 0 rgba(255,255,255,.18);
     }
 
+    .brand-name {
+      font-family: "Chakra Petch", sans-serif;
 
-    .form-header h1 {
+      font-size: 30px;
+      line-height: 1;
 
-      font-size: 29px;
+      font-weight: 700;
+      letter-spacing: -.5px;
+
+      color: #fff;
+    }
+
+    .brand-name span {
+      color: var(--purple-2);
+    }
+
+    /* =========================
+       HEADING
+    ========================= */
+
+    .heading {
+      text-align: center;
+
+      margin-bottom: 28px;
+    }
+
+    .heading h1 {
+      font-size: 27px;
+      line-height: 1.35;
 
       font-weight: 900;
 
-      letter-spacing: -.5px;
+      color: var(--text);
 
+      margin-bottom: 8px;
     }
 
+    .heading p {
+      color: var(--muted);
 
-    .form-header p {
-
-      margin-top: 7px;
-
-      color:
-        var(--muted);
-
-      font-size: 11px;
-
+      font-size: 13px;
       line-height: 1.8;
-
     }
-
 
     /* =========================
        FORM
     ========================= */
 
     .form {
-
       display: flex;
-
       flex-direction: column;
 
-      gap: 15px;
-
+      gap: 17px;
     }
-
 
     .field {
-
       display: flex;
-
       flex-direction: column;
 
-      gap: 7px;
-
+      gap: 8px;
     }
-
 
     .field-label {
-
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
 
-      color:
-        #ddd9e7;
+      font-size: 13px;
+      font-weight: 700;
 
-      font-size: 11px;
-
-      font-weight: 800;
-
+      color: #dcd8e7;
     }
 
-
-    .field-wrap {
-
+    .input-wrap {
       position: relative;
-
     }
 
-
-    .field-icon {
-
-      position: absolute;
-
-      right: 15px;
-
-      top: 50%;
-
-      transform:
-        translateY(-50%);
-
-      color:
-        var(--muted-2);
-
-      font-size: 15px;
-
-      pointer-events: none;
-
-      transition: .25s ease;
-
-    }
-
-
-    .field input {
-
+    .input {
       width: 100%;
-
-      height: 53px;
+      height: 54px;
 
       padding:
-        0 46px
-        0 45px;
+        0 48px
+        0 15px;
 
       outline: none;
 
-      border-radius: 15px;
+      border-radius: var(--radius-sm);
+
+      border: 1px solid var(--border);
+
+      color: var(--text);
 
       background:
-        rgba(255,255,255,.025);
+        rgba(5,5,9,.58);
 
-      border:
-        1px solid
-        var(--border);
+      font-family: "Cairo", sans-serif;
+      font-size: 14px;
 
-      color: white;
-
-      font-size: 12px;
-
-      transition: .25s ease;
-
+      transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
     }
 
-
-    .field input::placeholder {
-
-      color:
-        var(--muted-2);
-
+    .input::placeholder {
+      color: var(--muted-2);
     }
 
+    .input:hover {
+      border-color: rgba(255,255,255,.11);
+    }
 
-    .field input:focus {
+    .input:focus {
+      border-color: var(--border-purple);
 
       background:
-        rgba(139,61,255,.045);
-
-      border-color:
-        rgba(139,61,255,.42);
+        rgba(10,8,17,.72);
 
       box-shadow:
-
-        0 0 0 3px
-        rgba(139,61,255,.06),
-
-        0 0 25px
-        rgba(139,61,255,.05);
-
+        0 0 0 3px rgba(139,61,255,.08),
+        0 0 30px rgba(139,61,255,.07);
     }
 
-
-    .field input:focus
-    + .field-icon {
-
-      color:
-        var(--purple-2);
-
-    }
-
-
-    .password-toggle {
-
+    .input-icon {
       position: absolute;
 
-      left: 12px;
+      top: 50%;
+      right: 16px;
+
+      width: 19px;
+      height: 19px;
+
+      transform: translateY(-50%);
+
+      color: var(--muted);
+
+      pointer-events: none;
+    }
+
+    .password-toggle {
+      position: absolute;
 
       top: 50%;
+      left: 14px;
 
-      transform:
-        translateY(-50%);
-
-      width: 31px;
-      height: 31px;
+      width: 32px;
+      height: 32px;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
+      transform: translateY(-50%);
+
+      border: 0;
       border-radius: 9px;
+
+      color: var(--muted);
 
       background: transparent;
 
-      color:
-        var(--muted-2);
+      cursor: pointer;
 
-      transition: .2s ease;
-
+      transition:
+        color .2s ease,
+        background .2s ease;
     }
-
 
     .password-toggle:hover {
-
-      color: white;
-
-      background:
-        rgba(255,255,255,.04);
-
+      color: var(--purple-3);
+      background: rgba(139,61,255,.09);
     }
 
+    .password-toggle svg {
+      width: 18px;
+      height: 18px;
+    }
 
-    .remember-row {
+    /* =========================
+       OPTIONS
+    ========================= */
 
+    .options {
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
 
-      margin-top: -2px;
+      gap: 10px;
 
+      margin-top: -2px;
     }
 
-
     .remember {
-
-      display: flex;
-
+      display: inline-flex;
       align-items: center;
 
       gap: 8px;
 
-      color:
-        var(--muted);
+      color: var(--muted);
 
-      font-size: 10px;
+      font-size: 12px;
 
       cursor: pointer;
 
       user-select: none;
-
     }
-
 
     .remember input {
-
-      appearance: none;
-
-      width: 16px;
-      height: 16px;
-
-      margin: 0;
-
-      border-radius: 5px;
-
-      background:
-        rgba(255,255,255,.025);
-
-      border:
-        1px solid
-        var(--border);
-
-      cursor: pointer;
-
-      position: relative;
-
-      transition: .2s ease;
-
-    }
-
-
-    .remember input:checked {
-
-      background:
-        var(--purple);
-
-      border-color:
-        var(--purple);
-
-    }
-
-
-    .remember input:checked::after {
-
-      content: "✓";
-
       position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
 
-      inset: 0;
+    .check {
+      width: 18px;
+      height: 18px;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
-      color: white;
+      border-radius: 6px;
 
-      font-size: 10px;
+      border: 1px solid rgba(255,255,255,.12);
 
-      font-weight: 900;
+      background: rgba(255,255,255,.025);
 
+      transition: .2s ease;
     }
 
+    .check svg {
+      width: 12px;
+      height: 12px;
+
+      opacity: 0;
+
+      transform: scale(.7);
+
+      transition: .2s ease;
+    }
+
+    .remember input:checked + .check {
+      border-color: var(--purple);
+
+      background: var(--purple);
+
+      box-shadow:
+        0 0 15px rgba(139,61,255,.25);
+    }
+
+    .remember input:checked + .check svg {
+      opacity: 1;
+      transform: scale(1);
+    }
 
     .forgot {
+      color: var(--purple-3);
 
-      color:
-        var(--purple-3);
-
-      font-size: 10px;
-
+      font-size: 12px;
       font-weight: 700;
+
+      text-decoration: none;
 
       cursor: pointer;
 
+      transition: color .2s ease;
     }
-
 
     .forgot:hover {
-
-      color: white;
-
+      color: #d4b5ff;
     }
 
-
     /* =========================
-       BUTTON
+       LOGIN BUTTON
     ========================= */
 
-    .login-btn {
+    .login-button {
+      position: relative;
 
       width: 100%;
-
       height: 54px;
 
-      margin-top: 5px;
+      margin-top: 4px;
 
       display: flex;
-
       align-items: center;
-
       justify-content: center;
 
       gap: 9px;
 
       border: 0;
+      border-radius: var(--radius-sm);
 
-      border-radius: 15px;
+      color: #fff;
 
       background:
-
         linear-gradient(
           135deg,
-          var(--purple),
-          #6925d7
+          #9a4cff,
+          #7028df
         );
 
-      color: white;
+      font-family: "Cairo", sans-serif;
 
-      font-size: 12px;
+      font-size: 14px;
+      font-weight: 800;
 
-      font-weight: 900;
+      cursor: pointer;
 
-      box-shadow:
-
-        0 15px 35px
-        rgba(139,61,255,.2);
-
-      transition: .25s ease;
-
-    }
-
-
-    .login-btn:hover {
-
-      transform:
-        translateY(-2px);
+      overflow: hidden;
 
       box-shadow:
+        0 14px 32px rgba(111,38,220,.24),
+        inset 0 1px 0 rgba(255,255,255,.18);
 
-        0 20px 45px
-        rgba(139,61,255,.3);
-
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
     }
 
+    .login-button::before {
+      content: "";
 
-    .login-btn:active {
+      position: absolute;
 
-      transform:
-        translateY(0);
+      top: 0;
+      right: -80px;
 
+      width: 70px;
+      height: 100%;
+
+      transform: skewX(-20deg);
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.17),
+          transparent
+        );
+
+      transition: right .6s ease;
     }
 
+    .login-button:hover {
+      transform: translateY(-2px);
 
-    .login-btn:disabled {
+      filter: brightness(1.06);
 
-      opacity: .55;
+      box-shadow:
+        0 18px 40px rgba(111,38,220,.30),
+        0 0 35px rgba(139,61,255,.14),
+        inset 0 1px 0 rgba(255,255,255,.18);
+    }
 
+    .login-button:hover::before {
+      right: 110%;
+    }
+
+    .login-button:active {
+      transform: translateY(0);
+    }
+
+    .login-button:disabled {
       cursor: not-allowed;
 
+      opacity: .72;
+
       transform: none;
-
-      box-shadow: none;
-
     }
 
-
-    .button-loader {
-
-      width: 17px;
-      height: 17px;
+    .button-spinner {
+      width: 18px;
+      height: 18px;
 
       border-radius: 50%;
 
-      border:
-        2px solid
-        rgba(255,255,255,.3);
+      border: 2px solid rgba(255,255,255,.28);
+      border-top-color: #fff;
 
-      border-top-color:
-        white;
-
-      animation:
-        spin .7s linear infinite;
-
+      animation: spin .7s linear infinite;
     }
 
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     /* =========================
        DIVIDER
     ========================= */
 
     .divider {
-
       display: flex;
-
       align-items: center;
 
       gap: 12px;
 
-      margin: 22px 0;
+      margin: 24px 0 20px;
 
-      color:
-        var(--muted-2);
+      color: var(--muted-2);
 
-      font-size: 9px;
-
+      font-size: 11px;
     }
-
 
     .divider::before,
     .divider::after {
-
       content: "";
 
       flex: 1;
@@ -1248,110 +893,78 @@
       height: 1px;
 
       background:
-        rgba(255,255,255,.055);
-
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.08)
+        );
     }
 
+    .divider::after {
+      background:
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.08),
+          transparent
+        );
+    }
 
     /* =========================
        SIGNUP
     ========================= */
 
     .signup {
-
       text-align: center;
 
-      color:
-        var(--muted);
+      color: var(--muted);
 
-      font-size: 10px;
-
+      font-size: 12px;
     }
-
 
     .signup a {
+      color: var(--purple-3);
 
-      margin-right: 4px;
+      font-weight: 800;
 
-      color:
-        var(--purple-3);
+      text-decoration: none;
 
-      font-weight: 900;
-
-      transition: .2s ease;
-
+      transition: color .2s ease;
     }
-
 
     .signup a:hover {
-
-      color: white;
-
+      color: #dfc8ff;
     }
-
 
     /* =========================
-       ERROR
+       SECURITY NOTE
     ========================= */
 
-    .form-error {
+    .security {
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      display: none;
+      gap: 7px;
 
-      padding: 12px 13px;
+      margin-top: 22px;
 
-      border-radius: 13px;
-
-      background:
-        rgba(255,88,112,.07);
-
-      border:
-        1px solid
-        rgba(255,88,112,.16);
-
-      color:
-        #ff9aaa;
+      color: var(--muted-2);
 
       font-size: 10px;
-
-      line-height: 1.8;
-
     }
 
+    .security svg {
+      width: 14px;
+      height: 14px;
 
-    .form-error.show {
-
-      display: block;
-
-      animation:
-        shake .35s ease;
-
+      color: var(--purple-2);
     }
-
-
-    @keyframes shake {
-
-      0%,100% {
-        transform: translateX(0);
-      }
-
-      25% {
-        transform: translateX(-5px);
-      }
-
-      75% {
-        transform: translateX(5px);
-      }
-
-    }
-
 
     /* =========================
        TOAST
     ========================= */
 
-    .toast {
-
+    #toastContainer {
       position: fixed;
 
       left: 22px;
@@ -1359,429 +972,285 @@
 
       z-index: 10000;
 
-      min-width: 280px;
-      max-width: 390px;
-
       display: flex;
+      flex-direction: column;
 
+      gap: 10px;
+
+      width: min(
+        calc(100% - 44px),
+        360px
+      );
+
+      pointer-events: none;
+    }
+
+    .toast {
+      display: flex;
       align-items: flex-start;
 
       gap: 11px;
 
-      padding: 14px;
+      padding: 13px 14px;
 
       border-radius: 16px;
 
-      background:
-        rgba(18,17,25,.95);
+      border: 1px solid var(--border);
 
-      border:
-        1px solid
-        rgba(255,255,255,.08);
+      background:
+        rgba(17,17,25,.92);
 
       box-shadow:
-        0 20px 60px
-        rgba(0,0,0,.5);
+        0 18px 50px rgba(0,0,0,.35);
 
-      backdrop-filter:
-        blur(20px);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
 
-      opacity: 0;
+      animation: toastIn .3s ease both;
 
-      transform:
-        translateY(15px);
-
-      pointer-events: none;
-
+      pointer-events: auto;
     }
-
-
-    .toast.show {
-
-      animation:
-        toastIn .3s ease
-        forwards;
-
-    }
-
-
-    .toast.success {
-
-      border-color:
-        rgba(53,220,136,.18);
-
-    }
-
 
     .toast.error {
-
-      border-color:
-        rgba(255,88,112,.18);
-
+      border-color: rgba(255,88,112,.22);
     }
 
+    .toast.success {
+      border-color: rgba(53,220,136,.22);
+    }
 
     .toast-icon {
+      width: 32px;
+      height: 32px;
 
-      width: 29px;
-      height: 29px;
-
-      flex: 0 0 29px;
+      flex: 0 0 32px;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
-      border-radius: 9px;
+      border-radius: 10px;
 
-      background:
-        rgba(139,61,255,.1);
+      background: rgba(139,61,255,.10);
 
-      font-size: 13px;
-
+      color: var(--purple-3);
     }
-
-
-    .toast.success .toast-icon {
-
-      background:
-        rgba(53,220,136,.08);
-
-    }
-
 
     .toast.error .toast-icon {
-
-      background:
-        rgba(255,88,112,.08);
-
+      color: var(--red);
+      background: rgba(255,88,112,.09);
     }
 
+    .toast.success .toast-icon {
+      color: var(--green);
+      background: rgba(53,220,136,.09);
+    }
+
+    .toast-icon svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .toast-content {
+      min-width: 0;
+      flex: 1;
+    }
 
     .toast-title {
+      color: var(--text);
 
-      font-size: 11px;
+      font-size: 12px;
+      font-weight: 800;
 
-      font-weight: 900;
-
+      margin-bottom: 2px;
     }
-
 
     .toast-message {
+      color: var(--muted);
 
-      margin-top: 2px;
-
-      color:
-        var(--muted);
-
-      font-size: 9px;
-
-      line-height: 1.7;
-
+      font-size: 11px;
+      line-height: 1.6;
     }
-
 
     @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px) translateX(-8px);
+      }
 
       to {
-
         opacity: 1;
-
-        transform:
-          translateY(0);
-
+        transform: translateY(0) translateX(0);
       }
-
     }
 
+    @keyframes toastOut {
+      to {
+        opacity: 0;
+        transform: translateY(8px) translateX(-8px);
+      }
+    }
 
     /* =========================
-       RESPONSIVE
+       MOBILE
     ========================= */
 
-    @media (max-width: 850px) {
-
-      body {
-
-        padding: 15px;
-
-      }
-
+    @media (max-width: 560px) {
 
       .page {
-
-        min-height: auto;
-
-        grid-template-columns: 1fr;
-
-        border-radius: 25px;
-
+        padding: 18px 12px;
       }
 
-
-      .visual {
-
-        min-height: 300px;
-
-        padding: 35px 25px;
-
-        border-left: 0;
-
-        border-bottom:
-          1px solid
-          rgba(255,255,255,.055);
-
-      }
-
-
-      .logo-orb {
-
-        width: 125px;
-        height: 125px;
-
-        margin-bottom: 18px;
-
-      }
-
-
-      .logo-letter {
-
-        font-size: 52px;
-
-      }
-
-
-      .brand-name {
-
-        font-size: 31px;
-
-      }
-
-
-      .visual-title {
-
-        font-size: 10px;
-
-      }
-
-
-      .form-side {
-
-        padding:
-          38px 25px 42px;
-
-      }
-
-    }
-
-
-    @media (max-width: 480px) {
-
-      body {
-
-        padding: 10px;
-
-      }
-
-
-      .page {
+      .login-card {
+        padding: 27px 20px;
 
         border-radius: 21px;
-
       }
 
-
-      .visual {
-
-        min-height: 270px;
-
-        padding:
-          28px 18px;
-
+      .brand {
+        margin-bottom: 23px;
       }
 
+      .brand-mark {
+        width: 47px;
+        height: 47px;
 
-      .form-side {
+        border-radius: 14px;
 
-        padding:
-          30px 18px 35px;
-
+        font-size: 24px;
       }
 
-
-      .form-header h1 {
-
-        font-size: 25px;
-
+      .brand-name {
+        font-size: 27px;
       }
 
-
-      .form-header p {
-
-        font-size: 10px;
-
+      .heading h1 {
+        font-size: 23px;
       }
 
-
-      .field input {
-
-        height: 51px;
-
+      .heading p {
+        font-size: 12px;
       }
 
-
-      .toast {
-
-        left: 10px;
-        right: 10px;
-
-        min-width: 0;
-
-        max-width: none;
-
+      .form {
+        gap: 15px;
       }
 
+      .input {
+        height: 52px;
+      }
+
+      .login-button {
+        height: 52px;
+      }
+
+      #toastContainer {
+        left: 12px;
+        bottom: 12px;
+
+        width: calc(100% - 24px);
+      }
+    }
+
+    @media (max-height: 720px) and (min-width: 561px) {
+
+      .page {
+        padding-top: 18px;
+        padding-bottom: 18px;
+      }
+
+      .login-card {
+        padding-top: 25px;
+        padding-bottom: 25px;
+      }
+
+      .brand {
+        margin-bottom: 18px;
+      }
+
+      .heading {
+        margin-bottom: 19px;
+      }
+
+      .security {
+        margin-top: 14px;
+      }
     }
 
   </style>
 
 </head>
 
-
 <body>
 
+  <div class="ambient one"></div>
+  <div class="ambient two"></div>
 
   <!-- =========================
        LOADING
   ========================= -->
 
-  <div
-    class="loading-screen"
-    id="loadingScreen"
-  >
+  <div id="loadingScreen">
 
-    <div class="loader">
+    <div class="loading-box">
 
-      <div class="loader-logo">
-        M
+      <div class="loading-logo">M</div>
+
+      <div class="loading-text">
+        جاري تجهيز عالم Mathix...
       </div>
 
-      <div class="loader-ring"></div>
+      <div class="loading-line"></div>
 
     </div>
 
   </div>
 
-
   <!-- =========================
-       PAGE
+       LOGIN PAGE
   ========================= -->
 
   <main class="page">
 
+    <section class="login-card">
 
-    <!-- =========================
-         VISUAL
-    ========================= -->
+      <div class="card-content">
 
-    <section class="visual">
+        <!-- BRAND -->
 
-      <div class="visual-grid"></div>
+        <div class="brand">
 
-
-      <div class="visual-content">
-
-        <div class="logo-orb">
-
-          <div class="logo-letter">
+          <div class="brand-mark">
             M
           </div>
 
-        </div>
-
-
-        <div class="brand-name">
-          Math<span>ix</span>
-        </div>
-
-
-        <p class="visual-title">
-          منصتك الذكية للمذاكرة والمراجعة
-          <br>
-          خليك أقرب لهدفك كل يوم.
-        </p>
-
-
-        <div class="visual-pills">
-
-          <span class="visual-pill">
-            علمي رياضة
-          </span>
-
-          <span class="visual-pill">
-            مراجعات
-          </span>
-
-          <span class="visual-pill">
-            اختبارات
-          </span>
-
-          <span class="visual-pill">
-            متابعة التقدم
-          </span>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         FORM
-    ========================= -->
-
-    <section class="form-side">
-
-      <div class="form-box">
-
-
-        <div class="form-header">
-
-          <div class="eyebrow">
-            <span></span>
-            أهلاً بيك في Mathix
+          <div class="brand-name">
+            Mathi<span>x</span>
           </div>
 
+        </div>
+
+        <!-- HEADING -->
+
+        <div class="heading">
 
           <h1>
-            تسجيل الدخول
+            أهلاً بيك 👋
           </h1>
 
-
           <p>
-            ادخل بيانات حسابك وكمل رحلتك التعليمية.
+            سجل دخولك وكمل رحلتك في Mathix
           </p>
 
         </div>
-
-
-        <!-- ERROR -->
-
-        <div
-          class="form-error"
-          id="formError"
-        ></div>
-
 
         <!-- FORM -->
 
         <form
           class="form"
           id="loginForm"
+          novalidate
         >
-
 
           <!-- EMAIL -->
 
@@ -1794,26 +1263,45 @@
               البريد الإلكتروني
             </label>
 
-
-            <div class="field-wrap">
+            <div class="input-wrap">
 
               <input
+                class="input"
                 id="email"
+                name="email"
                 type="email"
                 autocomplete="email"
                 placeholder="example@gmail.com"
                 required
+                dir="ltr"
               >
 
+              <svg
+                class="input-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <rect
+                  x="3"
+                  y="5"
+                  width="18"
+                  height="14"
+                  rx="3"
+                ></rect>
 
-              <span class="field-icon">
-                @
-              </span>
+                <path
+                  d="m3 7 9 6 9-6"
+                ></path>
+              </svg>
 
             </div>
 
           </div>
-
 
           <!-- PASSWORD -->
 
@@ -1826,100 +1314,184 @@
               كلمة المرور
             </label>
 
-
-            <div class="field-wrap">
+            <div class="input-wrap">
 
               <input
+                class="input"
                 id="password"
+                name="password"
                 type="password"
                 autocomplete="current-password"
-                placeholder="••••••••"
+                placeholder="اكتب كلمة المرور"
                 required
               >
 
+              <svg
+                class="input-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <rect
+                  x="4"
+                  y="10"
+                  width="16"
+                  height="11"
+                  rx="2.5"
+                ></rect>
 
-              <span class="field-icon">
-                ◆
-              </span>
+                <path
+                  d="M8 10V7a4 4 0 0 1 8 0v3"
+                ></path>
 
+                <path
+                  d="M12 14v3"
+                ></path>
+              </svg>
 
               <button
                 type="button"
                 class="password-toggle"
-                id="passwordToggle"
+                id="togglePassword"
                 aria-label="إظهار كلمة المرور"
               >
-                ◉
+
+                <svg
+                  id="eyeIcon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
+                  ></path>
+
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="2.7"
+                  ></circle>
+                </svg>
+
               </button>
 
             </div>
 
           </div>
 
+          <!-- OPTIONS -->
 
-          <!-- REMEMBER -->
-
-          <div class="remember-row">
+          <div class="options">
 
             <label class="remember">
 
               <input
                 type="checkbox"
-                id="rememberMe"
+                id="remember"
                 checked
               >
 
-              <span>
-                تذكرني
+              <span class="check">
+
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m5 12 4 4L19 6"></path>
+                </svg>
+
               </span>
+
+              تذكرني
 
             </label>
 
-
-            <button
-              type="button"
+            <a
+              href="#"
               class="forgot"
               id="forgotPassword"
             >
               نسيت كلمة المرور؟
-            </button>
+            </a>
 
           </div>
-
 
           <!-- BUTTON -->
 
           <button
-            class="login-btn"
-            id="loginBtn"
             type="submit"
+            class="login-button"
+            id="loginButton"
           >
 
-            <span id="loginBtnText">
+            <span id="loginButtonText">
               تسجيل الدخول
             </span>
 
           </button>
 
-
         </form>
 
+        <!-- DIVIDER -->
 
         <div class="divider">
           أو
         </div>
 
+        <!-- SIGNUP -->
 
         <div class="signup">
 
-          مش عندك حساب؟
-
+          لسه معندكش حساب؟
           <a href="./signup.html">
             إنشاء حساب جديد
           </a>
 
         </div>
 
+        <!-- SECURITY -->
+
+        <div class="security">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect
+              x="4"
+              y="10"
+              width="16"
+              height="11"
+              rx="2.5"
+            ></rect>
+
+            <path
+              d="M8 10V7a4 4 0 0 1 8 0v3"
+            ></path>
+
+            <path
+              d="M12 14v3"
+            ></path>
+          </svg>
+
+          تسجيل دخول آمن ومشفر
+
+        </div>
 
       </div>
 
@@ -1927,44 +1499,11 @@
 
   </main>
 
-
   <!-- =========================
-       TOAST
+       TOASTS
   ========================= -->
 
-  <div
-    class="toast"
-    id="toast"
-  >
-
-    <div
-      class="toast-icon"
-      id="toastIcon"
-    >
-      ✓
-    </div>
-
-
-    <div>
-
-      <div
-        class="toast-title"
-        id="toastTitle"
-      >
-        تم
-      </div>
-
-
-      <div
-        class="toast-message"
-        id="toastMessage"
-      >
-        —
-      </div>
-
-    </div>
-
-  </div>
+  <div id="toastContainer"></div>
 
 
   <!-- =========================
@@ -1973,23 +1512,19 @@
 
   <script type="module">
 
-
     import {
       initializeApp
-    } from
-      "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
     import {
       getAuth,
+      onAuthStateChanged,
       signInWithEmailAndPassword,
       setPersistence,
       browserLocalPersistence,
       browserSessionPersistence,
-      onAuthStateChanged,
       sendPasswordResetEmail
-    } from
-      "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
     /* =========================
@@ -1997,263 +1532,187 @@
     ========================= */
 
     const firebaseConfig = {
-
-      apiKey:
-        "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk4",
-
-      authDomain:
-        "mathix-2008.firebaseapp.com",
-
-      projectId:
-        "mathix-2008",
-
-      storageBucket:
-        "mathix-2008.firebasestorage.app",
-
-      messagingSenderId:
-        "561805658834",
-
-      appId:
-        "1:561805658834:web:c1db8ebc2d415be9497b0b",
-
-      measurementId:
-        "G-XWHKQ72FM0"
-
+      apiKey: "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk4",
+      authDomain: "mathix-2008.firebaseapp.com",
+      projectId: "mathix-2008",
+      storageBucket: "mathix-2008.firebasestorage.app",
+      messagingSenderId: "561805658834",
+      appId: "1:561805658834:web:c1db8ebc2d415be9497b0b",
+      measurementId: "G-XWHKQ72FM0"
     };
 
 
-    const app =
-      initializeApp(
-        firebaseConfig
-      );
+    /* =========================
+       FIREBASE INIT
+    ========================= */
 
+    const app = initializeApp(firebaseConfig);
 
-    const auth =
-      getAuth(app);
+    const auth = getAuth(app);
 
 
     /* =========================
-       DOM
+       ELEMENTS
     ========================= */
 
     const loadingScreen =
-      document.getElementById(
-        "loadingScreen"
-      );
-
+      document.getElementById("loadingScreen");
 
     const loginForm =
-      document.getElementById(
-        "loginForm"
-      );
-
+      document.getElementById("loginForm");
 
     const emailInput =
-      document.getElementById(
-        "email"
-      );
-
+      document.getElementById("email");
 
     const passwordInput =
-      document.getElementById(
-        "password"
-      );
+      document.getElementById("password");
 
+    const rememberInput =
+      document.getElementById("remember");
 
-    const rememberMe =
-      document.getElementById(
-        "rememberMe"
-      );
+    const togglePassword =
+      document.getElementById("togglePassword");
 
+    const eyeIcon =
+      document.getElementById("eyeIcon");
 
-    const passwordToggle =
-      document.getElementById(
-        "passwordToggle"
-      );
+    const loginButton =
+      document.getElementById("loginButton");
 
-
-    const loginBtn =
-      document.getElementById(
-        "loginBtn"
-      );
-
-
-    const loginBtnText =
-      document.getElementById(
-        "loginBtnText"
-      );
-
-
-    const formError =
-      document.getElementById(
-        "formError"
-      );
-
+    const loginButtonText =
+      document.getElementById("loginButtonText");
 
     const forgotPassword =
-      document.getElementById(
-        "forgotPassword"
-      );
+      document.getElementById("forgotPassword");
 
-
-    const toast =
-      document.getElementById(
-        "toast"
-      );
-
-
-    const toastIcon =
-      document.getElementById(
-        "toastIcon"
-      );
-
-
-    const toastTitle =
-      document.getElementById(
-        "toastTitle"
-      );
-
-
-    const toastMessage =
-      document.getElementById(
-        "toastMessage"
-      );
+    const toastContainer =
+      document.getElementById("toastContainer");
 
 
     /* =========================
-       HELPERS
+       STATE
+    ========================= */
+
+    let authChecked = false;
+    let redirecting = false;
+    let submitting = false;
+
+
+    /* =========================
+       LOADING
     ========================= */
 
     function hideLoading() {
 
-      loadingScreen.classList.add(
-        "hidden"
-      );
+      loadingScreen.classList.add("hidden");
 
     }
 
 
-    function showError(message) {
-
-      formError.textContent =
-        message;
-
-      formError.classList.add(
-        "show"
-      );
-
-    }
-
-
-    function hideError() {
-
-      formError.textContent = "";
-
-      formError.classList.remove(
-        "show"
-      );
-
-    }
-
+    /* =========================
+       TOAST
+    ========================= */
 
     function showToast(
-      title,
       message,
-      type = "success"
+      type = "error",
+      title = ""
     ) {
 
-      toastTitle.textContent =
-        title;
+      const toast =
+        document.createElement("div");
 
-      toastMessage.textContent =
-        message;
+      toast.className =
+        `toast ${type}`;
 
+      let icon = "";
 
-      toast.classList.remove(
-        "success",
-        "error"
-      );
+      if (type === "success") {
 
+        icon = `
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m5 12 4 4L19 6"></path>
+          </svg>
+        `;
 
-      toast.classList.add(
-        type
-      );
+      } else {
 
+        icon = `
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="9"
+            ></circle>
 
-      toastIcon.textContent =
-        type === "error"
-          ? "!"
-          : "✓";
+            <path d="M12 8v5"></path>
 
+            <path d="M12 16h.01"></path>
+          </svg>
+        `;
 
-      toast.classList.remove(
-        "show"
-      );
+      }
 
+      toast.innerHTML = `
 
-      void toast.offsetWidth;
+        <div class="toast-icon">
+          ${icon}
+        </div>
 
+        <div class="toast-content">
 
-      toast.classList.add(
-        "show"
-      );
+          ${
+            title
+              ? `<div class="toast-title">${escapeHTML(title)}</div>`
+              : ""
+          }
 
+          <div class="toast-message">
+            ${escapeHTML(message)}
+          </div>
+
+        </div>
+
+      `;
+
+      toastContainer.appendChild(toast);
 
       setTimeout(() => {
 
-        toast.classList.remove(
-          "show"
-        );
+        toast.style.animation =
+          "toastOut .25s ease forwards";
 
-      }, 3500);
+        setTimeout(() => {
+          toast.remove();
+        }, 250);
+
+      }, 4200);
 
     }
 
 
-    function firebaseErrorMessage(
-      error
-    ) {
+    function escapeHTML(value) {
 
-      const code =
-        error?.code || "";
-
-
-      const messages = {
-
-        "auth/invalid-credential":
-          "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-
-        "auth/invalid-login-credentials":
-          "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-
-        "auth/wrong-password":
-          "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-
-        "auth/user-not-found":
-          "مفيش حساب مسجل بالبريد الإلكتروني ده.",
-
-        "auth/invalid-email":
-          "اكتب بريد إلكتروني صحيح.",
-
-        "auth/user-disabled":
-          "الحساب ده تم إيقافه. تواصل مع الإدارة.",
-
-        "auth/too-many-requests":
-          "محاولات تسجيل الدخول كتير. حاول مرة تانية بعد شوية.",
-
-        "auth/network-request-failed":
-          "مشكلة في الاتصال بالإنترنت. حاول مرة تانية.",
-
-        "auth/internal-error":
-          "حصل خطأ داخلي. حاول مرة تانية."
-
-      };
-
-
-      return (
-        messages[code] ||
-        "تعذر تسجيل الدخول. تأكد من البيانات وحاول مرة أخرى."
-      );
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
     }
 
@@ -2262,33 +1721,64 @@
        PASSWORD TOGGLE
     ========================= */
 
-    passwordToggle.addEventListener(
+    togglePassword.addEventListener(
       "click",
       () => {
 
         const isPassword =
-          passwordInput.type ===
-          "password";
-
+          passwordInput.type === "password";
 
         passwordInput.type =
           isPassword
             ? "text"
             : "password";
 
-
-        passwordToggle.textContent =
-          isPassword
-            ? "◉"
-            : "◌";
-
-
-        passwordToggle.setAttribute(
+        togglePassword.setAttribute(
           "aria-label",
           isPassword
             ? "إخفاء كلمة المرور"
             : "إظهار كلمة المرور"
         );
+
+        if (isPassword) {
+
+          eyeIcon.innerHTML = `
+
+            <path
+              d="M3 3l18 18"
+            ></path>
+
+            <path
+              d="M10.6 10.6a2 2 0 0 0 2.8 2.8"
+            ></path>
+
+            <path
+              d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 3.9"
+            ></path>
+
+            <path
+              d="M6.1 6.1C3.5 8.2 2 12 2 12s3.5 7 10 7c1.5 0 2.8-.3 4-.8"
+            ></path>
+
+          `;
+
+        } else {
+
+          eyeIcon.innerHTML = `
+
+            <path
+              d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
+            ></path>
+
+            <circle
+              cx="12"
+              cy="12"
+              r="2.7"
+            ></circle>
+
+          `;
+
+        }
 
       }
     );
@@ -2298,36 +1788,36 @@
        AUTH STATE
     ========================= */
 
-    let checkingAuth = true;
-
-
     onAuthStateChanged(
       auth,
-      user => {
+      (user) => {
 
-        if (checkingAuth) {
-
-          checkingAuth = false;
-
-          hideLoading();
-
-        }
-
-
-        /*
-         * لو فيه session موجودة بالفعل،
-         * نروح مباشرة للـ dashboard.
-         *
-         * مفيش أي فحص emailVerified.
-         */
+        authChecked = true;
 
         if (user) {
+
+          redirecting = true;
 
           window.location.replace(
             "./dashboard.html"
           );
 
+          return;
+
         }
+
+        hideLoading();
+
+        setTimeout(() => {
+
+          if (
+            document.visibilityState === "visible" &&
+            !redirecting
+          ) {
+            emailInput.focus();
+          }
+
+        }, 100);
 
       }
     );
@@ -2339,91 +1829,91 @@
 
     loginForm.addEventListener(
       "submit",
-      async event => {
+      async (event) => {
 
         event.preventDefault();
 
-
-        hideError();
-
+        if (submitting) {
+          return;
+        }
 
         const email =
-          emailInput.value
-            .trim()
-            .toLowerCase();
-
+          emailInput.value.trim();
 
         const password =
           passwordInput.value;
 
-
         if (!email) {
 
-          showError(
-            "اكتب البريد الإلكتروني."
+          showToast(
+            "اكتب البريد الإلكتروني الأول.",
+            "error",
+            "بيانات ناقصة"
           );
 
           emailInput.focus();
 
           return;
-
         }
 
+        if (!isValidEmail(email)) {
+
+          showToast(
+            "اكتب بريد إلكتروني صحيح.",
+            "error",
+            "البريد الإلكتروني"
+          );
+
+          emailInput.focus();
+
+          return;
+        }
 
         if (!password) {
 
-          showError(
-            "اكتب كلمة المرور."
+          showToast(
+            "اكتب كلمة المرور.",
+            "error",
+            "بيانات ناقصة"
           );
 
           passwordInput.focus();
 
           return;
-
         }
-
 
         if (password.length < 6) {
 
-          showError(
-            "كلمة المرور يجب أن تكون 6 أحرف أو أكثر."
+          showToast(
+            "كلمة المرور غير صحيحة.",
+            "error",
+            "كلمة المرور"
           );
 
           passwordInput.focus();
 
           return;
-
         }
 
 
-        loginBtn.disabled =
-          true;
+        submitting = true;
 
-
-        loginBtnText.innerHTML = `
-          <span class="button-loader"></span>
-          جاري تسجيل الدخول...
-        `;
+        setLoginLoading(true);
 
 
         try {
 
+          const persistence =
+            rememberInput.checked
+              ? browserLocalPersistence
+              : browserSessionPersistence;
 
-          /*
-           * اختيار مدة الـ session
-           */
 
           await setPersistence(
             auth,
-            rememberMe.checked
-              ? browserLocalPersistence
-              : browserSessionPersistence
+            persistence
           );
 
-
-          /*
-           * تسجيل الدخول
-           */
 
           await signInWithEmailAndPassword(
             auth,
@@ -2432,20 +1922,13 @@
           );
 
 
-          /*
-           * لا يوجد:
-           *
-           * emailVerified
-           * sendEmailVerification
-           * verification redirect
-           *
-           * الحساب يدخل مباشرة.
-           */
+          redirecting = true;
 
 
           showToast(
-            "تم تسجيل الدخول",
-            "أهلاً بيك في Mathix."
+            "تم تسجيل الدخول بنجاح.",
+            "success",
+            "أهلاً بيك في Mathix"
           );
 
 
@@ -2455,30 +1938,21 @@
               "./dashboard.html"
             );
 
-          }, 350);
+          }, 250);
 
 
         } catch (error) {
 
           console.error(
-            "Login error:",
+            "Mathix login error:",
             error
           );
 
+          setLoginLoading(false);
 
-          showError(
-            firebaseErrorMessage(
-              error
-            )
-          );
+          submitting = false;
 
-
-          loginBtn.disabled =
-            false;
-
-
-          loginBtnText.textContent =
-            "تسجيل الدخول";
+          handleAuthError(error);
 
         }
 
@@ -2492,28 +1966,47 @@
 
     forgotPassword.addEventListener(
       "click",
-      async () => {
+      async (event) => {
 
-        hideError();
-
+        event.preventDefault();
 
         const email =
-          emailInput.value
-            .trim()
-            .toLowerCase();
+          emailInput.value.trim();
 
 
         if (!email) {
 
-          showError(
-            "اكتب البريد الإلكتروني الأول، وبعدها اضغط نسيت كلمة المرور."
+          showToast(
+            "اكتب البريد الإلكتروني الأول، وبعدها اضغط نسيت كلمة المرور.",
+            "error",
+            "استعادة كلمة المرور"
           );
 
           emailInput.focus();
 
           return;
-
         }
+
+
+        if (!isValidEmail(email)) {
+
+          showToast(
+            "البريد الإلكتروني غير صحيح.",
+            "error",
+            "البريد الإلكتروني"
+          );
+
+          emailInput.focus();
+
+          return;
+        }
+
+
+        forgotPassword.style.pointerEvents =
+          "none";
+
+        forgotPassword.style.opacity =
+          ".55";
 
 
         try {
@@ -2525,30 +2018,311 @@
 
 
           showToast(
-            "تم إرسال الرابط",
-            "لو البريد موجود، هيوصلك عليه رابط إعادة تعيين كلمة المرور."
+            "لو الحساب موجود، هتوصلك رسالة لإعادة تعيين كلمة المرور.",
+            "success",
+            "تم إرسال الطلب"
           );
 
 
         } catch (error) {
 
           console.error(
-            "Password reset error:",
+            "Mathix password reset error:",
             error
           );
 
+          handleResetError(error);
 
-          showError(
-            firebaseErrorMessage(
-              error
-            )
-          );
+        } finally {
+
+          setTimeout(() => {
+
+            forgotPassword.style.pointerEvents =
+              "";
+
+            forgotPassword.style.opacity =
+              "";
+
+          }, 2500);
 
         }
 
       }
     );
 
+
+    /* =========================
+       HELPERS
+    ========================= */
+
+    function isValidEmail(email) {
+
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email);
+
+    }
+
+
+    function setLoginLoading(loading) {
+
+      loginButton.disabled =
+        loading;
+
+      if (loading) {
+
+        loginButtonText.innerHTML = `
+
+          <span class="button-spinner"></span>
+
+          جاري تسجيل الدخول...
+
+        `;
+
+      } else {
+
+        loginButtonText.textContent =
+          "تسجيل الدخول";
+
+      }
+
+    }
+
+
+    /* =========================
+       AUTH ERRORS
+    ========================= */
+
+    function handleAuthError(error) {
+
+      const code =
+        error?.code || "";
+
+
+      if (
+        code ===
+        "auth/invalid-credential" ||
+
+        code ===
+        "auth/invalid-login-credentials" ||
+
+        code ===
+        "auth/wrong-password" ||
+
+        code ===
+        "auth/user-not-found"
+      ) {
+
+        showToast(
+          "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+          "error",
+          "تعذر تسجيل الدخول"
+        );
+
+        return;
+
+      }
+
+
+      if (
+        code ===
+        "auth/too-many-requests"
+      ) {
+
+        showToast(
+          "محاولات تسجيل دخول كثيرة. استنى شوية وحاول تاني.",
+          "error",
+          "محاولات كثيرة"
+        );
+
+        return;
+
+      }
+
+
+      if (
+        code ===
+        "auth/user-disabled"
+      ) {
+
+        showToast(
+          "الحساب ده متوقف حاليًا. تواصل مع الإدارة.",
+          "error",
+          "الحساب متوقف"
+        );
+
+        return;
+
+      }
+
+
+      if (
+        code ===
+        "auth/invalid-email"
+      ) {
+
+        showToast(
+          "البريد الإلكتروني غير صحيح.",
+          "error",
+          "بيانات غير صحيحة"
+        );
+
+        return;
+
+      }
+
+
+      if (
+        code ===
+        "auth/network-request-failed"
+      ) {
+
+        showToast(
+          "تأكد من اتصالك بالإنترنت وحاول تاني.",
+          "error",
+          "مشكلة في الاتصال"
+        );
+
+        return;
+
+      }
+
+
+      if (
+        code ===
+        "auth/operation-not-allowed"
+      ) {
+
+        showToast(
+          "تسجيل الدخول بالبريد الإلكتروني غير مفعّل في Firebase.",
+          "error",
+          "إعدادات Firebase"
+        );
+
+        return;
+
+      }
+
+
+      showToast(
+        "حصلت مشكلة أثناء تسجيل الدخول. حاول تاني.",
+        "error",
+        "تعذر تسجيل الدخول"
+      );
+
+    }
+
+
+    /* =========================
+       RESET ERRORS
+    ========================= */
+
+    function handleResetError(error) {
+
+      const code =
+        error?.code || "";
+
+
+      if (
+        code ===
+        "auth/invalid-email"
+      ) {
+
+        showToast(
+          "البريد الإلكتروني غير صحيح.",
+          "error",
+          "البريد الإلكتروني"
+        );
+
+        return;
+
+      }
+
+
+      if (
+        code ===
+        "auth/too-many-requests"
+      ) {
+
+        showToast(
+          "تم إرسال طلبات كثيرة. حاول بعد شوية.",
+          "error",
+          "محاولات كثيرة"
+        );
+
+        return;
+
+      }
+
+
+      if (
+        code ===
+        "auth/network-request-failed"
+      ) {
+
+        showToast(
+          "تأكد من الإنترنت وحاول تاني.",
+          "error",
+          "مشكلة في الاتصال"
+        );
+
+        return;
+
+      }
+
+
+      showToast(
+        "مش قادرين نرسل رابط إعادة تعيين كلمة المرور دلوقتي.",
+        "error",
+        "تعذر الإرسال"
+      );
+
+    }
+
+
+    /* =========================
+       ENTER KEY
+    ========================= */
+
+    passwordInput.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          loginForm.requestSubmit();
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       GLOBAL SAFETY
+    ========================= */
+
+    window.addEventListener(
+      "pageshow",
+      () => {
+
+        if (
+          authChecked &&
+          auth.currentUser &&
+          !redirecting
+        ) {
+
+          redirecting = true;
+
+          window.location.replace(
+            "./dashboard.html"
+          );
+
+        }
+
+      }
+    );
 
   </script>
 
