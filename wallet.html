@@ -1,4313 +1,589 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="theme-color"
-    content="#050507"
-  >
-
-  <meta
-    name="description"
-    content="Mathix Wallet"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08080d">
   <title>المحفظة | Mathix</title>
-
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
+  <link rel="icon" href="./logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #050507;
-      --bg-2: #08080d;
-
-      --surface: rgba(17, 17, 25, .72);
-      --surface-2: rgba(25, 24, 36, .82);
-
-      --purple: #8b3dff;
-      --purple-2: #a75cff;
-      --purple-3: #c28cff;
-
-      --text: #f7f5ff;
-      --muted: #94919f;
-      --muted-2: #6e6b78;
-
-      --green: #35dc88;
-      --red: #ff5870;
-      --yellow: #ffc857;
-
-      --border: rgba(255,255,255,.075);
-      --border-purple: rgba(139,61,255,.28);
-
-      --shadow: 0 25px 80px rgba(0,0,0,.48);
-      --glow: 0 0 50px rgba(139,61,255,.14);
-
-      --radius: 24px;
-      --radius-sm: 16px;
-
-      --sidebar-width: 260px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(
-          circle at 85% 5%,
-          rgba(139,61,255,.12),
-          transparent 28%
-        ),
-        radial-gradient(
-          circle at 10% 80%,
-          rgba(139,61,255,.07),
-          transparent 25%
-        ),
-        var(--bg);
-
-      color: var(--text);
-
-      font-family: "Cairo", sans-serif;
-
-      overflow-x: hidden;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    button {
-      border: 0;
-      cursor: pointer;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    ::selection {
-      background: rgba(139,61,255,.35);
-      color: #fff;
-    }
-
-    /* =========================
-       LOADING
-    ========================= */
-
-    .loading-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background: #050507;
-
-      transition:
-        opacity .4s ease,
-        visibility .4s ease;
-    }
-
-    .loading-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .loader {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .loader-logo {
-      width: 66px;
-      height: 66px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 20px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(139,61,255,.25),
-          rgba(139,61,255,.04)
-        );
-
-      border: 1px solid var(--border-purple);
-
-      box-shadow:
-        0 0 45px rgba(139,61,255,.24),
-        inset 0 0 30px rgba(139,61,255,.08);
-
-      font-family: "Chakra Petch", sans-serif;
-      font-size: 25px;
-      font-weight: 800;
-
-      animation: loaderPulse 1.5s infinite ease-in-out;
-    }
-
-    .loader-ring {
-      width: 24px;
-      height: 24px;
-
-      border-radius: 50%;
-
-      border:
-        2px solid rgba(255,255,255,.08);
-
-      border-top-color: var(--purple-2);
-
-      animation: spin .8s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes loaderPulse {
-      0%,100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.05);
-      }
-    }
-
-    /* =========================
-       ERROR
-    ========================= */
-
-    .error-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 99998;
-
-      display: none;
-      align-items: center;
-      justify-content: center;
-
-      padding: 24px;
-
-      background: #050507;
-    }
-
-    .error-screen.show {
-      display: flex;
-    }
-
-    .error-box {
-      width: min(480px, 100%);
-
-      padding: 32px;
-
-      text-align: center;
-
-      border-radius: var(--radius);
-
-      background: var(--surface);
-
-      border: 1px solid rgba(255,88,112,.18);
-
-      box-shadow: var(--shadow);
-    }
-
-    .error-icon {
-      width: 64px;
-      height: 64px;
-
-      margin: 0 auto 18px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 20px;
-
-      background: rgba(255,88,112,.09);
-
-      color: var(--red);
-
-      font-size: 28px;
-    }
-
-    .error-box h2 {
-      margin-bottom: 8px;
-      font-size: 22px;
-    }
-
-    .error-box p {
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 14px;
-    }
-
-    /* =========================
-       APP
-    ========================= */
-
-    .app {
-      min-height: 100vh;
-    }
-
-    /* =========================
-       SIDEBAR
-    ========================= */
-
-    .sidebar {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-
-      width: var(--sidebar-width);
-
-      z-index: 1000;
-
-      display: flex;
-      flex-direction: column;
-
-      padding: 24px 16px;
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(12,12,18,.96),
-          rgba(7,7,10,.98)
-        );
-
-      border-left: 1px solid var(--border);
-
-      backdrop-filter: blur(22px);
-
-      overflow-y: auto;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      padding: 4px 10px 28px;
-    }
-
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 14px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(139,61,255,.25),
-          rgba(139,61,255,.04)
-        );
-
-      border: 1px solid var(--border-purple);
-
-      box-shadow:
-        0 0 30px rgba(139,61,255,.12),
-        inset 0 0 20px rgba(139,61,255,.05);
-
-      font-family: "Chakra Petch", sans-serif;
-      font-size: 18px;
-      font-weight: 800;
-    }
-
-    .brand-text {
-      font-family: "Chakra Petch", sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: .5px;
-    }
-
-    .nav-section {
-      margin-bottom: 24px;
-    }
-
-    .nav-label {
-      padding: 0 12px;
-      margin-bottom: 9px;
-
-      color: var(--muted-2);
-
-      font-size: 10px;
-      font-weight: 800;
-
-      letter-spacing: 1px;
-    }
-
-    .nav-list {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .nav-link {
-      position: relative;
-
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      min-height: 48px;
-
-      padding: 0 13px;
-
-      border-radius: 15px;
-
-      color: var(--muted);
-
-      font-size: 13px;
-      font-weight: 700;
-
-      transition:
-        .25s ease;
-    }
-
-    .nav-link:hover {
-      color: var(--text);
-      background: rgba(255,255,255,.035);
-      transform: translateX(-2px);
-    }
-
-    .nav-link.active {
-      color: #fff;
-
-      background:
-        linear-gradient(
-          100deg,
-          rgba(139,61,255,.2),
-          rgba(139,61,255,.055)
-        );
-
-      border: 1px solid rgba(139,61,255,.15);
-
-      box-shadow:
-        inset 0 0 25px rgba(139,61,255,.04),
-        0 0 25px rgba(139,61,255,.05);
-    }
-
-    .nav-link.active::before {
-      content: "";
-
-      position: absolute;
-
-      right: -17px;
-
-      width: 3px;
-      height: 25px;
-
-      border-radius: 5px 0 0 5px;
-
-      background: var(--purple-2);
-
-      box-shadow:
-        0 0 14px rgba(167,92,255,.8);
-    }
-
-    .nav-icon {
-      width: 21px;
-      height: 21px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      flex: 0 0 21px;
-
-      font-size: 17px;
-    }
-
-    .sidebar-bottom {
-      margin-top: auto;
-    }
-
-    .mini-profile {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      padding: 13px;
-
-      margin-bottom: 9px;
-
-      border-radius: 17px;
-
-      background: rgba(255,255,255,.025);
-
-      border: 1px solid var(--border);
-    }
-
-    .avatar {
-      width: 39px;
-      height: 39px;
-
-      flex: 0 0 39px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 13px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(139,61,255,.32),
-          rgba(139,61,255,.08)
-        );
-
-      border: 1px solid rgba(139,61,255,.2);
-
-      font-weight: 900;
-      color: #fff;
-    }
-
-    .mini-profile-info {
-      min-width: 0;
-    }
-
-    .mini-profile-name {
-      font-size: 12px;
-      font-weight: 800;
-
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .mini-profile-email {
-      margin-top: 2px;
-
-      color: var(--muted-2);
-
-      font-size: 9px;
-
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-
-      direction: ltr;
-      text-align: right;
-    }
-
-    .logout-btn {
-      width: 100%;
-      min-height: 45px;
-
-      display: flex;
-      align-items: center;
-      gap: 11px;
-
-      padding: 0 13px;
-
-      border-radius: 14px;
-
-      background: transparent;
-
-      color: var(--muted);
-
-      font-size: 12px;
-      font-weight: 700;
-
-      transition: .25s ease;
-    }
-
-    .logout-btn:hover {
-      color: var(--red);
-      background: rgba(255,88,112,.06);
-    }
-
-    /* =========================
-       MOBILE SIDEBAR
-    ========================= */
-
-    .mobile-header {
-      display: none;
-    }
-
-    .sidebar-overlay {
-      position: fixed;
-      inset: 0;
-
-      z-index: 900;
-
-      background: rgba(0,0,0,.58);
-
-      backdrop-filter: blur(4px);
-
-      opacity: 0;
-      visibility: hidden;
-
-      transition: .3s ease;
-    }
-
-    .sidebar-overlay.show {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* =========================
-       MAIN
-    ========================= */
-
-    .main {
-      min-height: 100vh;
-
-      margin-right: var(--sidebar-width);
-
-      padding: 26px 30px 50px;
-    }
-
-    .container {
-      width: min(1450px, 100%);
-      margin: 0 auto;
-    }
-
-    /* =========================
-       TOPBAR
-    ========================= */
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      margin-bottom: 26px;
-    }
-
-    .topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .mobile-menu-btn {
-      display: none;
-
-      width: 44px;
-      height: 44px;
-
-      border-radius: 14px;
-
-      background: var(--surface);
-
-      border: 1px solid var(--border);
-
-      color: #fff;
-
-      font-size: 20px;
-    }
-
-    .page-title h1 {
-      font-size: 21px;
-      font-weight: 900;
-    }
-
-    .page-title p {
-      margin-top: 2px;
-
-      color: var(--muted);
-
-      font-size: 11px;
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .icon-btn {
-      width: 43px;
-      height: 43px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 14px;
-
-      background: var(--surface);
-
-      border: 1px solid var(--border);
-
-      color: var(--muted);
-
-      font-size: 17px;
-
-      transition: .25s ease;
-    }
-
-    .icon-btn:hover {
-      color: #fff;
-
-      border-color: var(--border-purple);
-
-      background: rgba(139,61,255,.08);
-
-      transform: translateY(-2px);
-    }
-
-    /* =========================
-       HERO BALANCE
-    ========================= */
-
-    .balance-hero {
-      position: relative;
-
-      min-height: 260px;
-
-      display: flex;
-      align-items: stretch;
-      justify-content: space-between;
-
-      gap: 25px;
-
-      padding: 32px;
-
-      margin-bottom: 22px;
-
-      overflow: hidden;
-
-      border-radius: 28px;
-
-      background:
-        radial-gradient(
-          circle at 80% 0%,
-          rgba(167,92,255,.18),
-          transparent 35%
-        ),
-        radial-gradient(
-          circle at 15% 100%,
-          rgba(139,61,255,.12),
-          transparent 30%
-        ),
-        linear-gradient(
-          135deg,
-          rgba(26,23,38,.9),
-          rgba(11,10,16,.92)
-        );
-
-      border: 1px solid var(--border-purple);
-
-      box-shadow:
-        var(--shadow),
-        var(--glow);
-    }
-
-    .balance-hero::before {
-      content: "";
-
-      position: absolute;
-
-      width: 300px;
-      height: 300px;
-
-      left: -120px;
-      bottom: -170px;
-
-      border-radius: 50%;
-
-      background: rgba(139,61,255,.12);
-
-      filter: blur(70px);
-
-      pointer-events: none;
-    }
-
-    .balance-info {
-      position: relative;
-      z-index: 2;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .balance-kicker {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      margin-bottom: 11px;
-
-      color: var(--muted);
-
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .balance-kicker span {
-      width: 8px;
-      height: 8px;
-
-      border-radius: 50%;
-
-      background: var(--green);
-
-      box-shadow:
-        0 0 12px rgba(53,220,136,.7);
-    }
-
-    .balance-label {
-      color: var(--muted);
-
-      font-size: 13px;
-    }
-
-    .balance-value {
-      margin-top: 5px;
-
-      font-family: "Chakra Petch", sans-serif;
-
-      font-size: clamp(42px, 6vw, 66px);
-      line-height: 1;
-
-      font-weight: 700;
-
-      letter-spacing: -1px;
-
-      text-shadow:
-        0 0 35px rgba(167,92,255,.15);
-    }
-
-    .balance-currency {
-      margin-right: 8px;
-
-      color: var(--purple-3);
-
-      font-size: 18px;
-
-      font-family: "Cairo", sans-serif;
-      font-weight: 800;
-    }
-
-    .balance-description {
-      max-width: 520px;
-
-      margin-top: 14px;
-
-      color: var(--muted);
-
-      font-size: 12px;
-
-      line-height: 1.9;
-    }
-
-    .balance-side {
-      position: relative;
-      z-index: 2;
-
-      min-width: 290px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .wallet-orb {
-      position: relative;
-
-      width: 190px;
-      height: 190px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(139,61,255,.22),
-          rgba(139,61,255,.04) 55%,
-          transparent 70%
-        );
-
-      border: 1px solid rgba(167,92,255,.2);
-
-      box-shadow:
-        0 0 80px rgba(139,61,255,.12),
-        inset 0 0 50px rgba(139,61,255,.08);
-
-      animation: orbFloat 5s ease-in-out infinite;
-    }
-
-    .wallet-orb::before,
-    .wallet-orb::after {
-      content: "";
-
-      position: absolute;
-
-      border-radius: 50%;
-
-      border: 1px solid rgba(167,92,255,.12);
-    }
-
-    .wallet-orb::before {
-      inset: 18px;
-    }
-
-    .wallet-orb::after {
-      inset: 38px;
-    }
-
-    .orb-icon {
-      position: relative;
-      z-index: 2;
-
-      font-size: 54px;
-
-      filter:
-        drop-shadow(
-          0 0 22px rgba(167,92,255,.45)
-        );
-    }
-
-    @keyframes orbFloat {
-      0%,100% {
-        transform: translateY(0) rotate(0deg);
-      }
-
-      50% {
-        transform: translateY(-7px) rotate(2deg);
-      }
-    }
-
-    /* =========================
-       GRID
-    ========================= */
-
-    .wallet-grid {
-      display: grid;
-
-      grid-template-columns:
-        minmax(0, 1.2fr)
-        minmax(320px, .8fr);
-
-      gap: 22px;
-
-      margin-bottom: 22px;
-    }
-
-    .card {
-      background: var(--surface);
-
-      border: 1px solid var(--border);
-
-      border-radius: var(--radius);
-
-      box-shadow: var(--shadow);
-
-      backdrop-filter: blur(18px);
-
-      overflow: hidden;
-
-      transition:
-        border-color .25s ease,
-        transform .25s ease,
-        box-shadow .25s ease;
-    }
-
-    .card:hover {
-      border-color: rgba(139,61,255,.16);
-
-      box-shadow:
-        var(--shadow),
-        0 0 40px rgba(139,61,255,.04);
-    }
-
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-
-      gap: 15px;
-
-      padding: 23px 23px 0;
-    }
-
-    .card-title {
-      font-size: 16px;
-      font-weight: 900;
-    }
-
-    .card-subtitle {
-      margin-top: 4px;
-
-      color: var(--muted);
-
-      font-size: 11px;
-      line-height: 1.7;
-    }
-
-    .card-body {
-      padding: 22px 23px 23px;
-    }
-
-    /* =========================
-       VODAFONE CARD
-    ========================= */
-
-    .cash-card {
-      position: relative;
-
-      min-height: 100%;
-
-      background:
-        radial-gradient(
-          circle at 0% 100%,
-          rgba(139,61,255,.09),
-          transparent 32%
-        ),
-        var(--surface);
-    }
-
-    .cash-brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      padding: 18px;
-
-      margin-bottom: 18px;
-
-      border-radius: 19px;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(139,61,255,.13),
-          rgba(255,255,255,.025)
-        );
-
-      border: 1px solid rgba(139,61,255,.14);
-    }
-
-    .cash-icon {
-      width: 50px;
-      height: 50px;
-
-      flex: 0 0 50px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 16px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(139,61,255,.32),
-          rgba(139,61,255,.08)
-        );
-
-      border: 1px solid rgba(167,92,255,.22);
-
-      font-size: 23px;
-
-      box-shadow:
-        0 0 25px rgba(139,61,255,.1);
-    }
-
-    .cash-brand strong {
-      display: block;
-
-      font-size: 14px;
-      font-weight: 900;
-    }
-
-    .cash-brand small {
-      display: block;
-
-      margin-top: 3px;
-
-      color: var(--muted);
-
-      font-size: 10px;
-    }
-
-    .cash-number-box {
-      padding: 18px;
-
-      border-radius: 19px;
-
-      background: rgba(0,0,0,.22);
-
-      border: 1px solid var(--border);
-    }
-
-    .cash-number-label {
-      color: var(--muted);
-
-      font-size: 10px;
-    }
-
-    .cash-number-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      margin-top: 8px;
-    }
-
-    .cash-number {
-      flex: 1;
-
-      direction: ltr;
-      text-align: right;
-
-      font-family: "Chakra Petch", sans-serif;
-
-      font-size: 24px;
-      font-weight: 700;
-
-      letter-spacing: 1px;
-
-      color: #fff;
-    }
-
-    .copy-btn {
-      min-width: 44px;
-      height: 44px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 13px;
-
-      background: rgba(139,61,255,.12);
-
-      border: 1px solid rgba(139,61,255,.2);
-
-      color: var(--purple-3);
-
-      font-size: 17px;
-
-      transition: .25s ease;
-    }
-
-    .copy-btn:hover {
-      color: #fff;
-
-      background: rgba(139,61,255,.22);
-
-      transform: translateY(-2px);
-    }
-
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-
-      margin-top: 18px;
-    }
-
-    .step {
-      display: flex;
-      align-items: flex-start;
-      gap: 11px;
-
-      color: var(--muted);
-
-      font-size: 11px;
-
-      line-height: 1.8;
-    }
-
-    .step-number {
-      width: 23px;
-      height: 23px;
-
-      flex: 0 0 23px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 8px;
-
-      background: rgba(139,61,255,.1);
-
-      border: 1px solid rgba(139,61,255,.15);
-
-      color: var(--purple-3);
-
-      font-family: "Chakra Petch", sans-serif;
-
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    /* =========================
-       FORM
-    ========================= */
-
-    .form-grid {
-      display: grid;
-
-      grid-template-columns: 1fr 1fr;
-
-      gap: 14px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    .field label {
-      color: #d8d4e2;
-
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .input-wrap {
-      position: relative;
-    }
-
-    .input-icon {
-      position: absolute;
-
-      right: 13px;
-      top: 50%;
-
-      transform: translateY(-50%);
-
-      color: var(--muted-2);
-
-      pointer-events: none;
-
-      font-size: 14px;
-    }
-
-    .field input {
-      width: 100%;
-      height: 49px;
-
-      padding:
-        0 42px 0 14px;
-
-      border-radius: 14px;
-
-      outline: none;
-
-      background:
-        rgba(0,0,0,.22);
-
-      border: 1px solid var(--border);
-
-      color: #fff;
-
-      font-size: 12px;
-
-      transition: .25s ease;
-    }
-
-    .field input::placeholder {
-      color: var(--muted-2);
-    }
-
-    .field input:focus {
-      border-color: rgba(139,61,255,.45);
-
-      background:
-        rgba(139,61,255,.045);
-
-      box-shadow:
-        0 0 0 3px rgba(139,61,255,.06),
-        0 0 25px rgba(139,61,255,.05);
-    }
-
-    .field input.ltr {
-      direction: ltr;
-      text-align: left;
-      padding-right: 14px;
-      padding-left: 42px;
-    }
-
-    .field input.ltr + .input-icon {
-      right: auto;
-      left: 13px;
-    }
-
-    .amount-prefix {
-      position: absolute;
-
-      left: 13px;
-      top: 50%;
-
-      transform: translateY(-50%);
-
-      color: var(--muted-2);
-
-      font-size: 10px;
-
-      pointer-events: none;
-    }
-
-    .form-note {
-      margin-top: 13px;
-
-      color: var(--muted-2);
-
-      font-size: 10px;
-
-      line-height: 1.8;
-    }
-
-    .submit-btn {
-      width: 100%;
-      height: 52px;
-
-      margin-top: 17px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-
-      border-radius: 15px;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--purple),
-          #6925d7
-        );
-
-      color: #fff;
-
-      font-size: 12px;
-      font-weight: 900;
-
-      box-shadow:
-        0 12px 30px rgba(139,61,255,.18);
-
-      transition: .25s ease;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-2px);
-
-      box-shadow:
-        0 16px 40px rgba(139,61,255,.28);
-    }
-
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-
-    .submit-btn:disabled {
-      cursor: not-allowed;
-      opacity: .55;
-      transform: none;
-      box-shadow: none;
-    }
-
-    .submit-loader {
-      width: 16px;
-      height: 16px;
-
-      border: 2px solid rgba(255,255,255,.3);
-
-      border-top-color: #fff;
-
-      border-radius: 50%;
-
-      animation: spin .7s linear infinite;
-    }
-
-    /* =========================
-       HISTORY
-    ========================= */
-
-    .history-section {
-      margin-bottom: 22px;
-    }
-
-    .history-tabs {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-
-      padding: 0 23px;
-
-      margin-top: 18px;
-    }
-
-    .history-tab {
-      min-height: 37px;
-
-      padding: 0 13px;
-
-      border-radius: 11px;
-
-      background: rgba(255,255,255,.025);
-
-      border: 1px solid var(--border);
-
-      color: var(--muted);
-
-      font-size: 10px;
-      font-weight: 800;
-
-      transition: .25s ease;
-    }
-
-    .history-tab:hover {
-      color: #fff;
-    }
-
-    .history-tab.active {
-      color: #fff;
-
-      background: rgba(139,61,255,.12);
-
-      border-color: rgba(139,61,255,.2);
-    }
-
-    .history-list {
-      display: flex;
-      flex-direction: column;
-
-      padding: 0 23px 23px;
-
-      margin-top: 13px;
-    }
-
-    .history-item {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-
-      min-height: 70px;
-
-      padding: 10px 0;
-
-      border-bottom: 1px solid rgba(255,255,255,.045);
-    }
-
-    .history-item:last-child {
-      border-bottom: 0;
-    }
-
-    .history-icon {
-      width: 43px;
-      height: 43px;
-
-      flex: 0 0 43px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 13px;
-
-      background: rgba(139,61,255,.08);
-
-      border: 1px solid rgba(139,61,255,.12);
-
-      font-size: 16px;
-    }
-
-    .history-main {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .history-title {
-      color: #eee;
-
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    .history-date {
-      margin-top: 3px;
-
-      color: var(--muted-2);
-
-      font-size: 9px;
-    }
-
-    .history-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 5px;
-    }
-
-    .history-amount {
-      direction: ltr;
-
-      color: var(--green);
-
-      font-family: "Chakra Petch", sans-serif;
-
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .transaction-negative {
-      color: var(--red);
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-
-      min-height: 24px;
-
-      padding: 0 9px;
-
-      border-radius: 8px;
-
-      font-size: 8px;
-      font-weight: 800;
-    }
-
-    .status.pending {
-      color: var(--yellow);
-      background: rgba(255,200,87,.08);
-      border: 1px solid rgba(255,200,87,.12);
-    }
-
-    .status.approved,
-    .status.completed {
-      color: var(--green);
-      background: rgba(53,220,136,.08);
-      border: 1px solid rgba(53,220,136,.12);
-    }
-
-    .status.rejected {
-      color: var(--red);
-      background: rgba(255,88,112,.08);
-      border: 1px solid rgba(255,88,112,.12);
-    }
-
-    .empty-state {
-      padding: 34px 15px;
-
-      text-align: center;
-    }
-
-    .empty-icon {
-      width: 58px;
-      height: 58px;
-
-      margin: 0 auto 12px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 18px;
-
-      background: rgba(139,61,255,.07);
-
-      border: 1px solid rgba(139,61,255,.1);
-
-      font-size: 23px;
-    }
-
-    .empty-state h3 {
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .empty-state p {
-      max-width: 360px;
-
-      margin: 6px auto 0;
-
-      color: var(--muted);
-
-      font-size: 10px;
-
-      line-height: 1.8;
-    }
-
-    /* =========================
-       INFO CARDS
-    ========================= */
-
-    .info-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 15px;
-    }
-
-    .info-card {
-      padding: 20px;
-
-      border-radius: 20px;
-
-      background: rgba(255,255,255,.018);
-
-      border: 1px solid var(--border);
-
-      transition: .25s ease;
-    }
-
-    .info-card:hover {
-      transform: translateY(-3px);
-
-      border-color: rgba(139,61,255,.17);
-
-      background: rgba(139,61,255,.035);
-    }
-
-    .info-icon {
-      width: 41px;
-      height: 41px;
-
-      margin-bottom: 13px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 13px;
-
-      background: rgba(139,61,255,.09);
-
-      border: 1px solid rgba(139,61,255,.12);
-
-      font-size: 16px;
-    }
-
-    .info-card h3 {
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    .info-card p {
-      margin-top: 5px;
-
-      color: var(--muted);
-
-      font-size: 10px;
-
-      line-height: 1.8;
-    }
-
-    /* =========================
-       TOAST
-    ========================= */
-
-    .toast-container {
-      position: fixed;
-
-      left: 24px;
-      bottom: 24px;
-
-      z-index: 10000;
-
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-
-      pointer-events: none;
-    }
-
-    .toast {
-      min-width: 280px;
-      max-width: 380px;
-
-      display: flex;
-      align-items: flex-start;
-      gap: 11px;
-
-      padding: 14px 15px;
-
-      border-radius: 16px;
-
-      background:
-        rgba(18,17,25,.94);
-
-      border: 1px solid var(--border);
-
-      box-shadow:
-        0 20px 60px rgba(0,0,0,.4);
-
-      backdrop-filter: blur(18px);
-
-      transform: translateY(15px);
-      opacity: 0;
-
-      animation:
-        toastIn .3s ease forwards;
-    }
-
-    .toast.success {
-      border-color: rgba(53,220,136,.18);
-    }
-
-    .toast.error {
-      border-color: rgba(255,88,112,.18);
-    }
-
-    .toast.warning {
-      border-color: rgba(255,200,87,.18);
-    }
-
-    .toast-icon {
-      width: 28px;
-      height: 28px;
-
-      flex: 0 0 28px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 9px;
-
-      background: rgba(139,61,255,.09);
-
-      font-size: 13px;
-    }
-
-    .toast.success .toast-icon {
-      background: rgba(53,220,136,.08);
-    }
-
-    .toast.error .toast-icon {
-      background: rgba(255,88,112,.08);
-    }
-
-    .toast.warning .toast-icon {
-      background: rgba(255,200,87,.08);
-    }
-
-    .toast-content {
-      flex: 1;
-    }
-
-    .toast-title {
-      font-size: 11px;
-      font-weight: 900;
-    }
-
-    .toast-message {
-      margin-top: 2px;
-
-      color: var(--muted);
-
-      font-size: 9px;
-
-      line-height: 1.7;
-    }
-
-    @keyframes toastIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* =========================
-       RESPONSIVE
-    ========================= */
-
-    @media (max-width: 1100px) {
-      .wallet-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .balance-side {
-        min-width: 220px;
-      }
-
-      .info-grid {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 850px) {
-      :root {
-        --sidebar-width: 270px;
-      }
-
-      .sidebar {
-        transform: translateX(105%);
-
-        transition:
-          transform .3s ease;
-
-        box-shadow:
-          -25px 0 80px rgba(0,0,0,.5);
-      }
-
-      .sidebar.open {
-        transform: translateX(0);
-      }
-
-      .mobile-header {
-        display: flex;
-      }
-
-      .mobile-menu-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .main {
-        margin-right: 0;
-
-        padding:
-          15px
-          15px
-          40px;
-      }
-
-      .topbar {
-        margin-bottom: 18px;
-      }
-
-      .page-title h1 {
-        font-size: 18px;
-      }
-
-      .page-title p {
-        font-size: 9px;
-      }
-
-      .balance-hero {
-        min-height: auto;
-
-        flex-direction: column;
-
-        padding: 25px;
-
-        border-radius: 23px;
-      }
-
-      .balance-side {
-        min-height: 150px;
-        min-width: 0;
-      }
-
-      .wallet-orb {
-        width: 145px;
-        height: 145px;
-      }
-
-      .orb-icon {
-        font-size: 42px;
-      }
-
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .top-actions {
-        gap: 5px;
-      }
-
-      .icon-btn {
-        width: 39px;
-        height: 39px;
-      }
-
-      .balance-hero {
-        padding: 21px;
-      }
-
-      .balance-value {
-        font-size: 43px;
-      }
-
-      .balance-currency {
-        font-size: 15px;
-      }
-
-      .balance-description {
-        font-size: 10px;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .field.full {
-        grid-column: auto;
-      }
-
-      .cash-number {
-        font-size: 20px;
-      }
-
-      .cash-number-row {
-        gap: 7px;
-      }
-
-      .card-header,
-      .card-body {
-        padding-left: 17px;
-        padding-right: 17px;
-      }
-
-      .history-tabs,
-      .history-list {
-        padding-left: 17px;
-        padding-right: 17px;
-      }
-
-      .history-item {
-        gap: 9px;
-      }
-
-      .history-icon {
-        width: 38px;
-        height: 38px;
-        flex-basis: 38px;
-      }
-
-      .history-title {
-        font-size: 10px;
-      }
-
-      .history-amount {
-        font-size: 11px;
-      }
-
-      .toast-container {
-        left: 12px;
-        right: 12px;
-        bottom: 12px;
-      }
-
-      .toast {
-        min-width: 0;
-        width: 100%;
-      }
-    }
+      --bg:#08080d; --panel:#11111a; --panel2:#171723;
+      --border:rgba(255,255,255,.09); --purple:#9b6dff;
+      --purple2:#7041dc; --text:#f5f3ff; --muted:#a09caf;
+      --green:#4ade80; --red:#fb7185; --yellow:#fbbf24;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;min-height:100vh;color:var(--text);font-family:Cairo,sans-serif;
+      background:radial-gradient(ellipse at 85% 0%,rgba(112,65,220,.15),transparent 38%),var(--bg)
+    }
+    button,input,select{font:inherit}
+    a{color:inherit;text-decoration:none}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(8,8,13,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .nav{max-width:1120px;margin:auto;padding:12px 20px;min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:9px;font-family:"Chakra Petch",sans-serif;font-size:26px;font-weight:700}
+    .brand img{width:39px;height:39px;object-fit:contain;animation:float 3s ease-in-out infinite}
+    .ix{color:var(--purple)}
+    @keyframes float{50%{transform:translateY(-5px)}}
+    .navlinks{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+    .navlinks a{padding:8px 11px;border-radius:10px;color:#c5c1d6;font-size:12px}
+    .navlinks a:hover,.navlinks a.active{background:rgba(155,109,255,.13);color:#d0bcff}
+    .container{max-width:1120px;margin:auto;padding:32px 20px 60px}
+    .hero{padding:27px;border:1px solid rgba(155,109,255,.22);border-radius:23px;background:linear-gradient(120deg,rgba(112,65,220,.18),#11111a 75%);margin-bottom:20px}
+    .eyebrow{font-size:11px;font-weight:800;color:#cbb6ff;background:rgba(155,109,255,.12);padding:6px 10px;border-radius:30px}
+    h1{font-size:clamp(25px,4vw,36px);margin:15px 0 5px;font-weight:900}
+    .muted{color:var(--muted);font-size:13px;line-height:1.9}
+    .balance-card{position:relative;overflow:hidden;margin-top:20px;padding:23px;border:1px solid rgba(255,255,255,.13);border-radius:19px;background:linear-gradient(125deg,#7041dc,#39206e 70%,#20143b)}
+    .balance-card:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid rgba(255,255,255,.13);left:-35px;top:-75px;box-shadow:0 0 0 22px rgba(255,255,255,.025),0 0 0 45px rgba(255,255,255,.02)}
+    .balance-label{font-size:13px;color:#e4d8ff}
+    .balance{font-size:clamp(32px,6vw,47px);font-weight:900;margin:5px 0}
+    .balance-sub{font-size:11px;color:#e0d4ff}
+    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}
+    .stat,.panel{background:var(--panel);border:1px solid var(--border);border-radius:17px;padding:18px;min-width:0}
+    .stat-label{color:var(--muted);font-size:11px}
+    .stat-value{font-size:20px;font-weight:800;margin-top:6px;overflow-wrap:anywhere}
+    .purple{color:#cbb6ff}
+    .columns{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:17px;align-items:start}
+    .panel h2{font-size:18px;margin:0 0 5px}
+    .panel-desc{font-size:12px;color:var(--muted);line-height:1.9;margin:0 0 17px}
+    .steps{display:grid;gap:10px;margin:14px 0}
+    .step{display:flex;gap:11px;align-items:flex-start;padding:12px;background:#171722;border:1px solid rgba(255,255,255,.05);border-radius:12px}
+    .step-num{display:grid;place-items:center;width:28px;height:28px;flex:0 0 28px;border-radius:9px;background:rgba(155,109,255,.15);color:#d2bdff;font-size:12px;font-weight:900}
+    .step p{margin:0;color:#d8d5e5;font-size:12px;line-height:1.9}
+    .phone-box{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0;padding:13px;border-radius:12px;background:rgba(155,109,255,.09);border:1px solid rgba(155,109,255,.22)}
+    .phone-number{font-size:21px;font-weight:900;direction:ltr;letter-spacing:1px;color:#d0bcff}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:11px;padding:11px 15px;cursor:pointer;font-weight:800;font-size:12px;transition:.2s}
+    .btn-primary{background:linear-gradient(135deg,#a783ff,#7041dc);color:#fff}
+    .btn-secondary{background:#20202d;color:#e5ddff;border:1px solid var(--border)}
+    .btn:hover{filter:brightness(1.1)}
+    .btn:disabled{opacity:.55;cursor:wait}
+    .form-group{margin-bottom:13px}
+    label{display:block;font-size:12px;color:#d7d3e6;margin-bottom:7px}
+    input,select{width:100%;background:#0b0b12;border:1px solid var(--border);border-radius:11px;color:var(--text);padding:12px 13px;outline:none}
+    input:focus,select:focus{border-color:rgba(155,109,255,.7)}
+    input::placeholder{color:#777488}
+    select option{background:#11111a}
+    .form-note{font-size:11px;color:var(--muted);line-height:1.8;margin:10px 0}
+    .full{width:100%}
+    .history{margin-top:20px}
+    .history-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+    .history-head h2{font-size:18px;margin:0}
+    .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:13px 0}
+    .tab{background:#171722;border:1px solid var(--border);color:#aaa6bb;padding:8px 12px;border-radius:10px;cursor:pointer;font-size:11px}
+    .tab.active{background:rgba(155,109,255,.15);color:#d0bcff;border-color:rgba(155,109,255,.3)}
+    .list{display:grid;gap:9px}
+    .rowitem{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px;background:#15151f;border:1px solid rgba(255,255,255,.055);border-radius:13px}
+    .item-title{font-size:12px;font-weight:800;overflow-wrap:anywhere}
+    .item-meta{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.8}
+    .amount{font-size:13px;font-weight:900;white-space:nowrap}
+    .positive{color:var(--green)}.negative{color:var(--red)}
+    .status{display:inline-block;padding:4px 8px;border-radius:30px;font-size:10px;font-weight:800;margin-top:5px}
+    .status-pending{color:var(--yellow);background:rgba(251,191,36,.1)}
+    .status-approved{color:var(--green);background:rgba(74,222,128,.1)}
+    .status-rejected{color:var(--red);background:rgba(251,113,133,.1)}
+    .empty{text-align:center;padding:28px 15px;border:1px dashed var(--border);border-radius:13px;color:var(--muted);font-size:12px;line-height:1.9}
+    .notice{display:none;position:fixed;right:20px;bottom:20px;z-index:50;max-width:min(400px,calc(100vw - 40px));padding:13px 16px;border-radius:12px;background:#1b1b26;border:1px solid var(--border);font-size:12px;line-height:1.8;box-shadow:0 10px 30px #0008}
+    .notice.show{display:block}.notice.error{border-color:#fb718566}.notice.success{border-color:#4ade8055}
+    .loading{color:var(--muted);font-size:12px;padding:20px;text-align:center}
+    footer{text-align:center;border-top:1px solid var(--border);padding:22px;color:#777488;font-size:11px}
+    @media(max-width:760px){.columns{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:12px}.stat-value{font-size:17px}.nav{padding:12px 14px}.navlinks{width:100%;justify-content:space-between}.navlinks a{padding:7px;font-size:11px}.container{padding:23px 14px 45px}.hero{padding:21px}.rowitem{align-items:flex-start}}
   </style>
 </head>
 
 <body>
-
-  <!-- =========================
-       LOADING
-  ========================= -->
-
-  <div
-    class="loading-screen"
-    id="loadingScreen"
-  >
-    <div class="loader">
-      <div class="loader-logo">M</div>
-      <div class="loader-ring"></div>
+<header class="topbar">
+  <nav class="nav">
+    <a class="brand" href="./dashboard.html">
+      <img src="./logo.png" alt="Mathix" onerror="this.style.display='none'">
+      <span>Math<span class="ix">ix</span></span>
+    </a>
+    <div class="navlinks">
+      <a href="./dashboard.html">الرئيسية</a>
+      <a href="./subjects.html">المواد</a>
+      <a href="./revesions.html">الملخصات</a>
+      <a href="./wallet.html" class="active">المحفظة</a>
+      <a href="./profile.html">حسابي</a>
     </div>
-  </div>
+  </nav>
+</header>
 
+<main class="container">
+  <section class="hero">
+    <span class="eyebrow">MATHIX WALLET</span>
+    <h1>محفظتك <span class="purple">الإلكترونية</span></h1>
+    <p class="muted">تابع رصيدك، اشحن محفظتك، واعرف حالة طلبات الشحن ومشترياتك من مكان واحد.</p>
 
-  <!-- =========================
-       ERROR
-  ========================= -->
-
-  <div
-    class="error-screen"
-    id="errorScreen"
-  >
-    <div class="error-box">
-
-      <div class="error-icon">
-        ⚠
-      </div>
-
-      <h2>
-        حصل خطأ
-      </h2>
-
-      <p id="errorMessage">
-        تعذر تحميل بيانات المحفظة.
-      </p>
-
+    <div class="balance-card">
+      <div class="balance-label">الرصيد المتاح</div>
+      <div class="balance" id="balanceValue">جارٍ التحميل...</div>
+      <div class="balance-sub">الرصيد بيتحدث تلقائيًا عند تغيير بيانات المحفظة.</div>
     </div>
-  </div>
+  </section>
 
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-label">طلبات الشحن</div>
+      <div class="stat-value purple" id="requestCount">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">إجمالي مشترياتك</div>
+      <div class="stat-value" id="spentValue">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">الطلبات المعلقة</div>
+      <div class="stat-value" id="pendingCount">—</div>
+    </div>
+  </section>
 
-  <!-- =========================
-       SIDEBAR OVERLAY
-  ========================= -->
+  <section class="columns">
+    <div class="panel">
+      <h2>اشحن محفظتك</h2>
+      <p class="panel-desc">حوّل المبلغ عن طريق Vodafone Cash، وبعدها سجّل طلب الشحن هنا. الرصيد هيتضاف بعد مراجعة الإدارة.</p>
 
-  <div
-    class="sidebar-overlay"
-    id="sidebarOverlay"
-  ></div>
-
-
-  <!-- =========================
-       APP
-  ========================= -->
-
-  <div class="app">
-
-    <!-- =========================
-         SIDEBAR
-    ========================= -->
-
-    <aside
-      class="sidebar"
-      id="sidebar"
-    >
-
-      <div class="brand">
-
-        <div class="brand-mark">
-          M
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <p>حوّل المبلغ اللي محتاجه على رقم Vodafone Cash الموضح بالأسفل.</p>
         </div>
-
-        <div class="brand-text">
-          Mathix
+        <div class="step">
+          <span class="step-num">2</span>
+          <p>اكتب مبلغ التحويل ورقم الهاتف اللي تم التحويل منه، وأضف رقم العملية لو متاح.</p>
         </div>
-
+        <div class="step">
+          <span class="step-num">3</span>
+          <p>قدّم الطلب وانتظر اعتماد الإدارة. ما تبعتش كلمة مرور أو بيانات سرية.</p>
+        </div>
       </div>
 
+      <div class="phone-box">
+        <div>
+          <div class="muted">رقم التحويل</div>
+          <div class="phone-number" id="cashNumber">01037500636</div>
+        </div>
+        <button class="btn btn-secondary" id="copyNumber" type="button">نسخ الرقم</button>
+      </div>
 
-      <div class="nav-section">
-
-        <div class="nav-label">
-          الرئيسية
+      <form id="topupForm">
+        <div class="form-group">
+          <label for="amount">مبلغ الشحن بالجنيه المصري</label>
+          <input id="amount" type="number" min="10" max="50000" step="1" placeholder="مثال: 100" required>
         </div>
 
-        <nav class="nav-list">
-
-          <a
-            href="./dashboard.html"
-            class="nav-link"
-          >
-            <span class="nav-icon">⌂</span>
-            <span>الرئيسية</span>
-          </a>
-
-          <a
-            href="./subjects.html"
-            class="nav-link"
-          >
-            <span class="nav-icon">▦</span>
-            <span>المواد</span>
-          </a>
-
-          <a
-            href="./revisions.html"
-            class="nav-link"
-          >
-            <span class="nav-icon">◈</span>
-            <span>المراجعات</span>
-          </a>
-
-          <a
-            href="./wallet.html"
-            class="nav-link active"
-          >
-            <span class="nav-icon">◉</span>
-            <span>المحفظة</span>
-          </a>
-
-          <a
-            href="./profile.html"
-            class="nav-link"
-          >
-            <span class="nav-icon">◎</span>
-            <span>الملف الشخصي</span>
-          </a>
-
-        </nav>
-
-      </div>
-
-
-      <div class="nav-section">
-
-        <div class="nav-label">
-          التعلم
+        <div class="form-group">
+          <label for="senderPhone">رقم الهاتف اللي حوّلت منه</label>
+          <input id="senderPhone" type="tel" inputmode="numeric" maxlength="11" placeholder="01xxxxxxxxx" required>
         </div>
 
-        <nav class="nav-list">
-
-          <a
-            href="#"
-            class="nav-link"
-            onclick="showComingSoon(event)"
-          >
-            <span class="nav-icon">✦</span>
-            <span>خطة مذاكرتي</span>
-          </a>
-
-          <a
-            href="#"
-            class="nav-link"
-            onclick="showComingSoon(event)"
-          >
-            <span class="nav-icon">✓</span>
-            <span>إنجازاتي</span>
-          </a>
-
-        </nav>
-
-      </div>
-
-
-      <div class="sidebar-bottom">
-
-        <div class="mini-profile">
-
-          <div
-            class="avatar"
-            id="sidebarAvatar"
-          >
-            M
-          </div>
-
-          <div class="mini-profile-info">
-
-            <div
-              class="mini-profile-name"
-              id="sidebarName"
-            >
-              الطالب
-            </div>
-
-            <div
-              class="mini-profile-email"
-              id="sidebarEmail"
-            >
-              —
-            </div>
-
-          </div>
-
+        <div class="form-group">
+          <label for="reference">رقم العملية (اختياري)</label>
+          <input id="reference" type="text" maxlength="100" placeholder="رقم مرجع التحويل لو موجود">
         </div>
 
-        <button
-          class="logout-btn"
-          id="logoutBtn"
-          type="button"
-        >
-          <span class="nav-icon">↪</span>
-          <span>تسجيل الخروج</span>
-        </button>
+        <button class="btn btn-primary full" id="submitTopup" type="submit">إرسال طلب الشحن</button>
+        <p class="form-note">إرسال الطلب لا يضيف رصيدًا تلقائيًا. احتفظ بإيصال التحويل لحين اعتماد الطلب.</p>
+      </form>
+    </div>
 
+    <div class="panel">
+      <h2>طلبات الشحن السابقة</h2>
+      <p class="panel-desc">تقدر تتابع حالة كل طلب من هنا.</p>
+      <div id="requestsList" class="list">
+        <div class="loading">جارٍ تحميل الطلبات...</div>
       </div>
-
-    </aside>
-
-
-    <!-- =========================
-         MAIN
-    ========================= -->
-
-    <main class="main">
-
-      <div class="container">
-
-        <!-- =========================
-             TOPBAR
-        ========================= -->
-
-        <header class="topbar">
-
-          <div class="topbar-left">
-
-            <button
-              class="mobile-menu-btn"
-              id="mobileMenuBtn"
-              type="button"
-              aria-label="فتح القائمة"
-            >
-              ☰
-            </button>
-
-            <div class="page-title">
-
-              <h1>
-                المحفظة
-              </h1>
-
-              <p>
-                إدارة رصيدك وطلبات الشحن
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <div class="top-actions">
-
-            <button
-              class="icon-btn"
-              id="notificationBtn"
-              type="button"
-              title="الإشعارات"
-            >
-              ♢
-            </button>
-
-            <a
-              href="./profile.html"
-              class="icon-btn"
-              title="الملف الشخصي"
-            >
-              ◎
-            </a>
-
-          </div>
-
-        </header>
-
-
-        <!-- =========================
-             BALANCE HERO
-        ========================= -->
-
-        <section class="balance-hero">
-
-          <div class="balance-info">
-
-            <div class="balance-kicker">
-              <span></span>
-              المحفظة متصلة
-            </div>
-
-            <div class="balance-label">
-              الرصيد الحالي
-            </div>
-
-            <div class="balance-value">
-
-              <span id="balanceValue">
-                0
-              </span>
-
-              <span class="balance-currency">
-                ج.م
-              </span>
-
-            </div>
-
-            <p class="balance-description">
-              استخدم رصيد المحفظة للوصول إلى المحتوى المدفوع
-              والمراجعات والاختبارات المتاحة داخل Mathix.
-            </p>
-
-          </div>
-
-
-          <div class="balance-side">
-
-            <div class="wallet-orb">
-
-              <div class="orb-icon">
-                ◉
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- =========================
-             WALLET GRID
-        ========================= -->
-
-        <section class="wallet-grid">
-
-
-          <!-- =========================
-               VODAFONE CASH
-          ========================= -->
-
-          <div class="card cash-card">
-
-            <div class="card-header">
-
-              <div>
-                <h2 class="card-title">
-                  شحن المحفظة
-                </h2>
-
-                <p class="card-subtitle">
-                  الشحن متاح حاليًا عن طريق Vodafone Cash فقط.
-                </p>
-              </div>
-
-            </div>
-
-
-            <div class="card-body">
-
-              <div class="cash-brand">
-
-                <div class="cash-icon">
-                  ◉
-                </div>
-
-                <div>
-                  <strong>
-                    Vodafone Cash
-                  </strong>
-
-                  <small>
-                    حوّل المبلغ ثم أرسل طلب المراجعة
-                  </small>
-                </div>
-
-              </div>
-
-
-              <div class="cash-number-box">
-
-                <div class="cash-number-label">
-                  رقم التحويل
-                </div>
-
-                <div class="cash-number-row">
-
-                  <div class="cash-number">
-                    01037500636
-                  </div>
-
-                  <button
-                    class="copy-btn"
-                    id="copyNumberBtn"
-                    type="button"
-                    title="نسخ الرقم"
-                  >
-                    ⧉
-                  </button>
-
-                </div>
-
-              </div>
-
-
-              <div class="steps">
-
-                <div class="step">
-
-                  <div class="step-number">
-                    01
-                  </div>
-
-                  <div>
-                    حوّل المبلغ المطلوب إلى رقم Vodafone Cash الموضح بالأعلى.
-                  </div>
-
-                </div>
-
-                <div class="step">
-
-                  <div class="step-number">
-                    02
-                  </div>
-
-                  <div>
-                    احتفظ برقم العملية أو الـ Reference الخاص بالتحويل.
-                  </div>
-
-                </div>
-
-                <div class="step">
-
-                  <div class="step-number">
-                    03
-                  </div>
-
-                  <div>
-                    اكتب بيانات التحويل في النموذج، ثم أرسل طلب الشحن للمراجعة.
-                  </div>
-
-                </div>
-
-                <div class="step">
-
-                  <div class="step-number">
-                    04
-                  </div>
-
-                  <div>
-                    بعد قبول الطلب من الإدارة، سيظهر المبلغ تلقائيًا في رصيدك.
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- =========================
-               TOPUP FORM
-          ========================= -->
-
-          <div class="card">
-
-            <div class="card-header">
-
-              <div>
-                <h2 class="card-title">
-                  إرسال طلب شحن
-                </h2>
-
-                <p class="card-subtitle">
-                  املأ البيانات بعد تنفيذ التحويل.
-                </p>
-              </div>
-
-            </div>
-
-
-            <div class="card-body">
-
-              <form id="topupForm">
-
-                <div class="form-grid">
-
-
-                  <div class="field">
-
-                    <label for="amount">
-                      المبلغ
-                    </label>
-
-                    <div class="input-wrap">
-
-                      <input
-                        id="amount"
-                        type="number"
-                        min="1"
-                        max="100000"
-                        step="1"
-                        inputmode="numeric"
-                        placeholder="مثال: 200"
-                        required
-                      >
-
-                      <span class="input-icon">
-                        $
-                      </span>
-
-                      <span class="amount-prefix">
-                        ج.م
-                      </span>
-
-                    </div>
-
-                  </div>
-
-
-                  <div class="field">
-
-                    <label for="senderPhone">
-                      رقم المحفظة المُرسلة
-                    </label>
-
-                    <div class="input-wrap">
-
-                      <input
-                        id="senderPhone"
-                        class="ltr"
-                        type="tel"
-                        maxlength="11"
-                        inputmode="numeric"
-                        autocomplete="tel"
-                        placeholder="01XXXXXXXXX"
-                        required
-                      >
-
-                      <span class="input-icon">
-                        ☎
-                      </span>
-
-                    </div>
-
-                  </div>
-
-
-                  <div class="field full">
-
-                    <label for="transferReference">
-                      رقم العملية / Reference
-                    </label>
-
-                    <div class="input-wrap">
-
-                      <input
-                        id="transferReference"
-                        class="ltr"
-                        type="text"
-                        maxlength="120"
-                        autocomplete="off"
-                        placeholder="اكتب رقم العملية كما ظهر لك"
-                        required
-                      >
-
-                      <span class="input-icon">
-                        #
-                      </span>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-                <div class="form-note">
-                  تأكد من صحة البيانات قبل الإرسال. طلب الشحن سيظهر بحالة
-                  "قيد المراجعة" حتى تتم مراجعته من الإدارة.
-                </div>
-
-
-                <button
-                  class="submit-btn"
-                  id="submitTopupBtn"
-                  type="submit"
-                >
-                  <span id="submitBtnContent">
-                    إرسال طلب الشحن
-                  </span>
-                </button>
-
-              </form>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- =========================
-             HISTORY
-        ========================= -->
-
-        <section class="card history-section">
-
-          <div class="card-header">
-
-            <div>
-
-              <h2 class="card-title">
-                سجل المحفظة
-              </h2>
-
-              <p class="card-subtitle">
-                تابع طلبات الشحن وحركات رصيدك.
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <div class="history-tabs">
-
-            <button
-              class="history-tab active"
-              id="requestsTab"
-              type="button"
-            >
-              طلبات الشحن
-            </button>
-
-            <button
-              class="history-tab"
-              id="transactionsTab"
-              type="button"
-            >
-              المعاملات
-            </button>
-
-          </div>
-
-
-          <div
-            class="history-list"
-            id="historyList"
-          >
-
-            <div class="empty-state">
-
-              <div class="empty-icon">
-                ◌
-              </div>
-
-              <h3>
-                جاري تحميل السجل
-              </h3>
-
-              <p>
-                انتظر لحظات...
-              </p>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- =========================
-             INFO
-        ========================= -->
-
-        <section class="info-grid">
-
-          <div class="info-card">
-
-            <div class="info-icon">
-              ✓
-            </div>
-
-            <h3>
-              مراجعة آمنة
-            </h3>
-
-            <p>
-              كل طلب شحن يتم مراجعته قبل إضافة المبلغ إلى رصيدك.
-            </p>
-
-          </div>
-
-
-          <div class="info-card">
-
-            <div class="info-icon">
-              ⚡
-            </div>
-
-            <h3>
-              تحديث مباشر
-            </h3>
-
-            <p>
-              رصيد المحفظة وحالة الطلبات يتم تحديثهما مباشرة عند توفر أي تغيير.
-            </p>
-
-          </div>
-
-
-          <div class="info-card">
-
-            <div class="info-icon">
-              ◈
-            </div>
-
-            <h3>
-              لا يوجد خصم مخفي
-            </h3>
-
-            <p>
-              المبلغ الذي تطلب شحنه هو المبلغ الذي تتم مراجعته وإضافته بعد الموافقة.
-            </p>
-
-          </div>
-
-        </section>
-
+    </div>
+  </section>
+
+  <section class="panel history">
+    <div class="history-head">
+      <div>
+        <h2>سجل المحفظة</h2>
+        <p class="panel-desc" style="margin:5px 0 0">مشترياتك وحركات المحفظة المسجلة في حسابك.</p>
       </div>
+    </div>
 
-    </main>
+    <div class="tabs">
+      <button class="tab active" data-tab="all" type="button">الكل</button>
+      <button class="tab" data-tab="purchases" type="button">المشتريات</button>
+      <button class="tab" data-tab="transactions" type="button">المعاملات</button>
+    </div>
 
-  </div>
+    <div id="historyList" class="list">
+      <div class="loading">جارٍ تحميل السجل...</div>
+    </div>
+  </section>
+</main>
 
+<footer>Mathix © <span id="year"></span> — محفظتك التعليمية</footer>
+<div class="notice" id="notice" role="status" aria-live="polite"></div>
 
-  <!-- =========================
-       TOAST
-  ========================= -->
+<script type="module">
+  import { auth, db, authReady } from "./firebase-config.js";
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    collection, doc, addDoc, onSnapshot, query, where, orderBy,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  <div
-    class="toast-container"
-    id="toastContainer"
-  ></div>
+  const $ = id => document.getElementById(id);
+  const CASH_NUMBER = "01037500636";
 
+  let user = null;
+  let balance = 0;
+  let requests = [];
+  let purchases = [];
+  let transactions = [];
+  let currentTab = "all";
+  let requestLoaded = false;
+  let purchasesLoaded = false;
+  let transactionsLoaded = false;
+  let walletLoaded = false;
+  let unsubscribers = [];
+  let noticeTimer;
 
-  <!-- =========================
-       FIREBASE
-  ========================= -->
+  $("year").textContent = new Date().getFullYear();
 
-  <script type="module">
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, c => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    })[c]);
+  }
 
-    import {
-      initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  function money(value) {
+    const n = Number(value);
+    return (Number.isFinite(n) ? n : 0).toLocaleString("ar-EG", {
+      maximumFractionDigits: 2
+    }) + " ج.م";
+  }
 
-    import {
-      getAuth,
-      onAuthStateChanged,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+  function dateText(value) {
+    if (!value) return "التاريخ غير متاح";
+    let date;
+    if (typeof value.toDate === "function") date = value.toDate();
+    else if (value.seconds) date = new Date(value.seconds * 1000);
+    else date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "التاريخ غير متاح";
+    return date.toLocaleString("ar-EG", { dateStyle:"medium", timeStyle:"short" });
+  }
 
-    import {
-      getFirestore,
-      doc,
-      onSnapshot,
-      collection,
-      query,
-      where,
-      orderBy,
-      onSnapshot as onCollectionSnapshot,
-      addDoc,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+  function notify(message, type = "") {
+    const el = $("notice");
+    el.textContent = message;
+    el.className = "notice show" + (type ? " " + type : "");
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(() => el.className = "notice", 4500);
+  }
 
+  function statusInfo(request) {
+    const status = String(request.status || request.state || "").toLowerCase();
 
-    /* =========================
-       FIREBASE CONFIG
-    ========================= */
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk4",
-      authDomain: "mathix-2008.firebaseapp.com",
-      projectId: "mathix-2008",
-      storageBucket: "mathix-2008.firebasestorage.app",
-      messagingSenderId: "561805658834",
-      appId: "1:561805658834:web:c1db8ebc2d415be9497b0b",
-      measurementId: "G-XWHKQ72FM0"
-    };
-
-
-    const app = initializeApp(firebaseConfig);
-
-    const auth = getAuth(app);
-
-    const db = getFirestore(app);
-
-
-    /* =========================
-       DOM
-    ========================= */
-
-    const loadingScreen =
-      document.getElementById("loadingScreen");
-
-    const errorScreen =
-      document.getElementById("errorScreen");
-
-    const errorMessage =
-      document.getElementById("errorMessage");
-
-    const balanceValue =
-      document.getElementById("balanceValue");
-
-    const sidebarName =
-      document.getElementById("sidebarName");
-
-    const sidebarEmail =
-      document.getElementById("sidebarEmail");
-
-    const sidebarAvatar =
-      document.getElementById("sidebarAvatar");
-
-    const topupForm =
-      document.getElementById("topupForm");
-
-    const amountInput =
-      document.getElementById("amount");
-
-    const senderPhoneInput =
-      document.getElementById("senderPhone");
-
-    const transferReferenceInput =
-      document.getElementById("transferReference");
-
-    const submitTopupBtn =
-      document.getElementById("submitTopupBtn");
-
-    const submitBtnContent =
-      document.getElementById("submitBtnContent");
-
-    const copyNumberBtn =
-      document.getElementById("copyNumberBtn");
-
-    const logoutBtn =
-      document.getElementById("logoutBtn");
-
-    const notificationBtn =
-      document.getElementById("notificationBtn");
-
-    const mobileMenuBtn =
-      document.getElementById("mobileMenuBtn");
-
-    const sidebar =
-      document.getElementById("sidebar");
-
-    const sidebarOverlay =
-      document.getElementById("sidebarOverlay");
-
-    const historyList =
-      document.getElementById("historyList");
-
-    const requestsTab =
-      document.getElementById("requestsTab");
-
-    const transactionsTab =
-      document.getElementById("transactionsTab");
-
-
-    /* =========================
-       STATE
-    ========================= */
-
-    let currentUser = null;
-
-    let currentRequests = [];
-
-    let currentTransactions = [];
-
-    let activeHistoryTab = "requests";
-
-    let unsubscribeUser = null;
-
-    let unsubscribeWallet = null;
-
-    let unsubscribeRequests = null;
-
-    let unsubscribeTransactions = null;
-
-
-    /* =========================
-       HELPERS
-    ========================= */
-
-    function escapeHTML(value) {
-
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
+    if (["approved", "accepted", "completed", "success"].includes(status) ||
+        request.approved === true) {
+      return { label:"تم الاعتماد", css:"status-approved" };
     }
 
-
-    function getFirstName(data, user) {
-
-      const firstName =
-        String(data?.firstName || "").trim();
-
-      if (firstName) {
-        return firstName;
-      }
-
-      const fullName =
-        String(data?.fullName || "").trim();
-
-      if (fullName) {
-        return fullName.split(/\s+/)[0];
-      }
-
-      const displayName =
-        String(user?.displayName || "").trim();
-
-      if (displayName) {
-        return displayName.split(/\s+/)[0];
-      }
-
-      return "الطالب";
+    if (["rejected", "declined", "failed"].includes(status)) {
+      return { label:"مرفوض", css:"status-rejected" };
     }
 
+    return { label:"قيد المراجعة", css:"status-pending" };
+  }
 
-    function getInitial(data, user) {
+  function renderRequests() {
+    $("requestCount").textContent = requests.length.toLocaleString("ar-EG");
+    $("pendingCount").textContent = requests.filter(r =>
+      statusInfo(r).css === "status-pending"
+    ).length.toLocaleString("ar-EG");
 
-      const name = getFirstName(data, user);
-
-      return name.charAt(0) || "M";
+    if (!requestLoaded) {
+      $("requestsList").innerHTML = '<div class="loading">جارٍ تحميل الطلبات...</div>';
+      return;
     }
 
+    if (!requests.length) {
+      $("requestsList").innerHTML = '<div class="empty">لسه ما قدمتش أي طلب شحن.</div>';
+      return;
+    }
 
-    function formatMoney(value) {
+    $("requestsList").innerHTML = requests.map(item => {
+      const status = statusInfo(item);
+      return `
+        <div class="rowitem">
+          <div>
+            <div class="item-title">طلب شحن المحفظة</div>
+            <div class="item-meta">
+              ${escapeHTML(dateText(item.createdAt || item.timestamp))}
+              ${item.reference ? "<br>رقم العملية: " + escapeHTML(item.reference) : ""}
+            </div>
+            <span class="status ${status.css}">${status.label}</span>
+          </div>
+          <div class="amount">${escapeHTML(money(item.amount))}</div>
+        </div>
+      `;
+    }).join("");
+  }
 
-      const number = Number(value) || 0;
+  function renderHistory() {
+    const items = [];
 
-      return number.toLocaleString("en-US", {
-        maximumFractionDigits: 2
+    if (currentTab === "all" || currentTab === "purchases") {
+      purchases.forEach(item => {
+        items.push({
+          kind:"purchase",
+          title:item.title || item.itemName || item.name || "شراء محتوى تعليمي",
+          amount:Number(item.price ?? item.amount ?? 0),
+          date:item.createdAt || item.timestamp,
+          id:item.id
+        });
       });
     }
 
-
-    function formatDate(timestamp) {
-
-      if (!timestamp) {
-        return "غير متاح";
-      }
-
-      try {
-
-        let date;
-
-        if (
-          typeof timestamp.toDate === "function"
-        ) {
-          date = timestamp.toDate();
-        } else if (
-          timestamp instanceof Date
-        ) {
-          date = timestamp;
-        } else if (
-          typeof timestamp.seconds === "number"
-        ) {
-          date = new Date(
-            timestamp.seconds * 1000
-          );
-        } else {
-          return "غير متاح";
-        }
-
-        return date.toLocaleDateString(
-          "ar-EG",
-          {
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
-          }
-        );
-
-      } catch (error) {
-
-        return "غير متاح";
-
-      }
-
+    if (currentTab === "all" || currentTab === "transactions") {
+      transactions.forEach(item => {
+        const rawType = String(item.type || item.kind || "").toLowerCase();
+        const amount = Number(item.amount ?? item.value ?? 0);
+        const isCredit = ["credit","topup","deposit","approved","refund"].includes(rawType) ||
+          item.direction === "in" || item.direction === "credit";
+        items.push({
+          kind:"transaction",
+          title:item.title || item.description || item.note ||
+            (isCredit ? "إضافة رصيد" : "معاملة محفظة"),
+          amount,
+          positive:isCredit,
+          date:item.createdAt || item.timestamp,
+          id:item.id
+        });
+      });
     }
 
-
-    function getTime(timestamp) {
-
-      if (!timestamp) {
-        return "";
-      }
-
-      try {
-
-        let date;
-
-        if (
-          typeof timestamp.toDate === "function"
-        ) {
-          date = timestamp.toDate();
-        } else if (
-          timestamp instanceof Date
-        ) {
-          date = timestamp;
-        } else if (
-          typeof timestamp.seconds === "number"
-        ) {
-          date = new Date(
-            timestamp.seconds * 1000
-          );
-        } else {
-          return "";
-        }
-
-        return date.toLocaleTimeString(
-          "ar-EG",
-          {
-            hour: "2-digit",
-            minute: "2-digit"
-          }
-        );
-
-      } catch (error) {
-
-        return "";
-
-      }
-
-    }
-
-
-    function statusLabel(status) {
-
-      const value =
-        String(status || "pending")
-          .toLowerCase();
-
-      const labels = {
-        pending: "قيد المراجعة",
-        approved: "تم القبول",
-        completed: "مكتمل",
-        rejected: "مرفوض"
+    items.sort((a,b) => {
+      const getTime = value => {
+        if (!value) return 0;
+        if (typeof value.toMillis === "function") return value.toMillis();
+        if (value.seconds) return value.seconds * 1000;
+        const d = new Date(value).getTime();
+        return Number.isNaN(d) ? 0 : d;
       };
+      return getTime(b.date) - getTime(a.date);
+    });
 
-      return labels[value] || "قيد المراجعة";
+    if (!purchasesLoaded || !transactionsLoaded) {
+      $("historyList").innerHTML = '<div class="loading">جارٍ تحميل السجل...</div>';
+      return;
     }
 
-
-    function statusClass(status) {
-
-      const value =
-        String(status || "pending")
-          .toLowerCase();
-
-      if (
-        value === "approved" ||
-        value === "completed"
-      ) {
-        return value;
-      }
-
-      if (value === "rejected") {
-        return "rejected";
-      }
-
-      return "pending";
+    if (!items.length) {
+      $("historyList").innerHTML = '<div class="empty">مفيش معاملات مسجلة لحد دلوقتي.</div>';
+      $("spentValue").textContent = money(0);
+      return;
     }
 
+    const totalSpent = purchases.reduce((sum, item) =>
+      sum + Math.max(0, Number(item.price ?? item.amount ?? 0)), 0);
+    $("spentValue").textContent = money(totalSpent);
 
-    function showError(message) {
-
-      errorMessage.textContent =
-        message ||
-        "تعذر تحميل بيانات المحفظة.";
-
-      errorScreen.classList.add("show");
-
-    }
-
-
-    function hideLoading() {
-
-      loadingScreen.classList.add("hidden");
-
-    }
-
-
-    function showToast(
-      title,
-      message,
-      type = "success"
-    ) {
-
-      const toast =
-        document.createElement("div");
-
-      toast.className =
-        `toast ${type}`;
-
-      let icon = "✓";
-
-      if (type === "error") {
-        icon = "!";
-      }
-
-      if (type === "warning") {
-        icon = "!";
-      }
-
-      toast.innerHTML = `
-        <div class="toast-icon">
-          ${icon}
-        </div>
-
-        <div class="toast-content">
-          <div class="toast-title">
-            ${escapeHTML(title)}
+    $("historyList").innerHTML = items.map(item => {
+      const positive = item.kind === "transaction" && item.positive;
+      const amountClass = positive ? "positive" : "negative";
+      const prefix = item.kind === "purchase" ? "− " : positive ? "+ " : "";
+      return `
+        <div class="rowitem">
+          <div>
+            <div class="item-title">${escapeHTML(item.title)}</div>
+            <div class="item-meta">${escapeHTML(dateText(item.date))}</div>
           </div>
-
-          <div class="toast-message">
-            ${escapeHTML(message)}
-          </div>
+          <div class="amount ${amountClass}">${prefix}${escapeHTML(money(item.amount))}</div>
         </div>
       `;
+    }).join("");
+  }
 
-      document
-        .getElementById("toastContainer")
-        .appendChild(toast);
+  function updateBalance(value) {
+    balance = Number(value);
+    if (!Number.isFinite(balance)) balance = 0;
+    $("balanceValue").textContent = money(balance);
+  }
 
-      setTimeout(() => {
+  function stopListeners() {
+    unsubscribers.forEach(unsubscribe => {
+      try { unsubscribe(); } catch {}
+    });
+    unsubscribers = [];
+  }
 
-        toast.style.opacity = "0";
-        toast.style.transform = "translateY(10px)";
+  function startListeners(currentUser) {
+    stopListeners();
 
-        setTimeout(() => {
-          toast.remove();
-        }, 300);
+    requests = [];
+    purchases = [];
+    transactions = [];
+    requestLoaded = purchasesLoaded = transactionsLoaded = walletLoaded = false;
+    $("balanceValue").textContent = "جارٍ التحميل...";
 
-      }, 3500);
-
-    }
-
-
-    /* =========================
-       MOBILE SIDEBAR
-    ========================= */
-
-    function openSidebar() {
-
-      sidebar.classList.add("open");
-
-      sidebarOverlay.classList.add("show");
-
-    }
-
-
-    function closeSidebar() {
-
-      sidebar.classList.remove("open");
-
-      sidebarOverlay.classList.remove("show");
-
-    }
-
-
-    mobileMenuBtn.addEventListener(
-      "click",
-      openSidebar
-    );
-
-    sidebarOverlay.addEventListener(
-      "click",
-      closeSidebar
-    );
-
-
-    /* =========================
-       COPY VODAFONE NUMBER
-    ========================= */
-
-    copyNumberBtn.addEventListener(
-      "click",
-      async () => {
-
-        const number =
-          "01037500636";
-
-        try {
-
-          await navigator.clipboard.writeText(
-            number
-          );
-
-          copyNumberBtn.textContent = "✓";
-
-          showToast(
-            "تم النسخ",
-            "تم نسخ رقم Vodafone Cash بنجاح."
-          );
-
-          setTimeout(() => {
-            copyNumberBtn.textContent = "⧉";
-          }, 1600);
-
-        } catch (error) {
-
-          showToast(
-            "تعذر النسخ",
-            "انسخ الرقم يدويًا: 01037500636",
-            "warning"
-          );
-
-        }
-
+    unsubscribers.push(onSnapshot(
+      doc(db, "wallets", currentUser.uid),
+      snapshot => {
+        const data = snapshot.exists() ? snapshot.data() : {};
+        updateBalance(data.balance ?? data.amount ?? 0);
+        walletLoaded = true;
+      },
+      error => {
+        console.error("Wallet listener:", error);
+        walletLoaded = true;
+        $("balanceValue").textContent = "غير متاح";
+        notify("تعذر قراءة المحفظة. راجع Firestore Rules.", "error");
       }
-    );
-
-
-    /* =========================
-       NOTIFICATIONS
-    ========================= */
-
-    notificationBtn.addEventListener(
-      "click",
-      () => {
-
-        showToast(
-          "الإشعارات",
-          "مفيش إشعارات جديدة حاليًا."
-        );
-
-      }
-    );
-
-
-    /* =========================
-       COMING SOON
-    ========================= */
-
-    window.showComingSoon =
-      function(event) {
-
-        event.preventDefault();
-
-        showToast(
-          "قريبًا",
-          "الميزة دي هتكون متاحة قريبًا.",
-          "warning"
-        );
-
-      };
-
-
-    /* =========================
-       LOAD USER
-    ========================= */
-
-    function subscribeToUser(user) {
-
-      if (unsubscribeUser) {
-        unsubscribeUser();
-      }
-
-      const userRef =
-        doc(
-          db,
-          "users",
-          user.uid
-        );
-
-      unsubscribeUser =
-        onSnapshot(
-          userRef,
-          snapshot => {
-
-            const data =
-              snapshot.exists()
-                ? snapshot.data()
-                : {};
-
-            const firstName =
-              getFirstName(
-                data,
-                user
-              );
-
-            sidebarName.textContent =
-              firstName;
-
-            sidebarEmail.textContent =
-              data.email ||
-              user.email ||
-              "—";
-
-            sidebarAvatar.textContent =
-              getInitial(
-                data,
-                user
-              );
-
-          },
-          error => {
-
-            console.error(
-              "User listener error:",
-              error
-            );
-
-            sidebarName.textContent =
-              getFirstName({}, user);
-
-            sidebarEmail.textContent =
-              user.email || "—";
-
-          }
-        );
-
-    }
-
-
-    /* =========================
-       LOAD WALLET
-    ========================= */
-
-    function subscribeToWallet(user) {
-
-      if (unsubscribeWallet) {
-        unsubscribeWallet();
-      }
-
-      const walletRef =
-        doc(
-          db,
-          "wallets",
-          user.uid
-        );
-
-      unsubscribeWallet =
-        onSnapshot(
-          walletRef,
-          snapshot => {
-
-            if (!snapshot.exists()) {
-
-              balanceValue.textContent =
-                "0";
-
-              return;
-
-            }
-
-            const data =
-              snapshot.data();
-
-            const balance =
-              Number(data.balance) || 0;
-
-            balanceValue.textContent =
-              formatMoney(balance);
-
-          },
-          error => {
-
-            console.error(
-              "Wallet listener error:",
-              error
-            );
-
-            balanceValue.textContent =
-              "0";
-
-            showToast(
-              "تعذر تحميل الرصيد",
-              "حدث خطأ أثناء قراءة رصيد المحفظة.",
-              "error"
-            );
-
-          }
-        );
-
-    }
-
-
-    /* =========================
-       REQUESTS LISTENER
-    ========================= */
-
-    function subscribeToRequests(user) {
-
-      if (unsubscribeRequests) {
-        unsubscribeRequests();
-      }
-
-      const requestsRef =
-        collection(
-          db,
-          "walletRequests"
-        );
-
-      const orderedQuery =
-        query(
-          requestsRef,
-          where(
-            "uid",
-            "==",
-            user.uid
-          ),
-          orderBy(
-            "createdAt",
-            "desc"
-          )
-        );
-
-      unsubscribeRequests =
-        onCollectionSnapshot(
-          orderedQuery,
-          snapshot => {
-
-            currentRequests =
-              snapshot.docs.map(
-                item => ({
-                  id: item.id,
-                  ...item.data()
-                })
-              );
-
-            if (
-              activeHistoryTab === "requests"
-            ) {
-              renderHistory();
-            }
-
-          },
-          async error => {
-
-            console.warn(
-              "Ordered requests query failed:",
-              error
-            );
-
-            /*
-             * Fallback without orderBy.
-             * This avoids requiring a composite index.
-             */
-
-            try {
-
-              const fallbackQuery =
-                query(
-                  requestsRef,
-                  where(
-                    "uid",
-                    "==",
-                    user.uid
-                  )
-                );
-
-              unsubscribeRequests =
-                onCollectionSnapshot(
-                  fallbackQuery,
-                  snapshot => {
-
-                    currentRequests =
-                      snapshot.docs.map(
-                        item => ({
-                          id: item.id,
-                          ...item.data()
-                        })
-                      );
-
-                    currentRequests.sort(
-                      (a, b) => {
-
-                        const aSeconds =
-                          a.createdAt?.seconds || 0;
-
-                        const bSeconds =
-                          b.createdAt?.seconds || 0;
-
-                        return bSeconds - aSeconds;
-
-                      }
-                    );
-
-                    if (
-                      activeHistoryTab === "requests"
-                    ) {
-                      renderHistory();
-                    }
-
-                  },
-                  fallbackError => {
-
-                    console.error(
-                      "Requests fallback error:",
-                      fallbackError
-                    );
-
-                    currentRequests = [];
-
-                    if (
-                      activeHistoryTab === "requests"
-                    ) {
-                      renderHistory();
-                    }
-
-                    showToast(
-                      "تعذر تحميل الطلبات",
-                      "لم نتمكن من قراءة سجل طلبات الشحن.",
-                      "error"
-                    );
-
-                  }
-                );
-
-            } catch (fallbackError) {
-
-              console.error(
-                fallbackError
-              );
-
-            }
-
-          }
-        );
-
-    }
-
-
-    /* =========================
-       TRANSACTIONS LISTENER
-    ========================= */
-
-    function subscribeToTransactions(user) {
-
-      if (unsubscribeTransactions) {
-        unsubscribeTransactions();
-      }
-
-      const transactionsRef =
-        collection(
-          db,
-          "walletTransactions"
-        );
-
-      const orderedQuery =
-        query(
-          transactionsRef,
-          where(
-            "uid",
-            "==",
-            user.uid
-          ),
-          orderBy(
-            "createdAt",
-            "desc"
-          )
-        );
-
-      unsubscribeTransactions =
-        onCollectionSnapshot(
-          orderedQuery,
-          snapshot => {
-
-            currentTransactions =
-              snapshot.docs.map(
-                item => ({
-                  id: item.id,
-                  ...item.data()
-                })
-              );
-
-            if (
-              activeHistoryTab === "transactions"
-            ) {
-              renderHistory();
-            }
-
-          },
-          async error => {
-
-            console.warn(
-              "Ordered transactions query failed:",
-              error
-            );
-
-            try {
-
-              const fallbackQuery =
-                query(
-                  transactionsRef,
-                  where(
-                    "uid",
-                    "==",
-                    user.uid
-                  )
-                );
-
-              unsubscribeTransactions =
-                onCollectionSnapshot(
-                  fallbackQuery,
-                  snapshot => {
-
-                    currentTransactions =
-                      snapshot.docs.map(
-                        item => ({
-                          id: item.id,
-                          ...item.data()
-                        })
-                      );
-
-                    currentTransactions.sort(
-                      (a, b) => {
-
-                        const aSeconds =
-                          a.createdAt?.seconds || 0;
-
-                        const bSeconds =
-                          b.createdAt?.seconds || 0;
-
-                        return bSeconds - aSeconds;
-
-                      }
-                    );
-
-                    if (
-                      activeHistoryTab === "transactions"
-                    ) {
-                      renderHistory();
-                    }
-
-                  },
-                  fallbackError => {
-
-                    console.error(
-                      "Transactions fallback error:",
-                      fallbackError
-                    );
-
-                    currentTransactions = [];
-
-                    if (
-                      activeHistoryTab === "transactions"
-                    ) {
-                      renderHistory();
-                    }
-
-                  }
-                );
-
-            } catch (fallbackError) {
-
-              console.error(
-                fallbackError
-              );
-
-            }
-
-          }
-        );
-
-    }
-
-
-    /* =========================
-       RENDER REQUESTS
-    ========================= */
-
-    function renderRequests() {
-
-      if (!currentRequests.length) {
-
-        historyList.innerHTML = `
-          <div class="empty-state">
-
-            <div class="empty-icon">
-              ◌
-            </div>
-
-            <h3>
-              مفيش طلبات شحن لسه
-            </h3>
-
-            <p>
-              أول ما تبعت طلب شحن، هيظهر هنا وتقدر تتابع حالته.
-            </p>
-
-          </div>
-        `;
-
-        return;
-
-      }
-
-
-      historyList.innerHTML =
-        currentRequests
-          .map(request => {
-
-            const status =
-              statusClass(
-                request.status
-              );
-
-            const label =
-              statusLabel(
-                request.status
-              );
-
-            const amount =
-              Number(request.amount) || 0;
-
-            const date =
-              formatDate(
-                request.createdAt
-              );
-
-            const time =
-              getTime(
-                request.createdAt
-              );
-
-            const reference =
-              request.transferReference
-                ? `Reference: ${escapeHTML(
-                    request.transferReference
-                  )}`
-                : "طلب شحن عبر Vodafone Cash";
-
-            return `
-              <div class="history-item">
-
-                <div class="history-icon">
-                  ◉
-                </div>
-
-                <div class="history-main">
-
-                  <div class="history-title">
-                    شحن المحفظة — Vodafone Cash
-                  </div>
-
-                  <div class="history-date">
-                    ${escapeHTML(date)}
-                    ${time ? " • " + escapeHTML(time) : ""}
-                    •
-                    ${reference}
-                  </div>
-
-                </div>
-
-                <div class="history-right">
-
-                  <div class="history-amount">
-                    +${formatMoney(amount)} ج.م
-                  </div>
-
-                  <span class="status ${status}">
-                    ${escapeHTML(label)}
-                  </span>
-
-                </div>
-
-              </div>
-            `;
-
-          })
-          .join("");
-
-    }
-
-
-    /* =========================
-       RENDER TRANSACTIONS
-    ========================= */
-
-    function renderTransactions() {
-
-      if (!currentTransactions.length) {
-
-        historyList.innerHTML = `
-          <div class="empty-state">
-
-            <div class="empty-icon">
-              ◇
-            </div>
-
-            <h3>
-              مفيش معاملات لسه
-            </h3>
-
-            <p>
-              المعاملات المالية التي تعتمدها الإدارة ستظهر هنا.
-            </p>
-
-          </div>
-        `;
-
-        return;
-
-      }
-
-
-      historyList.innerHTML =
-        currentTransactions
-          .map(transaction => {
-
-            const amount =
-              Number(
-                transaction.amount
-              ) || 0;
-
-            const type =
-              String(
-                transaction.type ||
-                transaction.transactionType ||
-                "credit"
-              ).toLowerCase();
-
-            const isNegative =
-              type === "debit" ||
-              type === "withdraw" ||
-              type === "purchase" ||
-              Number(transaction.amount) < 0;
-
-            const displayAmount =
-              Math.abs(amount);
-
-            const title =
-              transaction.description ||
-              transaction.title ||
-              (
-                isNegative
-                  ? "خصم من المحفظة"
-                  : "إضافة إلى المحفظة"
-              );
-
-            const date =
-              formatDate(
-                transaction.createdAt
-              );
-
-            const time =
-              getTime(
-                transaction.createdAt
-              );
-
-            return `
-              <div class="history-item">
-
-                <div class="history-icon">
-                  ${isNegative ? "↘" : "↗"}
-                </div>
-
-                <div class="history-main">
-
-                  <div class="history-title">
-                    ${escapeHTML(title)}
-                  </div>
-
-                  <div class="history-date">
-                    ${escapeHTML(date)}
-                    ${time ? " • " + escapeHTML(time) : ""}
-                  </div>
-
-                </div>
-
-                <div class="history-right">
-
-                  <div
-                    class="history-amount ${
-                      isNegative
-                        ? "transaction-negative"
-                        : ""
-                    }"
-                  >
-                    ${
-                      isNegative
-                        ? "-"
-                        : "+"
-                    }${formatMoney(displayAmount)} ج.م
-                  </div>
-
-                </div>
-
-              </div>
-            `;
-
-          })
-          .join("");
-
-    }
-
-
-    /* =========================
-       RENDER HISTORY
-    ========================= */
-
-    function renderHistory() {
-
-      if (
-        activeHistoryTab === "transactions"
-      ) {
-
-        renderTransactions();
-
-      } else {
-
-        renderRequests();
-
-      }
-
-    }
-
-
-    /* =========================
-       TAB EVENTS
-    ========================= */
-
-    requestsTab.addEventListener(
-      "click",
-      () => {
-
-        activeHistoryTab =
-          "requests";
-
-        requestsTab.classList.add(
-          "active"
-        );
-
-        transactionsTab.classList.remove(
-          "active"
-        );
-
-        renderHistory();
-
-      }
-    );
-
-
-    transactionsTab.addEventListener(
-      "click",
-      () => {
-
-        activeHistoryTab =
-          "transactions";
-
-        transactionsTab.classList.add(
-          "active"
-        );
-
-        requestsTab.classList.remove(
-          "active"
-        );
-
-        renderHistory();
-
-      }
-    );
-
-
-    /* =========================
-       FORM VALIDATION
-    ========================= */
-
-    function normalizeArabicNumbers(value) {
-
-      return String(value || "")
-        .replace(/[٠-٩]/g, digit => {
-
-          return String(
-            "٠١٢٣٤٥٦٧٨٩"
-              .indexOf(digit)
-          );
-
+    ));
+
+    // طلبات الشحن: كل طالب يرى طلباته فقط.
+    unsubscribers.push(onSnapshot(
+      query(collection(db, "walletRequests"), where("studentId", "==", currentUser.uid)),
+      snapshot => {
+        requests = snapshot.docs.map(d => ({ id:d.id, ...d.data() }));
+        requests.sort((a,b) => {
+          const time = v => v?.toMillis ? v.toMillis() : (v?.seconds ? v.seconds*1000 : 0);
+          return time(b.createdAt) - time(a.createdAt);
         });
+        requestLoaded = true;
+        renderRequests();
+      },
+      error => {
+        console.error("Wallet requests listener:", error);
+        requestLoaded = true;
+        $("requestsList").innerHTML = '<div class="empty">تعذر تحميل الطلبات. راجع صلاحيات قراءة walletRequests.</div>';
+        renderRequests();
+      }
+    ));
 
+    unsubscribers.push(onSnapshot(
+      query(collection(db, "purchases"), where("studentId", "==", currentUser.uid)),
+      snapshot => {
+        purchases = snapshot.docs.map(d => ({ id:d.id, ...d.data() }));
+        purchasesLoaded = true;
+        renderHistory();
+      },
+      error => {
+        console.error("Purchases listener:", error);
+        purchasesLoaded = true;
+        renderHistory();
+        notify("تعذر تحميل المشتريات. راجع صلاحيات purchases.", "error");
+      }
+    ));
+
+    unsubscribers.push(onSnapshot(
+      query(collection(db, "walletTransactions"), where("studentId", "==", currentUser.uid)),
+      snapshot => {
+        transactions = snapshot.docs.map(d => ({ id:d.id, ...d.data() }));
+        transactionsLoaded = true;
+        renderHistory();
+      },
+      error => {
+        console.error("Transactions listener:", error);
+        transactionsLoaded = true;
+        renderHistory();
+      }
+    ));
+  }
+
+  $("copyNumber").addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(CASH_NUMBER);
+      notify("تم نسخ رقم Vodafone Cash.", "success");
+    } catch {
+      const input = document.createElement("textarea");
+      input.value = CASH_NUMBER;
+      document.body.appendChild(input);
+      input.select();
+      const copied = document.execCommand("copy");
+      input.remove();
+      notify(copied ? "تم نسخ الرقم." : "انسخ الرقم يدويًا: " + CASH_NUMBER, copied ? "success" : "");
+    }
+  });
+
+  $("senderPhone").addEventListener("input", event => {
+    event.target.value = event.target.value.replace(/\D/g, "").slice(0,11);
+  });
+
+  $("topupForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    if (!user) {
+      window.location.href = "./login.html";
+      return;
     }
 
+    const amount = Number($("amount").value);
+    const senderPhone = $("senderPhone").value.trim();
+    const reference = $("reference").value.trim();
 
-    function validateEgyptianPhone(phone) {
+    if (!Number.isFinite(amount) || amount < 10 || amount > 50000) {
+      notify("اكتب مبلغ شحن من 10 إلى 50000 جنيه.", "error");
+      return;
+    }
 
-      const normalized =
-        normalizeArabicNumbers(phone)
-          .replace(/\s+/g, "")
-          .replace(/-/g, "");
+    if (!/^01[0-9]{9}$/.test(senderPhone)) {
+      notify("اكتب رقم هاتف مصري صحيح مكوّن من 11 رقم ويبدأ بـ 01.", "error");
+      return;
+    }
 
-      return /^01\d{9}$/.test(
-        normalized
+    const button = $("submitTopup");
+    button.disabled = true;
+    button.textContent = "جاري إرسال الطلب...";
+
+    try {
+      await addDoc(collection(db, "walletRequests"), {
+        studentId: user.uid,
+        studentEmail: user.email || "",
+        amount,
+        senderPhone,
+        receiverPhone: CASH_NUMBER,
+        reference,
+        status: "pending",
+        createdAt: serverTimestamp()
+      });
+
+      $("topupForm").reset();
+      notify("تم إرسال طلب الشحن. الرصيد هيتضاف بعد اعتماد الإدارة.", "success");
+    } catch (error) {
+      console.error("Top-up request error:", error);
+      notify("تعذر إرسال الطلب. راجع اتصالك وصلاحيات walletRequests.", "error");
+    } finally {
+      button.disabled = false;
+      button.textContent = "إرسال طلب الشحن";
+    }
+  });
+
+  document.querySelectorAll("[data-tab]").forEach(button => {
+    button.addEventListener("click", () => {
+      currentTab = button.dataset.tab;
+      document.querySelectorAll("[data-tab]").forEach(tab =>
+        tab.classList.toggle("active", tab === button)
       );
-
-    }
-
-
-    /* =========================
-       TOPUP SUBMIT
-    ========================= */
-
-    topupForm.addEventListener(
-      "submit",
-      async event => {
-
-        event.preventDefault();
-
-
-        if (!currentUser) {
-
-          showToast(
-            "غير مسجل الدخول",
-            "سجل الدخول أولًا لإرسال طلب شحن.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        const amount =
-          Number(
-            normalizeArabicNumbers(
-              amountInput.value
-            )
-          );
-
-        const senderPhone =
-          normalizeArabicNumbers(
-            senderPhoneInput.value
-          )
-            .replace(/\s+/g, "")
-            .replace(/-/g, "");
-
-        const transferReference =
-          transferReferenceInput.value.trim();
-
-
-        if (
-          !Number.isFinite(amount) ||
-          amount <= 0
-        ) {
-
-          showToast(
-            "المبلغ غير صحيح",
-            "اكتب مبلغًا أكبر من صفر.",
-            "error"
-          );
-
-          amountInput.focus();
-
-          return;
-
-        }
-
-
-        if (amount > 100000) {
-
-          showToast(
-            "المبلغ كبير جدًا",
-            "الحد الأقصى لطلب الشحن هو 100,000 جنيه.",
-            "error"
-          );
-
-          amountInput.focus();
-
-          return;
-
-        }
-
-
-        if (
-          !validateEgyptianPhone(
-            senderPhone
-          )
-        ) {
-
-          showToast(
-            "رقم الهاتف غير صحيح",
-            "اكتب رقم مصري مكون من 11 رقم ويبدأ بـ 01.",
-            "error"
-          );
-
-          senderPhoneInput.focus();
-
-          return;
-
-        }
-
-
-        if (!transferReference) {
-
-          showToast(
-            "رقم العملية مطلوب",
-            "اكتب رقم العملية أو الـ Reference الخاص بالتحويل.",
-            "error"
-          );
-
-          transferReferenceInput.focus();
-
-          return;
-
-        }
-
-
-        if (
-          transferReference.length > 120
-        ) {
-
-          showToast(
-            "رقم العملية طويل",
-            "رقم العملية يجب ألا يتجاوز 120 حرفًا.",
-            "error"
-          );
-
-          transferReferenceInput.focus();
-
-          return;
-
-        }
-
-
-        submitTopupBtn.disabled =
-          true;
-
-        submitBtnContent.innerHTML = `
-          <span class="submit-loader"></span>
-          جاري إرسال الطلب...
-        `;
-
-
-        try {
-
-          await addDoc(
-            collection(
-              db,
-              "walletRequests"
-            ),
-            {
-              uid: currentUser.uid,
-
-              email:
-                currentUser.email || "",
-
-              amount,
-
-              senderPhone,
-
-              transferReference,
-
-              method:
-                "Vodafone Cash",
-
-              status:
-                "pending",
-
-              createdAt:
-                serverTimestamp(),
-
-              updatedAt:
-                serverTimestamp()
-            }
-          );
-
-
-          topupForm.reset();
-
-
-          showToast(
-            "تم إرسال الطلب",
-            "طلب الشحن اتبعت بنجاح وهيتم مراجعته من الإدارة."
-          );
-
-
-          activeHistoryTab =
-            "requests";
-
-          requestsTab.classList.add(
-            "active"
-          );
-
-          transactionsTab.classList.remove(
-            "active"
-          );
-
-
-          setTimeout(() => {
-
-            renderHistory();
-
-          }, 100);
-
-
-        } catch (error) {
-
-          console.error(
-            "Topup request error:",
-            error
-          );
-
-
-          let message =
-            "تعذر إرسال طلب الشحن. حاول مرة أخرى.";
-
-          if (
-            error?.code ===
-            "permission-denied"
-          ) {
-
-            message =
-              "صلاحيات Firestore الحالية رفضت إرسال الطلب.";
-
-          }
-
-
-          showToast(
-            "فشل إرسال الطلب",
-            message,
-            "error"
-          );
-
-        } finally {
-
-          submitTopupBtn.disabled =
-            false;
-
-          submitBtnContent.textContent =
-            "إرسال طلب الشحن";
-
-        }
-
+      renderHistory();
+    });
+  });
+
+  try {
+    if (authReady && typeof authReady.then === "function") await authReady;
+
+    onAuthStateChanged(auth, currentUser => {
+      if (!currentUser) {
+        stopListeners();
+        window.location.replace("./login.html");
+        return;
       }
-    );
 
-
-    /* =========================
-       LOGOUT
-    ========================= */
-
-    logoutBtn.addEventListener(
-      "click",
-      async () => {
-
-        try {
-
-          await signOut(auth);
-
-          window.location.href =
-            "./login.html";
-
-        } catch (error) {
-
-          console.error(
-            "Logout error:",
-            error
-          );
-
-          showToast(
-            "تعذر تسجيل الخروج",
-            "حاول مرة أخرى.",
-            "error"
-          );
-
-        }
-
-      }
-    );
-
-
-    /* =========================
-       AUTH STATE
-    ========================= */
-
-    onAuthStateChanged(
-      auth,
-      user => {
-
-        if (!user) {
-
-          window.location.href =
-            "./login.html";
-
-          return;
-
-        }
-
-
-        currentUser =
-          user;
-
-
-        subscribeToUser(
-          user
-        );
-
-        subscribeToWallet(
-          user
-        );
-
-        subscribeToRequests(
-          user
-        );
-
-        subscribeToTransactions(
-          user
-        );
-
-
-        hideLoading();
-
-      }
-    );
-
-
-    /* =========================
-       CLEANUP
-    ========================= */
-
-    window.addEventListener(
-      "beforeunload",
-      () => {
-
-        if (unsubscribeUser) {
-          unsubscribeUser();
-        }
-
-        if (unsubscribeWallet) {
-          unsubscribeWallet();
-        }
-
-        if (unsubscribeRequests) {
-          unsubscribeRequests();
-        }
-
-        if (unsubscribeTransactions) {
-          unsubscribeTransactions();
-        }
-
-      }
-    );
-
-
-    /* =========================
-       INITIAL
-    ========================= */
-
-    renderHistory();
-
-  </script>
-
+      user = currentUser;
+      startListeners(currentUser);
+    });
+  } catch (error) {
+    console.error("Wallet initialization error:", error);
+    notify("حصلت مشكلة في تشغيل المحفظة. راجع firebase-config.js.", "error");
+  }
+</script>
 </body>
-
 </html>
