@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>طلبات الشحن | Mathix</title><link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="./dashboard.html">Math<span class="ix">ix</span></a><div class="account"><span id="adminEmail"></span><button class="btn btn-secondary" id="logoutBtn">خروج</button></div></div></header>
+<div class="layout">
+<aside class="sidebar">
+<div class="side-title">إدارة المنصة</div>
+<a class="nav-btn" href="./dashboard.html">📊 الرئيسية</a><a class="nav-btn" href="./revisions.html">📚 الملخصات</a><a class="nav-btn active" href="./wallet-requests.html">💳 طلبات الشحن</a><a class="nav-btn" href="./wallets.html">👛 المحافظ</a><a class="nav-btn" href="./purchases.html">🧾 المشتريات</a><a class="nav-btn" href="./students.html">🎓 الطلاب</a><a class="nav-btn" href="./settings.html">⚙️ الإعدادات</a>
+</aside>
+<main class="main">
+<section class="page-head"><div><h1>طلبات الشحن</h1><p>راجع التحويل قبل إضافة الرصيد.</p></div></section>
+<div class="warning">رقم Vodafone Cash: <strong>01037500636</strong>. لا تعتمد طلبًا إلا بعد التأكد من وصول المبلغ فعليًا.</div>
+<section class="panel">
+<div class="toolbar"><input class="field" id="search" placeholder="بحث بالبريد أو UID أو رقم الهاتف"><select class="field" id="filter"><option value="pending">المعلقة</option><option value="all">الكل</option><option value="approved">المقبولة</option><option value="rejected">المرفوضة</option></select></div>
+<div class="table-wrap"><table><thead><tr><th>الطالب</th><th>المبلغ</th><th>هاتف المرسل</th><th>رقم العملية</th><th>الحالة</th><th>الإجراءات</th></tr></thead><tbody id="rows"><tr><td colspan="6">جارٍ التحميل...</td></tr></tbody></table></div>
+</section><div class="notice" id="notice"></div>
+</main></div>
+<script type="module" src="./wallet-requests-page.js"></script>
+</body></html>
