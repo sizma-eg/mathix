@@ -1,97 +1,465 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#08080d">
+  <meta name="description" content="محفظتك الإلكترونية على منصة Mathix">
   <title>المحفظة | Mathix</title>
-  <link rel="icon" href="./logo.png">
+  <link rel="icon" type="image/png" href="./logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg:#08080d; --panel:#11111a; --panel2:#171723;
-      --border:rgba(255,255,255,.09); --purple:#9b6dff;
-      --purple2:#7041dc; --text:#f5f3ff; --muted:#a09caf;
-      --green:#4ade80; --red:#fb7185; --yellow:#fbbf24;
+      --bg:#08080d;
+      --panel:#11111a;
+      --panel2:#171723;
+      --border:rgba(255,255,255,.09);
+      --purple:#9b6dff;
+      --purple2:#7041dc;
+      --text:#f5f3ff;
+      --muted:#a09caf;
+      --green:#4ade80;
+      --red:#fb7185;
+      --yellow:#fbbf24;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;min-height:100vh;color:var(--text);font-family:Cairo,sans-serif;
-      background:radial-gradient(ellipse at 85% 0%,rgba(112,65,220,.15),transparent 38%),var(--bg)
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:Cairo,sans-serif;
+      background:radial-gradient(ellipse at 85% 0%,rgba(112,65,220,.15),transparent 38%),var(--bg);
     }
-    button,input,select{font:inherit}
-    a{color:inherit;text-decoration:none}
-    .topbar{position:sticky;top:0;z-index:10;background:rgba(8,8,13,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-    .nav{max-width:1120px;margin:auto;padding:12px 20px;min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
-    .brand{display:flex;align-items:center;gap:9px;font-family:"Chakra Petch",sans-serif;font-size:26px;font-weight:700}
-    .brand img{width:39px;height:39px;object-fit:contain;animation:float 3s ease-in-out infinite}
-    .ix{color:var(--purple)}
-    @keyframes float{50%{transform:translateY(-5px)}}
-    .navlinks{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
-    .navlinks a{padding:8px 11px;border-radius:10px;color:#c5c1d6;font-size:12px}
-    .navlinks a:hover,.navlinks a.active{background:rgba(155,109,255,.13);color:#d0bcff}
-    .container{max-width:1120px;margin:auto;padding:32px 20px 60px}
-    .hero{padding:27px;border:1px solid rgba(155,109,255,.22);border-radius:23px;background:linear-gradient(120deg,rgba(112,65,220,.18),#11111a 75%);margin-bottom:20px}
-    .eyebrow{font-size:11px;font-weight:800;color:#cbb6ff;background:rgba(155,109,255,.12);padding:6px 10px;border-radius:30px}
-    h1{font-size:clamp(25px,4vw,36px);margin:15px 0 5px;font-weight:900}
-    .muted{color:var(--muted);font-size:13px;line-height:1.9}
-    .balance-card{position:relative;overflow:hidden;margin-top:20px;padding:23px;border:1px solid rgba(255,255,255,.13);border-radius:19px;background:linear-gradient(125deg,#7041dc,#39206e 70%,#20143b)}
-    .balance-card:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid rgba(255,255,255,.13);left:-35px;top:-75px;box-shadow:0 0 0 22px rgba(255,255,255,.025),0 0 0 45px rgba(255,255,255,.02)}
-    .balance-label{font-size:13px;color:#e4d8ff}
-    .balance{font-size:clamp(32px,6vw,47px);font-weight:900;margin:5px 0}
-    .balance-sub{font-size:11px;color:#e0d4ff}
-    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}
-    .stat,.panel{background:var(--panel);border:1px solid var(--border);border-radius:17px;padding:18px;min-width:0}
-    .stat-label{color:var(--muted);font-size:11px}
-    .stat-value{font-size:20px;font-weight:800;margin-top:6px;overflow-wrap:anywhere}
-    .purple{color:#cbb6ff}
-    .columns{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:17px;align-items:start}
-    .panel h2{font-size:18px;margin:0 0 5px}
-    .panel-desc{font-size:12px;color:var(--muted);line-height:1.9;margin:0 0 17px}
-    .steps{display:grid;gap:10px;margin:14px 0}
-    .step{display:flex;gap:11px;align-items:flex-start;padding:12px;background:#171722;border:1px solid rgba(255,255,255,.05);border-radius:12px}
-    .step-num{display:grid;place-items:center;width:28px;height:28px;flex:0 0 28px;border-radius:9px;background:rgba(155,109,255,.15);color:#d2bdff;font-size:12px;font-weight:900}
-    .step p{margin:0;color:#d8d5e5;font-size:12px;line-height:1.9}
-    .phone-box{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0;padding:13px;border-radius:12px;background:rgba(155,109,255,.09);border:1px solid rgba(155,109,255,.22)}
-    .phone-number{font-size:21px;font-weight:900;direction:ltr;letter-spacing:1px;color:#d0bcff}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:11px;padding:11px 15px;cursor:pointer;font-weight:800;font-size:12px;transition:.2s}
-    .btn-primary{background:linear-gradient(135deg,#a783ff,#7041dc);color:#fff}
-    .btn-secondary{background:#20202d;color:#e5ddff;border:1px solid var(--border)}
-    .btn:hover{filter:brightness(1.1)}
-    .btn:disabled{opacity:.55;cursor:wait}
-    .form-group{margin-bottom:13px}
-    label{display:block;font-size:12px;color:#d7d3e6;margin-bottom:7px}
-    input,select{width:100%;background:#0b0b12;border:1px solid var(--border);border-radius:11px;color:var(--text);padding:12px 13px;outline:none}
-    input:focus,select:focus{border-color:rgba(155,109,255,.7)}
-    input::placeholder{color:#777488}
-    select option{background:#11111a}
-    .form-note{font-size:11px;color:var(--muted);line-height:1.8;margin:10px 0}
-    .full{width:100%}
-    .history{margin-top:20px}
-    .history-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
-    .history-head h2{font-size:18px;margin:0}
-    .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:13px 0}
-    .tab{background:#171722;border:1px solid var(--border);color:#aaa6bb;padding:8px 12px;border-radius:10px;cursor:pointer;font-size:11px}
-    .tab.active{background:rgba(155,109,255,.15);color:#d0bcff;border-color:rgba(155,109,255,.3)}
-    .list{display:grid;gap:9px}
-    .rowitem{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px;background:#15151f;border:1px solid rgba(255,255,255,.055);border-radius:13px}
-    .item-title{font-size:12px;font-weight:800;overflow-wrap:anywhere}
-    .item-meta{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.8}
-    .amount{font-size:13px;font-weight:900;white-space:nowrap}
-    .positive{color:var(--green)}.negative{color:var(--red)}
-    .status{display:inline-block;padding:4px 8px;border-radius:30px;font-size:10px;font-weight:800;margin-top:5px}
-    .status-pending{color:var(--yellow);background:rgba(251,191,36,.1)}
-    .status-approved{color:var(--green);background:rgba(74,222,128,.1)}
-    .status-rejected{color:var(--red);background:rgba(251,113,133,.1)}
-    .empty{text-align:center;padding:28px 15px;border:1px dashed var(--border);border-radius:13px;color:var(--muted);font-size:12px;line-height:1.9}
-    .notice{display:none;position:fixed;right:20px;bottom:20px;z-index:50;max-width:min(400px,calc(100vw - 40px));padding:13px 16px;border-radius:12px;background:#1b1b26;border:1px solid var(--border);font-size:12px;line-height:1.8;box-shadow:0 10px 30px #0008}
-    .notice.show{display:block}.notice.error{border-color:#fb718566}.notice.success{border-color:#4ade8055}
-    .loading{color:var(--muted);font-size:12px;padding:20px;text-align:center}
-    footer{text-align:center;border-top:1px solid var(--border);padding:22px;color:#777488;font-size:11px}
-    @media(max-width:760px){.columns{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:12px}.stat-value{font-size:17px}.nav{padding:12px 14px}.navlinks{width:100%;justify-content:space-between}.navlinks a{padding:7px;font-size:11px}.container{padding:23px 14px 45px}.hero{padding:21px}.rowitem{align-items:flex-start}}
+
+    button,input,select { font:inherit; }
+    a { color:inherit; text-decoration:none; }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:rgba(8,8,13,.9);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border);
+    }
+
+    .nav {
+      max-width:1120px;
+      margin:auto;
+      padding:12px 20px;
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:9px;
+      font-family:"Chakra Petch",sans-serif;
+      font-size:26px;
+      font-weight:700;
+    }
+
+    .brand img {
+      width:39px;
+      height:39px;
+      object-fit:contain;
+      animation:float 3s ease-in-out infinite;
+    }
+
+    .ix { color:var(--purple); }
+
+    @keyframes float {
+      50% { transform:translateY(-5px); }
+    }
+
+    .navlinks {
+      display:flex;
+      gap:5px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .navlinks a {
+      padding:8px 11px;
+      border-radius:10px;
+      color:#c5c1d6;
+      font-size:12px;
+    }
+
+    .navlinks a:hover,
+    .navlinks a.active {
+      background:rgba(155,109,255,.13);
+      color:#d0bcff;
+    }
+
+    .container {
+      max-width:1120px;
+      margin:auto;
+      padding:32px 20px 60px;
+    }
+
+    .hero {
+      padding:27px;
+      border:1px solid rgba(155,109,255,.22);
+      border-radius:23px;
+      background:linear-gradient(120deg,rgba(112,65,220,.18),#11111a 75%);
+      margin-bottom:20px;
+    }
+
+    .eyebrow {
+      font-size:11px;
+      font-weight:800;
+      color:#cbb6ff;
+      background:rgba(155,109,255,.12);
+      padding:6px 10px;
+      border-radius:30px;
+    }
+
+    h1 {
+      font-size:clamp(25px,4vw,36px);
+      margin:15px 0 5px;
+      font-weight:900;
+    }
+
+    .muted {
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.9;
+    }
+
+    .balance-card {
+      position:relative;
+      overflow:hidden;
+      margin-top:20px;
+      padding:23px;
+      border:1px solid rgba(255,255,255,.13);
+      border-radius:19px;
+      background:linear-gradient(125deg,#7041dc,#39206e 70%,#20143b);
+    }
+
+    .balance-card:after {
+      content:"";
+      position:absolute;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.13);
+      left:-35px;
+      top:-75px;
+      box-shadow:0 0 0 22px rgba(255,255,255,.025),0 0 0 45px rgba(255,255,255,.02);
+      pointer-events:none;
+    }
+
+    .balance-label { font-size:13px; color:#e4d8ff; }
+
+    .balance {
+      font-size:clamp(32px,6vw,47px);
+      font-weight:900;
+      margin:5px 0;
+      overflow-wrap:anywhere;
+    }
+
+    .balance-sub { font-size:11px; color:#e0d4ff; }
+
+    .stats {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin:20px 0;
+    }
+
+    .stat,.panel {
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:17px;
+      padding:18px;
+      min-width:0;
+    }
+
+    .stat-label { color:var(--muted); font-size:11px; }
+
+    .stat-value {
+      font-size:20px;
+      font-weight:800;
+      margin-top:6px;
+      overflow-wrap:anywhere;
+    }
+
+    .purple { color:#cbb6ff; }
+
+    .columns {
+      display:grid;
+      grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+      gap:17px;
+      align-items:start;
+    }
+
+    .panel h2 { font-size:18px; margin:0 0 5px; }
+
+    .panel-desc {
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.9;
+      margin:0 0 17px;
+    }
+
+    .steps { display:grid; gap:10px; margin:14px 0; }
+
+    .step {
+      display:flex;
+      gap:11px;
+      align-items:flex-start;
+      padding:12px;
+      background:#171722;
+      border:1px solid rgba(255,255,255,.05);
+      border-radius:12px;
+    }
+
+    .step-num {
+      display:grid;
+      place-items:center;
+      width:28px;
+      height:28px;
+      flex:0 0 28px;
+      border-radius:9px;
+      background:rgba(155,109,255,.15);
+      color:#d2bdff;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .step p {
+      margin:0;
+      color:#d8d5e5;
+      font-size:12px;
+      line-height:1.9;
+    }
+
+    .phone-box {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin:14px 0;
+      padding:13px;
+      border-radius:12px;
+      background:rgba(155,109,255,.09);
+      border:1px solid rgba(155,109,255,.22);
+    }
+
+    .phone-number {
+      font-size:21px;
+      font-weight:900;
+      direction:ltr;
+      letter-spacing:1px;
+      color:#d0bcff;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      border:0;
+      border-radius:11px;
+      padding:11px 15px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:12px;
+      transition:.2s;
+    }
+
+    .btn-primary {
+      background:linear-gradient(135deg,#a783ff,#7041dc);
+      color:#fff;
+    }
+
+    .btn-secondary {
+      background:#20202d;
+      color:#e5ddff;
+      border:1px solid var(--border);
+    }
+
+    .btn:hover { filter:brightness(1.1); }
+    .btn:disabled { opacity:.55; cursor:wait; }
+
+    .form-group { margin-bottom:13px; }
+
+    label {
+      display:block;
+      font-size:12px;
+      color:#d7d3e6;
+      margin-bottom:7px;
+    }
+
+    input,select {
+      width:100%;
+      background:#0b0b12;
+      border:1px solid var(--border);
+      border-radius:11px;
+      color:var(--text);
+      padding:12px 13px;
+      outline:none;
+    }
+
+    input:focus,select:focus { border-color:rgba(155,109,255,.7); }
+    input::placeholder { color:#777488; }
+    select option { background:#11111a; }
+
+    .form-note {
+      font-size:11px;
+      color:var(--muted);
+      line-height:1.8;
+      margin:10px 0;
+    }
+
+    .full { width:100%; }
+    .history { margin-top:20px; }
+
+    .history-head {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .history-head h2 { font-size:18px; margin:0; }
+
+    .tabs { display:flex; gap:6px; flex-wrap:wrap; margin:13px 0; }
+
+    .tab {
+      background:#171722;
+      border:1px solid var(--border);
+      color:#aaa6bb;
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:11px;
+    }
+
+    .tab.active {
+      background:rgba(155,109,255,.15);
+      color:#d0bcff;
+      border-color:rgba(155,109,255,.3);
+    }
+
+    .list { display:grid; gap:9px; }
+
+    .rowitem {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:13px;
+      background:#15151f;
+      border:1px solid rgba(255,255,255,.055);
+      border-radius:13px;
+    }
+
+    .item-title {
+      font-size:12px;
+      font-weight:800;
+      overflow-wrap:anywhere;
+    }
+
+    .item-meta {
+      font-size:10px;
+      color:var(--muted);
+      margin-top:5px;
+      line-height:1.8;
+    }
+
+    .amount { font-size:13px; font-weight:900; white-space:nowrap; }
+    .positive { color:var(--green); }
+    .negative { color:var(--red); }
+
+    .status {
+      display:inline-block;
+      padding:4px 8px;
+      border-radius:30px;
+      font-size:10px;
+      font-weight:800;
+      margin-top:5px;
+    }
+
+    .status-pending { color:var(--yellow); background:rgba(251,191,36,.1); }
+    .status-approved { color:var(--green); background:rgba(74,222,128,.1); }
+    .status-rejected { color:var(--red); background:rgba(251,113,133,.1); }
+
+    .empty {
+      text-align:center;
+      padding:28px 15px;
+      border:1px dashed var(--border);
+      border-radius:13px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.9;
+    }
+
+    .notice {
+      display:none;
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      z-index:50;
+      max-width:min(400px,calc(100vw - 40px));
+      padding:13px 16px;
+      border-radius:12px;
+      background:#1b1b26;
+      border:1px solid var(--border);
+      font-size:12px;
+      line-height:1.8;
+      box-shadow:0 10px 30px #0008;
+    }
+
+    .notice.show { display:block; }
+    .notice.error { border-color:#fb718566; }
+    .notice.success { border-color:#4ade8055; }
+
+    .loading {
+      color:var(--muted);
+      font-size:12px;
+      padding:20px;
+      text-align:center;
+    }
+
+    footer {
+      text-align:center;
+      border-top:1px solid var(--border);
+      padding:22px;
+      color:#777488;
+      font-size:11px;
+    }
+
+    @media(max-width:760px) {
+      .columns { grid-template-columns:1fr; }
+      .stats { gap:8px; }
+      .stat { padding:12px; }
+      .stat-value { font-size:17px; }
+      .nav { padding:12px 14px; }
+      .navlinks { width:100%; justify-content:space-between; }
+      .navlinks a { padding:7px; font-size:11px; }
+      .container { padding:23px 14px 45px; }
+      .hero { padding:21px; }
+      .rowitem { align-items:flex-start; }
+    }
+
+    @media(max-width:390px) {
+      .phone-box { align-items:flex-start; flex-direction:column; }
+      .phone-box .btn { width:100%; }
+      .stats { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 
@@ -102,6 +470,7 @@
       <img src="./logo.png" alt="Mathix" onerror="this.style.display='none'">
       <span>Math<span class="ix">ix</span></span>
     </a>
+
     <div class="navlinks">
       <a href="./dashboard.html">الرئيسية</a>
       <a href="./subjects.html">المواد</a>
@@ -223,11 +592,19 @@
 
 <script type="module">
   import { auth, db, authReady } from "./firebase-config.js";
-  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  // توحيد إصدار Firebase مع firebase-config.js والداشبورد.
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
   import {
-    collection, doc, addDoc, onSnapshot, query, where, orderBy,
+    collection,
+    doc,
+    addDoc,
+    onSnapshot,
+    query,
+    where,
     serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
   const $ = id => document.getElementById(id);
   const CASH_NUMBER = "01037500636";
@@ -238,10 +615,10 @@
   let purchases = [];
   let transactions = [];
   let currentTab = "all";
+
   let requestLoaded = false;
   let purchasesLoaded = false;
   let transactionsLoaded = false;
-  let walletLoaded = false;
   let unsubscribers = [];
   let noticeTimer;
 
@@ -249,44 +626,67 @@
 
   function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, c => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
     })[c]);
   }
 
   function money(value) {
     const n = Number(value);
-    return (Number.isFinite(n) ? n : 0).toLocaleString("ar-EG", {
-      maximumFractionDigits: 2
+    if (!Number.isFinite(n)) return "— ج.م";
+
+    return n.toLocaleString("ar-EG", {
+      maximumFractionDigits:2
     }) + " ج.م";
   }
 
   function dateText(value) {
     if (!value) return "التاريخ غير متاح";
+
     let date;
-    if (typeof value.toDate === "function") date = value.toDate();
-    else if (value.seconds) date = new Date(value.seconds * 1000);
-    else date = new Date(value);
+
+    if (typeof value.toDate === "function") {
+      date = value.toDate();
+    } else if (typeof value.seconds === "number") {
+      date = new Date(value.seconds * 1000);
+    } else {
+      date = new Date(value);
+    }
+
     if (Number.isNaN(date.getTime())) return "التاريخ غير متاح";
-    return date.toLocaleString("ar-EG", { dateStyle:"medium", timeStyle:"short" });
+
+    return date.toLocaleString("ar-EG", {
+      dateStyle:"medium",
+      timeStyle:"short"
+    });
   }
 
   function notify(message, type = "") {
     const el = $("notice");
     el.textContent = message;
     el.className = "notice show" + (type ? " " + type : "");
+
     clearTimeout(noticeTimer);
-    noticeTimer = setTimeout(() => el.className = "notice", 4500);
+
+    noticeTimer = setTimeout(() => {
+      el.className = "notice";
+    }, 5000);
   }
 
   function statusInfo(request) {
     const status = String(request.status || request.state || "").toLowerCase();
 
-    if (["approved", "accepted", "completed", "success"].includes(status) ||
-        request.approved === true) {
+    if (
+      ["approved","accepted","completed","success"].includes(status) ||
+      request.approved === true
+    ) {
       return { label:"تم الاعتماد", css:"status-approved" };
     }
 
-    if (["rejected", "declined", "failed"].includes(status)) {
+    if (["rejected","declined","failed"].includes(status)) {
       return { label:"مرفوض", css:"status-rejected" };
     }
 
@@ -295,29 +695,35 @@
 
   function renderRequests() {
     $("requestCount").textContent = requests.length.toLocaleString("ar-EG");
-    $("pendingCount").textContent = requests.filter(r =>
-      statusInfo(r).css === "status-pending"
+
+    $("pendingCount").textContent = requests.filter(request =>
+      statusInfo(request).css === "status-pending"
     ).length.toLocaleString("ar-EG");
 
     if (!requestLoaded) {
-      $("requestsList").innerHTML = '<div class="loading">جارٍ تحميل الطلبات...</div>';
+      $("requestsList").innerHTML =
+        '<div class="loading">جارٍ تحميل الطلبات...</div>';
       return;
     }
 
     if (!requests.length) {
-      $("requestsList").innerHTML = '<div class="empty">لسه ما قدمتش أي طلب شحن.</div>';
+      $("requestsList").innerHTML =
+        '<div class="empty">لسه ما قدمتش أي طلب شحن.</div>';
       return;
     }
 
     $("requestsList").innerHTML = requests.map(item => {
       const status = statusInfo(item);
+
       return `
         <div class="rowitem">
           <div>
             <div class="item-title">طلب شحن المحفظة</div>
             <div class="item-meta">
               ${escapeHTML(dateText(item.createdAt || item.timestamp))}
-              ${item.reference ? "<br>رقم العملية: " + escapeHTML(item.reference) : ""}
+              ${item.reference
+                ? "<br>رقم العملية: " + escapeHTML(item.reference)
+                : ""}
             </div>
             <span class="status ${status.css}">${status.label}</span>
           </div>
@@ -325,6 +731,18 @@
         </div>
       `;
     }).join("");
+  }
+
+  function getTime(value) {
+    if (!value) return 0;
+
+    if (typeof value.toMillis === "function") return value.toMillis();
+
+    if (typeof value.seconds === "number") return value.seconds * 1000;
+
+    const date = new Date(value).getTime();
+
+    return Number.isNaN(date) ? 0 : date;
   }
 
   function renderHistory() {
@@ -346,8 +764,12 @@
       transactions.forEach(item => {
         const rawType = String(item.type || item.kind || "").toLowerCase();
         const amount = Number(item.amount ?? item.value ?? 0);
-        const isCredit = ["credit","topup","deposit","approved","refund"].includes(rawType) ||
-          item.direction === "in" || item.direction === "credit";
+
+        const isCredit =
+          ["credit","topup","deposit","approved","refund"].includes(rawType) ||
+          item.direction === "in" ||
+          item.direction === "credit";
+
         items.push({
           kind:"transaction",
           title:item.title || item.description || item.note ||
@@ -360,147 +782,231 @@
       });
     }
 
-    items.sort((a,b) => {
-      const getTime = value => {
-        if (!value) return 0;
-        if (typeof value.toMillis === "function") return value.toMillis();
-        if (value.seconds) return value.seconds * 1000;
-        const d = new Date(value).getTime();
-        return Number.isNaN(d) ? 0 : d;
-      };
-      return getTime(b.date) - getTime(a.date);
-    });
+    items.sort((a,b) => getTime(b.date) - getTime(a.date));
 
     if (!purchasesLoaded || !transactionsLoaded) {
-      $("historyList").innerHTML = '<div class="loading">جارٍ تحميل السجل...</div>';
+      $("historyList").innerHTML =
+        '<div class="loading">جارٍ تحميل السجل...</div>';
       return;
     }
+
+    const totalSpent = purchases.reduce((sum,item) => {
+      const status = String(item.status || "completed").toLowerCase();
+
+      if (["cancelled","canceled","failed","rejected"].includes(status)) {
+        return sum;
+      }
+
+      return sum + Math.max(0, Number(item.price ?? item.amount ?? 0));
+    }, 0);
+
+    $("spentValue").textContent = money(totalSpent);
 
     if (!items.length) {
-      $("historyList").innerHTML = '<div class="empty">مفيش معاملات مسجلة لحد دلوقتي.</div>';
-      $("spentValue").textContent = money(0);
+      $("historyList").innerHTML =
+        '<div class="empty">مفيش معاملات مسجلة لحد دلوقتي.</div>';
       return;
     }
-
-    const totalSpent = purchases.reduce((sum, item) =>
-      sum + Math.max(0, Number(item.price ?? item.amount ?? 0)), 0);
-    $("spentValue").textContent = money(totalSpent);
 
     $("historyList").innerHTML = items.map(item => {
       const positive = item.kind === "transaction" && item.positive;
       const amountClass = positive ? "positive" : "negative";
       const prefix = item.kind === "purchase" ? "− " : positive ? "+ " : "";
+
       return `
         <div class="rowitem">
           <div>
             <div class="item-title">${escapeHTML(item.title)}</div>
             <div class="item-meta">${escapeHTML(dateText(item.date))}</div>
           </div>
-          <div class="amount ${amountClass}">${prefix}${escapeHTML(money(item.amount))}</div>
+          <div class="amount ${amountClass}">
+            ${prefix}${escapeHTML(money(item.amount))}
+          </div>
         </div>
       `;
     }).join("");
   }
 
   function updateBalance(value) {
-    balance = Number(value);
-    if (!Number.isFinite(balance)) balance = 0;
+    const number = Number(value);
+    balance = Number.isFinite(number) && number >= 0 ? number : 0;
     $("balanceValue").textContent = money(balance);
   }
 
   function stopListeners() {
     unsubscribers.forEach(unsubscribe => {
-      try { unsubscribe(); } catch {}
+      try {
+        unsubscribe();
+      } catch (error) {
+        console.warn("Listener cleanup:", error);
+      }
     });
+
     unsubscribers = [];
+  }
+
+  function resetPageData() {
+    requests = [];
+    purchases = [];
+    transactions = [];
+
+    requestLoaded = false;
+    purchasesLoaded = false;
+    transactionsLoaded = false;
+
+    $("balanceValue").textContent = "جارٍ تحميل الرصيد...";
+    $("requestCount").textContent = "—";
+    $("pendingCount").textContent = "—";
+    $("spentValue").textContent = "—";
+
+    $("requestsList").innerHTML =
+      '<div class="loading">جارٍ تحميل الطلبات...</div>';
+
+    $("historyList").innerHTML =
+      '<div class="loading">جارٍ تحميل السجل...</div>';
   }
 
   function startListeners(currentUser) {
     stopListeners();
+    resetPageData();
 
-    requests = [];
-    purchases = [];
-    transactions = [];
-    requestLoaded = purchasesLoaded = transactionsLoaded = walletLoaded = false;
-    $("balanceValue").textContent = "جارٍ التحميل...";
+    // 1. قراءة رصيد الطالب لحظيًا.
+    unsubscribers.push(
+      onSnapshot(
+        doc(db, "wallets", currentUser.uid),
+        snapshot => {
+          if (!snapshot.exists()) {
+            // عدم وجود مستند المحفظة لا يعني وجود خطأ في الاتصال.
+            // نعرض صفرًا مؤقتًا، ويجب التأكد أن الإدارة أنشأت المستند.
+            updateBalance(0);
+            return;
+          }
 
-    unsubscribers.push(onSnapshot(
-      doc(db, "wallets", currentUser.uid),
-      snapshot => {
-        const data = snapshot.exists() ? snapshot.data() : {};
-        updateBalance(data.balance ?? data.amount ?? 0);
-        walletLoaded = true;
-      },
-      error => {
-        console.error("Wallet listener:", error);
-        walletLoaded = true;
-        $("balanceValue").textContent = "غير متاح";
-        notify("تعذر قراءة المحفظة. راجع Firestore Rules.", "error");
-      }
-    ));
+          const data = snapshot.data();
+          updateBalance(data.balance ?? data.amount ?? 0);
+        },
+        error => {
+          console.error("Wallet listener error:", error);
+          $("balanceValue").textContent = "غير متاح";
+          notify(
+            "تعذر قراءة الرصيد. تأكد من صلاحيات قراءة wallets في Firestore.",
+            "error"
+          );
+        }
+      )
+    );
 
-    // طلبات الشحن: كل طالب يرى طلباته فقط.
-    unsubscribers.push(onSnapshot(
-      query(collection(db, "walletRequests"), where("studentId", "==", currentUser.uid)),
-      snapshot => {
-        requests = snapshot.docs.map(d => ({ id:d.id, ...d.data() }));
-        requests.sort((a,b) => {
-          const time = v => v?.toMillis ? v.toMillis() : (v?.seconds ? v.seconds*1000 : 0);
-          return time(b.createdAt) - time(a.createdAt);
-        });
-        requestLoaded = true;
-        renderRequests();
-      },
-      error => {
-        console.error("Wallet requests listener:", error);
-        requestLoaded = true;
-        $("requestsList").innerHTML = '<div class="empty">تعذر تحميل الطلبات. راجع صلاحيات قراءة walletRequests.</div>';
-        renderRequests();
-      }
-    ));
+    // 2. طلبات الشحن الخاصة بالطالب الحالي.
+    unsubscribers.push(
+      onSnapshot(
+        query(
+          collection(db, "walletRequests"),
+          where("studentId", "==", currentUser.uid)
+        ),
+        snapshot => {
+          requests = snapshot.docs.map(document => ({
+            id:document.id,
+            ...document.data()
+          }));
 
-    unsubscribers.push(onSnapshot(
-      query(collection(db, "purchases"), where("studentId", "==", currentUser.uid)),
-      snapshot => {
-        purchases = snapshot.docs.map(d => ({ id:d.id, ...d.data() }));
-        purchasesLoaded = true;
-        renderHistory();
-      },
-      error => {
-        console.error("Purchases listener:", error);
-        purchasesLoaded = true;
-        renderHistory();
-        notify("تعذر تحميل المشتريات. راجع صلاحيات purchases.", "error");
-      }
-    ));
+          requests.sort((a,b) => getTime(b.createdAt || b.timestamp) -
+            getTime(a.createdAt || a.timestamp));
 
-    unsubscribers.push(onSnapshot(
-      query(collection(db, "walletTransactions"), where("studentId", "==", currentUser.uid)),
-      snapshot => {
-        transactions = snapshot.docs.map(d => ({ id:d.id, ...d.data() }));
-        transactionsLoaded = true;
-        renderHistory();
-      },
-      error => {
-        console.error("Transactions listener:", error);
-        transactionsLoaded = true;
-        renderHistory();
-      }
-    ));
+          requestLoaded = true;
+          renderRequests();
+        },
+        error => {
+          console.error("Wallet requests listener error:", error);
+          requestLoaded = true;
+          requests = [];
+          renderRequests();
+
+          notify(
+            "تعذر تحميل طلبات الشحن. راجع صلاحيات walletRequests.",
+            "error"
+          );
+        }
+      )
+    );
+
+    // 3. المشتريات الخاصة بالطالب.
+    unsubscribers.push(
+      onSnapshot(
+        query(
+          collection(db, "purchases"),
+          where("studentId", "==", currentUser.uid)
+        ),
+        snapshot => {
+          purchases = snapshot.docs.map(document => ({
+            id:document.id,
+            ...document.data()
+          }));
+
+          purchasesLoaded = true;
+          renderHistory();
+        },
+        error => {
+          console.error("Purchases listener error:", error);
+          purchasesLoaded = true;
+          purchases = [];
+          renderHistory();
+
+          notify(
+            "تعذر تحميل المشتريات. راجع صلاحيات purchases.",
+            "error"
+          );
+        }
+      )
+    );
+
+    // 4. حركات المحفظة الخاصة بالطالب.
+    unsubscribers.push(
+      onSnapshot(
+        query(
+          collection(db, "walletTransactions"),
+          where("studentId", "==", currentUser.uid)
+        ),
+        snapshot => {
+          transactions = snapshot.docs.map(document => ({
+            id:document.id,
+            ...document.data()
+          }));
+
+          transactionsLoaded = true;
+          renderHistory();
+        },
+        error => {
+          console.error("Transactions listener error:", error);
+          transactionsLoaded = true;
+          transactions = [];
+          renderHistory();
+
+          notify(
+            "تعذر تحميل معاملات المحفظة. راجع صلاحيات walletTransactions.",
+            "error"
+          );
+        }
+      )
+    );
   }
 
   $("copyNumber").addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(CASH_NUMBER);
       notify("تم نسخ رقم Vodafone Cash.", "success");
-    } catch {
+    } catch (error) {
       const input = document.createElement("textarea");
       input.value = CASH_NUMBER;
       document.body.appendChild(input);
       input.select();
+
       const copied = document.execCommand("copy");
       input.remove();
-      notify(copied ? "تم نسخ الرقم." : "انسخ الرقم يدويًا: " + CASH_NUMBER, copied ? "success" : "");
+
+      notify(
+        copied ? "تم نسخ الرقم." : "انسخ الرقم يدويًا: " + CASH_NUMBER,
+        copied ? "success" : ""
+      );
     }
   });
 
@@ -525,6 +1031,11 @@
       return;
     }
 
+    if (!Number.isInteger(amount)) {
+      notify("مبلغ الشحن لازم يكون رقمًا صحيحًا بالجنيه.", "error");
+      return;
+    }
+
     if (!/^01[0-9]{9}$/.test(senderPhone)) {
       notify("اكتب رقم هاتف مصري صحيح مكوّن من 11 رقم ويبدأ بـ 01.", "error");
       return;
@@ -536,21 +1047,31 @@
 
     try {
       await addDoc(collection(db, "walletRequests"), {
-        studentId: user.uid,
-        studentEmail: user.email || "",
+        studentId:user.uid,
+        studentEmail:user.email || "",
         amount,
         senderPhone,
-        receiverPhone: CASH_NUMBER,
+        receiverPhone:CASH_NUMBER,
         reference,
-        status: "pending",
-        createdAt: serverTimestamp()
+        status:"pending",
+        createdAt:serverTimestamp()
       });
 
       $("topupForm").reset();
-      notify("تم إرسال طلب الشحن. الرصيد هيتضاف بعد اعتماد الإدارة.", "success");
+
+      notify(
+        "تم إرسال طلب الشحن. الرصيد هيتضاف بعد اعتماد الإدارة.",
+        "success"
+      );
     } catch (error) {
       console.error("Top-up request error:", error);
-      notify("تعذر إرسال الطلب. راجع اتصالك وصلاحيات walletRequests.", "error");
+
+      notify(
+        error.code === "permission-denied"
+          ? "Firebase رفض إرسال الطلب. لازم مراجعة Firestore Rules."
+          : "تعذر إرسال الطلب. تحقق من الإنترنت وإعدادات Firebase.",
+        "error"
+      );
     } finally {
       button.disabled = false;
       button.textContent = "إرسال طلب الشحن";
@@ -560,30 +1081,50 @@
   document.querySelectorAll("[data-tab]").forEach(button => {
     button.addEventListener("click", () => {
       currentTab = button.dataset.tab;
-      document.querySelectorAll("[data-tab]").forEach(tab =>
-        tab.classList.toggle("active", tab === button)
-      );
+
+      document.querySelectorAll("[data-tab]").forEach(tab => {
+        tab.classList.toggle("active", tab === button);
+      });
+
       renderHistory();
     });
   });
 
-  try {
-    if (authReady && typeof authReady.then === "function") await authReady;
-
-    onAuthStateChanged(auth, currentUser => {
-      if (!currentUser) {
-        stopListeners();
-        window.location.replace("./login.html");
-        return;
+  async function initializeWallet() {
+    try {
+      // انتظار إعداد استمرارية جلسة تسجيل الدخول.
+      if (authReady && typeof authReady.then === "function") {
+        await authReady;
       }
 
-      user = currentUser;
-      startListeners(currentUser);
-    });
-  } catch (error) {
-    console.error("Wallet initialization error:", error);
-    notify("حصلت مشكلة في تشغيل المحفظة. راجع firebase-config.js.", "error");
+      onAuthStateChanged(auth, currentUser => {
+        if (!currentUser) {
+          stopListeners();
+          window.location.replace("./login.html");
+          return;
+        }
+
+        user = currentUser;
+        startListeners(currentUser);
+      });
+    } catch (error) {
+      console.error("Wallet initialization error:", error);
+
+      notify(
+        "تعذر تشغيل المحفظة. افتح Console لمعرفة الخطأ وتأكد من firebase-config.js.",
+        "error"
+      );
+
+      $("balanceValue").textContent = "تعذر التحميل";
+      $("requestsList").innerHTML =
+        '<div class="empty">حصل خطأ أثناء تشغيل المحفظة.</div>';
+
+      $("historyList").innerHTML =
+        '<div class="empty">تعذر تحميل السجل.</div>';
+    }
   }
+
+  initializeWallet();
 </script>
 </body>
 </html>
