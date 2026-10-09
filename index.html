@@ -1,0 +1,1550 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08070d">
+  <meta name="description" content="Mathix — منصتك لمراجعات وملخصات الصف الثالث الثانوي علمي رياضة. ذاكر بذكاء، وتابع تقدمك، واستعد لمستقبلك.">
+  <title>Mathix — مستقبلك يبدأ هنا</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #08070d;
+      --surface: #100e18;
+      --surface-2: #151220;
+      --purple: #a855f7;
+      --purple-light: #c084fc;
+      --purple-dark: #7028ce;
+      --white: #f8f7ff;
+      --muted: #9691a9;
+      --border: rgba(255,255,255,.09);
+      --glow: rgba(168,85,247,.24);
+      --radius: 22px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Cairo', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.8;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 80% 10%, rgba(112,40,206,.12), transparent 36%),
+        radial-gradient(ellipse at 5% 65%, rgba(85,40,170,.09), transparent 34%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .purple {
+      color: var(--purple-light);
+    }
+
+    .english {
+      font-family: 'Chakra Petch', sans-serif;
+      letter-spacing: -.7px;
+    }
+
+    .section {
+      padding: 105px 0;
+      position: relative;
+    }
+
+    .section-heading {
+      max-width: 650px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 15px;
+      border: 1px solid rgba(192,132,252,.24);
+      background: rgba(168,85,247,.08);
+      color: var(--purple-light);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 17px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--purple-light);
+      box-shadow: 0 0 12px var(--purple);
+    }
+
+    .section-heading h2 {
+      font-size: clamp(27px, 4vw, 42px);
+      line-height: 1.45;
+      font-weight: 900;
+      margin-bottom: 13px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    /* Navigation */
+
+    .navbar {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,7,13,.78);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-bottom: 1px solid rgba(255,255,255,.055);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .brand img {
+      width: 43px;
+      height: 43px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 12px rgba(168,85,247,.24));
+      animation: logoFloat 4s ease-in-out infinite;
+    }
+
+    .brand-name {
+      font-family: 'Chakra Petch', sans-serif;
+      direction: ltr;
+      font-size: 29px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+    .brand-name span {
+      color: var(--purple-light);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 29px;
+    }
+
+    .nav-links a {
+      color: #bcb6cb;
+      font-size: 13px;
+      font-weight: 700;
+      transition: .25s;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 47px;
+      padding: 0 22px;
+      border: 1px solid transparent;
+      border-radius: 13px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, #b66bff, #812ee6 65%, #6d22ce);
+      box-shadow: 0 8px 28px rgba(137,55,224,.23);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 12px 35px rgba(137,55,224,.4);
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,.025);
+      border-color: var(--border);
+      color: #eee9f8;
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(192,132,252,.5);
+      background: rgba(168,85,247,.07);
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      color: white;
+      background: var(--surface);
+      font-size: 23px;
+      cursor: pointer;
+    }
+
+    /* Hero */
+
+    .hero {
+      min-height: 690px;
+      display: flex;
+      align-items: center;
+      padding: 65px 0 75px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 560px;
+      height: 560px;
+      border-radius: 50%;
+      background: rgba(117,43,218,.13);
+      filter: blur(110px);
+      top: 30px;
+      left: -170px;
+      z-index: -1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.04fr .96fr;
+      align-items: center;
+      gap: 35px;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      animation: slideUp .8s both;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(37px, 5vw, 64px);
+      font-weight: 900;
+      line-height: 1.36;
+      letter-spacing: -1.6px;
+      margin-bottom: 22px;
+    }
+
+    .hero-copy h1 .gradient-text {
+      background: linear-gradient(100deg, #e8d3ff 5%, #bc7bff 48%, #8538ee 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy > p {
+      max-width: 500px;
+      color: #aaa4bc;
+      font-size: 15px;
+      line-height: 2.15;
+      margin-bottom: 29px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      flex-wrap: wrap;
+    }
+
+    .hero-buttons .btn {
+      min-height: 53px;
+      padding-inline: 25px;
+    }
+
+    .hero-trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 19px;
+      margin-top: 28px;
+      color: #a9a2b9;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .hero-trust span {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .check {
+      display: inline-grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(168,85,247,.14);
+      color: #d8b4fe;
+      font-size: 11px;
+    }
+
+    /* Hero visual */
+
+    .hero-art {
+      min-height: 480px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      perspective: 1000px;
+      animation: fadeIn 1.2s both;
+    }
+
+    .art-glow {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      background: rgba(143,62,240,.22);
+      filter: blur(95px);
+      border-radius: 50%;
+    }
+
+    .math-orbit {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border: 1px solid rgba(192,132,252,.18);
+      border-radius: 50%;
+      transform: rotateX(62deg) rotate(-20deg);
+      box-shadow: 0 0 50px rgba(147,51,234,.06), inset 0 0 40px rgba(147,51,234,.05);
+      animation: orbitSpin 22s linear infinite;
+    }
+
+    .math-orbit.orbit-two {
+      width: 420px;
+      height: 420px;
+      border-color: rgba(192,132,252,.09);
+      transform: rotateX(66deg) rotate(35deg);
+      animation-duration: 30s;
+      animation-direction: reverse;
+    }
+
+    .math-core {
+      width: 245px;
+      height: 285px;
+      position: relative;
+      z-index: 2;
+      border: 1px solid rgba(218,190,255,.3);
+      border-radius: 30px;
+      background: linear-gradient(145deg, rgba(36,24,57,.94), rgba(14,11,23,.91));
+      box-shadow:
+        0 35px 100px rgba(0,0,0,.4),
+        0 0 70px rgba(137,55,224,.15),
+        inset 0 1px 0 rgba(255,255,255,.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      transform: rotateY(-9deg) rotateX(4deg);
+      animation: coreFloat 5s ease-in-out infinite;
+    }
+
+    .core-icon {
+      width: 65px;
+      height: 65px;
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      border: 1px solid rgba(192,132,252,.25);
+      background: linear-gradient(145deg, rgba(168,85,247,.25), rgba(112,40,206,.08));
+      font-size: 30px;
+      color: #e9d5ff;
+      box-shadow: 0 0 30px rgba(168,85,247,.12);
+    }
+
+    .core-title {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 44px;
+      font-weight: 700;
+      direction: ltr;
+      letter-spacing: -2px;
+    }
+
+    .core-title span {
+      color: var(--purple-light);
+    }
+
+    .core-line {
+      width: 65px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #c084fc, transparent);
+      border-radius: 20px;
+    }
+
+    .core-subtitle {
+      color: #b7a7d1;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .formula {
+      position: absolute;
+      z-index: 3;
+      padding: 12px 17px;
+      border: 1px solid rgba(192,132,252,.2);
+      border-radius: 15px;
+      background: rgba(19,15,30,.86);
+      color: #e1c9ff;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 19px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.22);
+      backdrop-filter: blur(15px);
+      animation: formulaFloat 5s ease-in-out infinite;
+    }
+
+    .formula.one {
+      top: 68px;
+      right: 1%;
+    }
+
+    .formula.two {
+      bottom: 65px;
+      right: 3%;
+      animation-delay: -1.5s;
+    }
+
+    .formula.three {
+      top: 120px;
+      left: 0;
+      animation-delay: -2.5s;
+    }
+
+    .formula.four {
+      bottom: 90px;
+      left: 1%;
+      animation-delay: -3s;
+    }
+
+    .art-dot {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #d8b4fe;
+      box-shadow: 0 0 18px 4px rgba(168,85,247,.35);
+    }
+
+    .art-dot.dot-one { top: 40px; left: 34%; }
+    .art-dot.dot-two { bottom: 50px; right: 25%; }
+    .art-dot.dot-three { top: 50%; right: 4%; }
+
+    /* Quick features */
+
+    .quick-strip {
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.012);
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .quick-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 27px 15px;
+      border-left: 1px solid rgba(255,255,255,.06);
+    }
+
+    .quick-item:last-child {
+      border-left: none;
+    }
+
+    .quick-icon {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      background: rgba(168,85,247,.11);
+      border: 1px solid rgba(192,132,252,.13);
+      border-radius: 14px;
+      color: #d8b4fe;
+      font-size: 20px;
+    }
+
+    .quick-item h3 {
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .quick-item p {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Feature cards */
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 19px;
+    }
+
+    .feature-card {
+      min-height: 245px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(23,19,34,.92), rgba(13,11,20,.96));
+      border: 1px solid var(--border);
+      transition: .35s ease;
+    }
+
+    .feature-card::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      left: -70px;
+      bottom: -85px;
+      border-radius: 50%;
+      background: rgba(147,51,234,.13);
+      filter: blur(35px);
+      transition: .35s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(192,132,252,.33);
+      box-shadow: 0 20px 55px rgba(0,0,0,.22);
+    }
+
+    .feature-card:hover::after {
+      background: rgba(147,51,234,.27);
+    }
+
+    .feature-icon {
+      width: 55px;
+      height: 55px;
+      display: grid;
+      place-items: center;
+      border-radius: 17px;
+      border: 1px solid rgba(192,132,252,.2);
+      background: linear-gradient(145deg, rgba(168,85,247,.2), rgba(168,85,247,.035));
+      font-size: 25px;
+      margin-bottom: 23px;
+    }
+
+    .feature-card h3 {
+      font-size: 17px;
+      margin-bottom: 9px;
+      font-weight: 900;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 2.1;
+      max-width: 290px;
+    }
+
+    .feature-arrow {
+      position: absolute;
+      left: 25px;
+      top: 28px;
+      color: #8c849e;
+      font-size: 20px;
+      transition: .3s;
+    }
+
+    .feature-card:hover .feature-arrow {
+      color: #d8b4fe;
+      transform: translateX(-5px);
+    }
+
+    /* Subjects */
+
+    .subjects-section {
+      background: linear-gradient(180deg, transparent, rgba(39,22,61,.12), transparent);
+    }
+
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .subject-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      background: rgba(19,16,28,.76);
+      border-radius: 18px;
+      transition: .3s;
+    }
+
+    .subject-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(192,132,252,.3);
+      background: rgba(31,22,46,.88);
+    }
+
+    .subject-symbol {
+      width: 55px;
+      height: 55px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: rgba(168,85,247,.1);
+      color: #d8b4fe;
+      border: 1px solid rgba(192,132,252,.14);
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      direction: ltr;
+    }
+
+    .subject-card h3 {
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+
+    .subject-card p {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .subject-arrow {
+      margin-right: auto;
+      color: #716780;
+      font-size: 19px;
+    }
+
+    .center-action {
+      text-align: center;
+      margin-top: 35px;
+    }
+
+    /* How it works */
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      position: relative;
+    }
+
+    .step-card {
+      text-align: center;
+      padding: 25px 22px;
+    }
+
+    .step-number {
+      width: 67px;
+      height: 67px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 21px;
+      border: 1px solid rgba(192,132,252,.28);
+      border-radius: 21px;
+      background: linear-gradient(145deg, rgba(168,85,247,.22), rgba(112,40,206,.07));
+      color: #e9d5ff;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      box-shadow: 0 0 35px rgba(147,51,234,.08);
+    }
+
+    .step-card h3 {
+      font-size: 16px;
+      margin-bottom: 9px;
+    }
+
+    .step-card p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 2.1;
+    }
+
+    /* CTA */
+
+    .cta-section {
+      padding: 55px 0 105px;
+    }
+
+    .cta-box {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding: 65px 25px;
+      text-align: center;
+      border: 1px solid rgba(192,132,252,.24);
+      border-radius: 30px;
+      background:
+        radial-gradient(ellipse at 50% 120%, rgba(147,51,234,.27), transparent 55%),
+        linear-gradient(145deg, #171022, #0e0b17 70%);
+    }
+
+    .cta-box::before,
+    .cta-box::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border: 1px solid rgba(192,132,252,.1);
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .cta-box::before {
+      top: -160px;
+      right: -50px;
+    }
+
+    .cta-box::after {
+      bottom: -180px;
+      left: -30px;
+      width: 300px;
+      height: 300px;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(26px, 4vw, 43px);
+      line-height: 1.5;
+      font-weight: 900;
+      margin-bottom: 13px;
+    }
+
+    .cta-box p {
+      max-width: 510px;
+      margin: 0 auto 27px;
+      color: #b3a9c4;
+      font-size: 13px;
+      line-height: 2.2;
+    }
+
+    /* Footer */
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,.07);
+      background: rgba(5,4,9,.5);
+    }
+
+    .footer-main {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 35px;
+      padding: 45px 0 35px;
+    }
+
+    .footer-brand {
+      max-width: 340px;
+    }
+
+    .footer-brand p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 2.2;
+      margin-top: 17px;
+    }
+
+    .footer-links h3 {
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .footer-links a {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 8px;
+      transition: .2s;
+    }
+
+    .footer-links a:hover {
+      color: #d8b4fe;
+    }
+
+    .footer-bottom {
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      color: #777084;
+      font-size: 11px;
+    }
+
+    .footer-bottom strong {
+      font-family: 'Chakra Petch', sans-serif;
+      color: #bfa4e6;
+      direction: ltr;
+    }
+
+    /* Reveal animation */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 300;
+      bottom: 25px;
+      left: 25px;
+      max-width: calc(100% - 50px);
+      padding: 14px 20px;
+      border: 1px solid rgba(192,132,252,.28);
+      border-radius: 15px;
+      background: #171022;
+      color: #eee5ff;
+      font-size: 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      opacity: 0;
+      transform: translateY(15px);
+      pointer-events: none;
+      transition: .3s;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    @keyframes coreFloat {
+      0%, 100% { transform: translateY(0) rotateY(-9deg) rotateX(4deg); }
+      50% { transform: translateY(-12px) rotateY(-5deg) rotateX(2deg); }
+    }
+
+    @keyframes formulaFloat {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    @keyframes orbitSpin {
+      from { rotate: 0deg; }
+      to { rotate: 360deg; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive */
+
+    @media (max-width: 1000px) {
+      .nav-links { gap: 17px; }
+      .hero-grid { gap: 15px; }
+      .hero-art { transform: scale(.92); }
+      .features-grid { gap: 13px; }
+      .feature-card { padding: 23px; }
+    }
+
+    @media (max-width: 800px) {
+      .navbar { height: 72px; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 80px;
+        right: 20px;
+        left: 20px;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: rgba(15,12,23,.98);
+        box-shadow: 0 20px 50px rgba(0,0,0,.35);
+      }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+
+      .nav-links a {
+        padding: 12px 10px;
+        border-bottom: 1px solid rgba(255,255,255,.05);
+      }
+
+      .nav-links a:last-child { border-bottom: none; }
+      .nav-actions .btn { min-height: 42px; padding-inline: 14px; }
+      .hero { min-height: auto; padding: 60px 0 65px; }
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-copy > p { margin-inline: auto; }
+      .hero-buttons, .hero-trust { justify-content: center; }
+      .hero-art { min-height: 390px; margin-top: -10px; transform: scale(.9); }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .subjects-grid { grid-template-columns: repeat(2, 1fr); }
+      .quick-item { justify-content: flex-start; padding-inline: 12px; }
+      .quick-item h3 { font-size: 12px; }
+      .quick-item p { font-size: 10px; }
+      .section { padding: 80px 0; }
+      .footer-main { flex-wrap: wrap; }
+    }
+
+    @media (max-width: 520px) {
+      .container { width: calc(100% - 30px); }
+      .brand { gap: 7px; }
+      .brand img { width: 35px; height: 35px; }
+      .brand-name { font-size: 25px; }
+      .nav-actions { gap: 7px; }
+      .nav-actions .btn { font-size: 11px; padding-inline: 11px; }
+      .nav-actions .btn-outline { display: none; }
+      .hero { padding-top: 45px; }
+      .hero-copy h1 { font-size: 38px; letter-spacing: -1px; }
+      .hero-copy > p { font-size: 13px; }
+      .hero-buttons { gap: 9px; }
+      .hero-buttons .btn { padding-inline: 16px; min-height: 49px; font-size: 12px; }
+      .hero-art { min-height: 330px; transform: scale(.74); margin: -20px -40px -20px; }
+      .math-orbit { width: 320px; height: 320px; }
+      .math-orbit.orbit-two { width: 370px; height: 370px; }
+      .quick-grid { grid-template-columns: 1fr; }
+      .quick-item {
+        justify-content: flex-start;
+        padding: 16px 20px;
+        border-left: none;
+        border-bottom: 1px solid rgba(255,255,255,.05);
+      }
+      .quick-item:last-child { border-bottom: none; }
+      .quick-item h3 { font-size: 13px; }
+      .features-grid, .subjects-grid, .steps-grid { grid-template-columns: 1fr; }
+      .feature-card { min-height: 210px; }
+      .subject-card { padding: 17px; }
+      .section-heading { margin-bottom: 32px; }
+      .section-heading h2 { font-size: 29px; }
+      .section { padding: 68px 0; }
+      .steps-grid { gap: 8px; }
+      .step-card { padding: 20px 15px; }
+      .cta-section { padding: 20px 0 70px; }
+      .cta-box { padding: 48px 20px; border-radius: 24px; }
+      .footer-main { gap: 28px; }
+      .footer-brand { max-width: 100%; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-inner">
+
+      <a href="index.html" class="brand" aria-label="Mathix الرئيسية">
+        <img src="logo.png" alt="Mathix Logo">
+        <span class="brand-name">Math<span>ix</span></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">الرئيسية</a>
+        <a href="#features">مميزات المنصة</a>
+        <a href="#subjects">المواد الدراسية</a>
+        <a href="#how">تبدأ إزاي؟</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-outline" id="loginNav">تسجيل الدخول</a>
+        <a href="signup.html" class="btn btn-primary" id="signupNav">ابدأ دلوقتي ↗</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false">☰</button>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+
+        <div class="hero-copy">
+          <div class="eyebrow">رحلتك في علمي رياضة تبدأ هنا</div>
+
+          <h1>
+            مش مجرد مذاكرة...
+            <br>
+            ده <span class="gradient-text">مستقبلك بالأرقام.</span>
+          </h1>
+
+          <p>
+            مع Mathix، خلي مذاكرتك أذكى وأسهل.
+            وصل لملخصاتك ومراجعاتك، نظّم رحلتك الدراسية،
+            وركّز على هدفك خطوة بخطوة.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="signup.html" class="btn btn-primary" id="heroStart">
+              ابدأ رحلتك دلوقتي <span>↗</span>
+            </a>
+
+            <a href="#features" class="btn btn-outline">
+              اكتشف المنصة <span>↓</span>
+            </a>
+          </div>
+
+          <div class="hero-trust">
+            <span><i class="check">✓</i> واجهة سهلة ومنظمة</span>
+            <span><i class="check">✓</i> ملخصات ومراجعات</span>
+            <span><i class="check">✓</i> تابع حسابك ومحفظتك</span>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="تصميم رياضي تفاعلي">
+          <div class="art-glow"></div>
+          <div class="math-orbit"></div>
+          <div class="math-orbit orbit-two"></div>
+
+          <div class="art-dot dot-one"></div>
+          <div class="art-dot dot-two"></div>
+          <div class="art-dot dot-three"></div>
+
+          <div class="formula one">∫ f(x) dx</div>
+          <div class="formula two">x² + y² = r²</div>
+          <div class="formula three">sin θ</div>
+          <div class="formula four">lim x → ∞</div>
+
+          <div class="math-core">
+            <div class="core-icon">∑</div>
+            <div class="core-title">Math<span>ix</span></div>
+            <div class="core-line"></div>
+            <div class="core-subtitle">THINK SMARTER. GO FURTHER.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Quick highlights -->
+    <section class="quick-strip">
+      <div class="container quick-grid">
+
+        <div class="quick-item">
+          <div class="quick-icon">⌘</div>
+          <div>
+            <h3>كل حاجة في مكان واحد</h3>
+            <p>وصل لمحتواك الدراسي بسهولة</p>
+          </div>
+        </div>
+
+        <div class="quick-item">
+          <div class="quick-icon">▤</div>
+          <div>
+            <h3>ملخصات ومراجعات</h3>
+            <p>راجع المنهج بطريقة منظمة</p>
+          </div>
+        </div>
+
+        <div class="quick-item">
+          <div class="quick-icon">◈</div>
+          <div>
+            <h3>حسابك ومحفظتك</h3>
+            <p>تابع رصيدك ومشترياتك</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="features">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <div class="eyebrow">WHY MATHIX?</div>
+          <h2>كل اللي تحتاجه، <span class="purple">من غير دوشة.</span></h2>
+          <p>
+            بدل ما تتوه بين الملفات واللينكات، خلي رحلتك الدراسية
+            منظمة في مكان واحد.
+          </p>
+        </div>
+
+        <div class="features-grid">
+
+          <a href="revesions.html" class="feature-card reveal">
+            <span class="feature-arrow">↖</span>
+            <div class="feature-icon">▤</div>
+            <h3>ملخصات ومراجعات</h3>
+            <p>
+              وصل للمراجعات والملخصات المتاحة، واختار المحتوى
+              اللي يناسب احتياجك في المذاكرة.
+            </p>
+          </a>
+
+          <a href="subjects.html" class="feature-card reveal">
+            <span class="feature-arrow">↖</span>
+            <div class="feature-icon">∑</div>
+            <h3>المواد الدراسية</h3>
+            <p>
+              ادخل على المواد الدراسية واستكشف المحتوى المتاح
+              لكل مادة من خلال واجهة منظمة.
+            </p>
+          </a>
+
+          <a href="dashboard.html" class="feature-card reveal">
+            <span class="feature-arrow">↖</span>
+            <div class="feature-icon">◫</div>
+            <h3>لوحة الطالب</h3>
+            <p>
+              مكانك الشخصي للوصول إلى حسابك والخدمات المتاحة
+              لك على المنصة.
+            </p>
+          </a>
+
+          <a href="wallet.html" class="feature-card reveal">
+            <span class="feature-arrow">↖</span>
+            <div class="feature-icon">◈</div>
+            <h3>المحفظة الإلكترونية</h3>
+            <p>
+              راجع رصيد محفظتك، وتابع طلبات الشحن
+              وعملياتك المالية من حسابك.
+            </p>
+          </a>
+
+          <a href="profile.html" class="feature-card reveal">
+            <span class="feature-arrow">↖</span>
+            <div class="feature-icon">◎</div>
+            <h3>حسابك الشخصي</h3>
+            <p>
+              ارجع لبيانات حسابك واحتفظ بتجربة استخدام
+              مرتبة ومناسبة ليك.
+            </p>
+          </a>
+
+          <a href="signup.html" class="feature-card reveal">
+            <span class="feature-arrow">↖</span>
+            <div class="feature-icon">✦</div>
+            <h3>ابدأ من الصفر</h3>
+            <p>
+              لسه معندكش حساب؟ أنشئ حسابك وابدأ استكشف
+              المنصة والخدمات المتاحة للطلاب.
+            </p>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Subjects -->
+    <section class="section subjects-section" id="subjects">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <div class="eyebrow">YOUR STUDY SPACE</div>
+          <h2>موادك الدراسية، <span class="purple">بطريقتك.</span></h2>
+          <p>
+            اختار المادة اللي عايز تذاكرها وانتقل إلى صفحة المواد
+            لاستكشاف المحتوى المتاح.
+          </p>
+        </div>
+
+        <div class="subjects-grid">
+
+          <a class="subject-card reveal" href="subjects.html">
+            <div class="subject-symbol">∑</div>
+            <div>
+              <h3>الجبر</h3>
+              <p>Algebra</p>
+            </div>
+            <span class="subject-arrow">←</span>
+          </a>
+
+          <a class="subject-card reveal" href="subjects.html">
+            <div class="subject-symbol">△</div>
+            <div>
+              <h3>الهندسة الفراغية</h3>
+              <p>Solid Geometry</p>
+            </div>
+            <span class="subject-arrow">←</span>
+          </a>
+
+          <a class="subject-card reveal" href="subjects.html">
+            <div class="subject-symbol">⚛</div>
+            <div>
+              <h3>الفيزياء</h3>
+              <p>Physics</p>
+            </div>
+            <span class="subject-arrow">←</span>
+          </a>
+
+          <a class="subject-card reveal" href="subjects.html">
+            <div class="subject-symbol">H₂</div>
+            <div>
+              <h3>الكيمياء</h3>
+              <p>Chemistry</p>
+            </div>
+            <span class="subject-arrow">←</span>
+          </a>
+
+          <a class="subject-card reveal" href="subjects.html">
+            <div class="subject-symbol">ع</div>
+            <div>
+              <h3>اللغة العربية</h3>
+              <p>Arabic</p>
+            </div>
+            <span class="subject-arrow">←</span>
+          </a>
+
+          <a class="subject-card reveal" href="subjects.html">
+            <div class="subject-symbol">Aa</div>
+            <div>
+              <h3>اللغة الإنجليزية</h3>
+              <p>English</p>
+            </div>
+            <span class="subject-arrow">←</span>
+          </a>
+
+        </div>
+
+        <div class="center-action reveal">
+          <a href="subjects.html" class="btn btn-primary">
+            استكشف المواد الدراسية ↗
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- How to start -->
+    <section class="section" id="how">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <div class="eyebrow">GET STARTED</div>
+          <h2>رحلتك تبدأ بـ <span class="purple">3 خطوات.</span></h2>
+          <p>ببساطة، من إنشاء حسابك لحد ما تبدأ تستخدم المحتوى المتاح.</p>
+        </div>
+
+        <div class="steps-grid">
+
+          <div class="step-card reveal">
+            <div class="step-number">01</div>
+            <h3>أنشئ حسابك</h3>
+            <p>
+              سجّل بياناتك وأنشئ حساب الطالب عشان تقدر تدخل
+              على الخدمات المخصصة ليك.
+            </p>
+          </div>
+
+          <div class="step-card reveal">
+            <div class="step-number">02</div>
+            <h3>استكشف المحتوى</h3>
+            <p>
+              افتح المواد الدراسية أو الملخصات والمراجعات
+              وشوف المحتوى المتاح ليك.
+            </p>
+          </div>
+
+          <div class="step-card reveal">
+            <div class="step-number">03</div>
+            <h3>ابدأ مذاكرتك</h3>
+            <p>
+              تابع حسابك ومحفظتك وارجع لمحتواك
+              من خلال صفحات المنصة المختلفة.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-box reveal">
+          <div class="eyebrow">YOUR NEXT CHAPTER</div>
+          <h2>جاهز تبدأ <span class="purple">بشكل مختلف؟</span></h2>
+          <p>
+            مستقبلك يستاهل إنك تشتغل عشانه.
+            ابدأ رحلتك على Mathix وخلي كل خطوة في مذاكرتك ليها هدف.
+          </p>
+          <a href="signup.html" class="btn btn-primary" id="bottomStart">
+            أنشئ حسابك مجانًا ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+
+      <div class="footer-main">
+
+        <div class="footer-brand">
+          <a href="index.html" class="brand">
+            <img src="logo.png" alt="Mathix Logo">
+            <span class="brand-name">Math<span>ix</span></span>
+          </a>
+          <p>
+            Mathix مساحة تعليمية تساعد طلاب علمي رياضة على الوصول
+            للمحتوى الدراسي وتنظيم تجربة المذاكرة في مكان واحد.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <h3>المنصة</h3>
+          <a href="#home">الرئيسية</a>
+          <a href="#features">المميزات</a>
+          <a href="subjects.html">المواد الدراسية</a>
+        </div>
+
+        <div class="footer-links">
+          <h3>حساب الطالب</h3>
+          <a href="login.html">تسجيل الدخول</a>
+          <a href="signup.html">إنشاء حساب</a>
+          <a href="dashboard.html">لوحة الطالب</a>
+        </div>
+
+        <div class="footer-links">
+          <h3>خدماتك</h3>
+          <a href="revesions.html">الملخصات والمراجعات</a>
+          <a href="wallet.html">المحفظة</a>
+          <a href="profile.html">الملف الشخصي</a>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>جميع الحقوق محفوظة © <span id="year"></span> Mathix</span>
+        <strong>THINK SMARTER. GO FURTHER.</strong>
+      </div>
+
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // ========================================
+    // Mobile navigation
+    // ========================================
+
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "×" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    // ========================================
+    // Footer year
+    // ========================================
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // ========================================
+    // Scroll reveal animation
+    // ========================================
+
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12
+      });
+
+      revealElements.forEach(element => observer.observe(element));
+    } else {
+      revealElements.forEach(element => element.classList.add("visible"));
+    }
+
+    // ========================================
+    // Firebase Authentication
+    // ========================================
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk",
+      authDomain: "mathix-2008.firebaseapp.com",
+      projectId: "mathix-2008",
+      storageBucket: "mathix-2008.firebasestorage.app",
+      messagingSenderId: "561805658834",
+      appId: "1:561805658834:web:c1db8ebc2d415be9497b0b",
+      measurementId: "G-XWHKQ72FM0"
+    };
+
+    const loginNav = document.getElementById("loginNav");
+    const signupNav = document.getElementById("signupNav");
+    const heroStart = document.getElementById("heroStart");
+    const bottomStart = document.getElementById("bottomStart");
+
+    function setStudentLinks(isLoggedIn) {
+      if (isLoggedIn) {
+        loginNav.textContent = "لوحة الطالب";
+        loginNav.href = "dashboard.html";
+
+        signupNav.textContent = "حسابي ↗";
+        signupNav.href = "profile.html";
+
+        heroStart.href = "dashboard.html";
+        heroStart.innerHTML = 'ادخل إلى منصتك <span>↗</span>';
+
+        bottomStart.href = "dashboard.html";
+        bottomStart.textContent = "افتح لوحة الطالب ↗";
+      } else {
+        loginNav.textContent = "تسجيل الدخول";
+        loginNav.href = "login.html";
+
+        signupNav.textContent = "ابدأ دلوقتي ↗";
+        signupNav.href = "signup.html";
+
+        heroStart.href = "signup.html";
+        heroStart.innerHTML = 'ابدأ رحلتك دلوقتي <span>↗</span>';
+
+        bottomStart.href = "signup.html";
+        bottomStart.textContent = "أنشئ حسابك مجانًا ↗";
+      }
+    }
+
+    setStudentLinks(false);
+
+    import("https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js")
+      .then(async ({ initializeApp }) => {
+        const { getAuth, onAuthStateChanged } =
+          await import("https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js");
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, user => {
+          setStudentLinks(Boolean(user));
+        });
+      })
+      .catch(error => {
+        console.error("Mathix Firebase initialization error:", error);
+      });
+  </script>
+
+</body>
+</html>
