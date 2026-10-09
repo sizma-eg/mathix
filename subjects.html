@@ -22,3 +22,4 @@ search.addEventListener('input',render);
 onAuthStateChanged(auth,async user=>{if(!user){location.replace('login.html');return}try{const snap=await getDocs(collection(db,'subjects'));const docs=snap.docs.map(d=>({id:d.id,...d.data()})).filter(s=>s.active!==false&&s.isActive!==false);allSubjects=docs.length?docs:fallback;render();if(!docs.length)say('مفيش مواد مضافة في قاعدة البيانات حاليًا؛ بنعرض المواد الأساسية لحد ما تضيفها من لوحة الإدارة.')}catch(e){console.error(e);allSubjects=fallback;render();say('تعذر تحميل المواد من قاعدة البيانات. راجع اتصال Firebase وصلاحيات القراءة.')}});
 document.querySelector('#logoutBtn').addEventListener('click',async()=>{try{await signOut(auth);location.replace('login.html')}catch(e){say('حصلت مشكلة أثناء تسجيل الخروج.')}});
 </script></body></html>
+s
