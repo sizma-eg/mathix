@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>المحافظ | Mathix</title><link rel="stylesheet" href="./style.css"></head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="./dashboard.html">Math<span class="ix">ix</span></a><div class="account"><span id="adminEmail"></span><button class="btn btn-secondary" id="logoutBtn">خروج</button></div></div></header>
+<div class="layout">
+<aside class="sidebar"><div class="side-title">إدارة المنصة</div><a class="nav-btn" href="./dashboard.html">📊 الرئيسية</a><a class="nav-btn" href="./revisions.html">📚 الملخصات</a><a class="nav-btn" href="./wallet-requests.html">💳 طلبات الشحن</a><a class="nav-btn active" href="./wallets.html">👛 المحافظ</a><a class="nav-btn" href="./purchases.html">🧾 المشتريات</a><a class="nav-btn" href="./students.html">🎓 الطلاب</a><a class="nav-btn" href="./settings.html">⚙️ الإعدادات</a></aside>
+<main class="main">
+<section class="page-head"><div><h1>المحافظ</h1><p>ابحث باستخدام UID الطالب أو البريد الإلكتروني.</p></div></section>
+<section class="panel"><div class="toolbar"><input class="field" id="search" placeholder="UID أو البريد الإلكتروني"><button class="btn" id="searchBtn">بحث</button></div><div id="result" class="empty">ابدأ بالبحث عن طالب.</div></section>
+<div class="modal" id="editModal"><div class="modal-box"><div class="modal-head"><h2>تعديل الرصيد</h2><button class="btn btn-secondary" data-close="editModal">إغلاق</button></div><p class="muted" id="studentLabel"></p><div class="stat"><div class="stat-label">الرصيد الحالي</div><div class="stat-value purple" id="balance">—</div></div>
+<form id="walletForm"><input type="hidden" id="uid"><label>العملية</label><select class="field" id="operation"><option value="add">إضافة رصيد</option><option value="subtract">خصم رصيد</option><option value="set">تعيين رصيد جديد</option></select><label>المبلغ</label><input class="field" id="amount" type="number" min="0" step=".01" required><label>السبب</label><input class="field" id="reason" required maxlength="200"><button class="btn btn-block" id="saveBtn">حفظ</button></form></div></div>
+<div class="notice" id="notice"></div>
+</main></div>
+<script type="module" src="./wallets-page.js"></script>
+</body></html>
