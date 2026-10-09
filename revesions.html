@@ -1,0 +1,1417 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08080d">
+  <meta name="description" content="ملخصات ومراجعات Mathix لطلاب الصف الثالث الثانوي علمي رياضة">
+  <title>المراجعات والملخصات | Mathix</title>
+  <link rel="icon" href="./logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #08080d;
+      --panel: #101018;
+      --panel2: #151522;
+      --border: rgba(255,255,255,.09);
+      --purple: #9b6dff;
+      --purple2: #7041dc;
+      --text: #f5f3ff;
+      --muted: #9b99ad;
+      --green: #4ade80;
+      --red: #fb7185;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 85% 0%, rgba(112,65,220,.15), transparent 38%),
+        radial-gradient(ellipse at 0% 40%, rgba(155,109,255,.07), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Cairo", sans-serif;
+    }
+
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(8,8,13,.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: auto;
+      min-height: 76px;
+      padding: 12px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Chakra Petch", sans-serif;
+      font-size: 27px;
+      font-weight: 700;
+      letter-spacing: -.8px;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      animation: floatLogo 3s ease-in-out infinite;
+    }
+
+    .brand .ix { color: var(--purple); }
+
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: #c5c1d6;
+      padding: 9px 13px;
+      border-radius: 11px;
+      font-size: 13px;
+      transition: .2s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: rgba(155,109,255,.12);
+      color: #c4a8ff;
+    }
+
+    .wallet-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border: 1px solid rgba(155,109,255,.28);
+      background: rgba(155,109,255,.09);
+      border-radius: 12px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .wallet-pill strong { color: #c4a8ff; }
+
+    .container {
+      max-width: 1180px;
+      margin: auto;
+      padding: 35px 22px 70px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 34px;
+      border: 1px solid rgba(155,109,255,.19);
+      border-radius: 25px;
+      background: linear-gradient(120deg, rgba(112,65,220,.17), rgba(16,16,24,.93) 65%);
+      margin-bottom: 26px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background: rgba(155,109,255,.12);
+      filter: blur(55px);
+      left: -35px;
+      top: -65px;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      color: #c4a8ff;
+      background: rgba(155,109,255,.1);
+      border: 1px solid rgba(155,109,255,.2);
+      padding: 6px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(27px, 4vw, 42px);
+      line-height: 1.45;
+      margin: 15px 0 8px;
+      font-weight: 900;
+    }
+
+    h1 span { color: var(--purple); }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.9;
+      margin: 0;
+      max-width: 650px;
+      font-size: 14px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 13px;
+      margin-bottom: 26px;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 17px;
+    }
+
+    .stat-label { color: var(--muted); font-size: 12px; }
+    .stat-value { margin-top: 5px; font-size: 24px; font-weight: 800; }
+    .stat-value.purple { color: #c4a8ff; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin: 25px 0 15px;
+    }
+
+    .section-head h2 { margin: 0; font-size: 20px; }
+    .section-head p { color: var(--muted); font-size: 12px; margin: 5px 0 0; }
+
+    .filters {
+      display: grid;
+      grid-template-columns: minmax(180px,1fr) 190px 170px;
+      gap: 11px;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      width: 100%;
+      min-width: 0;
+      background: #101018;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 13px 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .field:focus { border-color: rgba(155,109,255,.7); }
+    .field::placeholder { color: #777488; }
+    select.field { cursor: pointer; }
+    select.field option { background: #101018; color: white; }
+
+    .subject-banner {
+      display: none;
+      padding: 13px 16px;
+      margin-bottom: 17px;
+      background: rgba(155,109,255,.08);
+      border: 1px solid rgba(155,109,255,.2);
+      border-radius: 13px;
+      color: #d7c7ff;
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 16px;
+    }
+
+    .review-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding: 19px;
+      border-radius: 19px;
+      background: linear-gradient(155deg, #14141f, #0e0e15);
+      border: 1px solid var(--border);
+      transition: transform .22s, border-color .22s;
+    }
+
+    .review-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(155,109,255,.4);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .file-icon {
+      display: grid;
+      place-items: center;
+      width: 47px;
+      height: 47px;
+      flex: 0 0 47px;
+      border-radius: 14px;
+      color: #c4a8ff;
+      background: rgba(155,109,255,.12);
+      font-size: 21px;
+    }
+
+    .badge {
+      padding: 5px 10px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .badge.free {
+      color: #86efac;
+      background: rgba(74,222,128,.1);
+    }
+
+    .badge.paid {
+      color: #d2bdff;
+      background: rgba(155,109,255,.13);
+    }
+
+    .badge.owned {
+      color: #86efac;
+      background: rgba(74,222,128,.1);
+    }
+
+    .review-card h3 {
+      margin: 15px 0 7px;
+      font-size: 17px;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .description {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+      margin: 0 0 14px;
+      overflow-wrap: anywhere;
+      flex: 1;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+
+    .meta span {
+      background: rgba(255,255,255,.045);
+      color: #c1bed0;
+      border: 1px solid rgba(255,255,255,.045);
+      border-radius: 8px;
+      padding: 5px 8px;
+      font-size: 10px;
+    }
+
+    .card-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .price { font-weight: 800; font-size: 15px; }
+    .price.free-price { color: var(--green); }
+    .price.paid-price { color: #c4a8ff; }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      border: 0;
+      border-radius: 11px;
+      padding: 10px 14px;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #a783ff, #7041dc);
+      color: white;
+      box-shadow: 0 5px 20px rgba(112,65,220,.18);
+    }
+
+    .btn-primary:hover { filter: brightness(1.12); }
+    .btn-secondary {
+      background: #20202d;
+      color: #e5ddff;
+      border: 1px solid var(--border);
+    }
+
+    .btn:disabled { opacity: .55; cursor: wait; }
+
+    .state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 44px 20px;
+      border: 1px dashed rgba(255,255,255,.13);
+      border-radius: 18px;
+      background: rgba(16,16,24,.5);
+    }
+
+    .state-icon { font-size: 34px; margin-bottom: 9px; }
+    .state h3 { margin: 0 0 6px; font-size: 17px; }
+    .state p { margin: 0 auto 15px; color: var(--muted); font-size: 13px; line-height: 1.9; }
+
+    .loader {
+      width: 27px;
+      height: 27px;
+      border: 3px solid rgba(155,109,255,.2);
+      border-top-color: var(--purple);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto 14px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .notice {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      max-width: min(400px, calc(100vw - 40px));
+      padding: 14px 17px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #191923;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      font-size: 13px;
+      line-height: 1.8;
+      display: none;
+    }
+
+    .notice.show { display: block; animation: appear .2s ease; }
+    .notice.error { border-color: rgba(251,113,133,.4); }
+    .notice.success { border-color: rgba(74,222,128,.3); }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .viewer {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(9px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .viewer.open { display: flex; }
+
+    .viewer-box {
+      display: flex;
+      flex-direction: column;
+      width: min(100%, 1000px);
+      height: min(88vh, 800px);
+      background: #111119;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      overflow: hidden;
+    }
+
+    .viewer-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .viewer-head strong { font-size: 14px; }
+    .viewer-body { flex: 1; min-height: 0; background: #08080d; }
+    .viewer-body iframe { width: 100%; height: 100%; border: 0; }
+    .viewer-body .external-view {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 25px 15px;
+      border-top: 1px solid var(--border);
+      color: #777488;
+      font-size: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .nav { flex-wrap: wrap; }
+      .filters { grid-template-columns: 1fr 1fr; }
+      .filters .search-field { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 580px) {
+      .nav { padding: 12px 15px; }
+      .brand { font-size: 24px; }
+      .brand img { width: 36px; height: 36px; }
+      .nav-links { width: 100%; justify-content: space-between; gap: 3px; }
+      .nav-link { padding: 7px 8px; font-size: 11px; }
+      .wallet-pill { padding: 7px 9px; font-size: 11px; }
+      .container { padding: 23px 14px 45px; }
+      .hero { padding: 24px 19px; border-radius: 19px; }
+      .stats { gap: 8px; }
+      .stat { padding: 12px 10px; }
+      .stat-value { font-size: 19px; }
+      .stat-label { font-size: 10px; }
+      .grid { grid-template-columns: 1fr; }
+      .filters { grid-template-columns: 1fr; }
+      .filters .search-field { grid-column: auto; }
+      .section-head h2 { font-size: 18px; }
+      .viewer { padding: 8px; }
+      .viewer-box { height: 90vh; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="./dashboard.html" aria-label="Mathix الرئيسية">
+        <img src="./logo.png" alt="Mathix" onerror="this.style.display='none'">
+        <span>Math<span class="ix">ix</span></span>
+      </a>
+
+      <div class="nav-links">
+        <a class="nav-link" href="./dashboard.html">الرئيسية</a>
+        <a class="nav-link" href="./subjects.html">المواد</a>
+        <a class="nav-link active" href="./revesions.html">الملخصات</a>
+        <a class="nav-link" href="./profile.html">حسابي</a>
+        <a class="nav-link" href="./wallet.html">المحفظة</a>
+      </div>
+
+      <a class="wallet-pill" href="./wallet.html">
+        <span>رصيدك</span>
+        <strong id="walletBalance">— ج.م</strong>
+      </a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="eyebrow">✦ MATHIX LEARNING</span>
+      <h1>ملخصاتك ومراجعاتك <span>في مكان واحد</span></h1>
+      <p>
+        اختار المادة، دور على الملخص اللي محتاجه، وافتح المحتوى المجاني
+        أو اشتري الملخص المدفوع من رصيد محفظتك.
+      </p>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <div class="stat-label">الملخصات المتاحة</div>
+        <div class="stat-value purple" id="totalCount">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">الملخصات المملوكة لك</div>
+        <div class="stat-value" id="ownedCount">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">المحتوى المجاني</div>
+        <div class="stat-value" id="freeCount">—</div>
+      </div>
+    </section>
+
+    <div class="section-head">
+      <div>
+        <h2>مكتبة الملخصات</h2>
+        <p>كل اللي تحتاجه للمذاكرة والمراجعة</p>
+      </div>
+    </div>
+
+    <div class="subject-banner" id="subjectBanner"></div>
+
+    <section class="filters">
+      <input
+        class="field search-field"
+        id="searchInput"
+        type="search"
+        placeholder="ابحث باسم الملخص أو وصفه..."
+        autocomplete="off"
+      >
+
+      <select class="field" id="subjectFilter" aria-label="اختار المادة">
+        <option value="all">كل المواد</option>
+        <option value="arabic">اللغة العربية</option>
+        <option value="english">اللغة الإنجليزية</option>
+        <option value="physics">الفيزياء</option>
+        <option value="chemistry">الكيمياء</option>
+        <option value="solid-geometry">الهندسة الفراغية</option>
+        <option value="algebra">الجبر</option>
+      </select>
+
+      <select class="field" id="typeFilter" aria-label="نوع الملخص">
+        <option value="all">كل الأنواع</option>
+        <option value="free">المجاني فقط</option>
+        <option value="paid">المدفوع فقط</option>
+        <option value="owned">اللي اشتريته</option>
+        <option value="pdf">ملفات PDF</option>
+        <option value="youtube">فيديوهات يوتيوب</option>
+        <option value="link">روابط خارجية</option>
+      </select>
+    </section>
+
+    <section class="grid" id="reviewsGrid" aria-live="polite">
+      <div class="state">
+        <div class="loader"></div>
+        <h3>بنجهز مكتبتك...</h3>
+        <p>لحظات وهنعرض لك الملخصات المتاحة.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Mathix © <span id="year"></span> — رحلتك للتفوق تبدأ من هنا
+  </footer>
+
+  <div class="notice" id="notice" role="status" aria-live="polite"></div>
+
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="عرض الملخص">
+    <div class="viewer-box">
+      <div class="viewer-head">
+        <strong id="viewerTitle">عرض الملخص</strong>
+        <button class="btn btn-secondary" id="closeViewer" type="button">إغلاق ✕</button>
+      </div>
+      <div class="viewer-body" id="viewerBody"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { auth, db, authReady } from "./firebase-config.js";
+    import {
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    import {
+      collection,
+      doc,
+      onSnapshot,
+      runTransaction,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const $ = (id) => document.getElementById(id);
+
+    const SUBJECTS = {
+      arabic: "اللغة العربية",
+      english: "اللغة الإنجليزية",
+      physics: "الفيزياء",
+      chemistry: "الكيمياء",
+      "solid-geometry": "الهندسة الفراغية",
+      algebra: "الجبر"
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedSubject = params.get("subject") || "all";
+    const requestedName = params.get("name") || "";
+
+    let currentUser = null;
+    let allReviews = [];
+    let purchasedIds = new Set();
+    let walletData = {};
+    let walletBalance = 0;
+    let reviewsLoaded = false;
+    let purchasesLoaded = false;
+    let walletLoaded = false;
+    let noticeTimer = null;
+    let unsubscribeReviews = null;
+    let unsubscribePurchases = null;
+    let unsubscribeWallet = null;
+
+    $("year").textContent = new Date().getFullYear();
+
+    function showNotice(message, type = "") {
+      const el = $("notice");
+      el.textContent = message;
+      el.className = "notice show" + (type ? " " + type : "");
+
+      clearTimeout(noticeTimer);
+      noticeTimer = setTimeout(() => {
+        el.className = "notice";
+      }, 4300);
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      })[char]);
+    }
+
+    function normalizeSubject(value) {
+      const raw = String(value ?? "").trim().toLowerCase();
+
+      const aliases = {
+        "arabic": "arabic",
+        "العربي": "arabic",
+        "العربية": "arabic",
+        "اللغة العربية": "arabic",
+        "english": "english",
+        "الانجليزي": "english",
+        "الإنجليزي": "english",
+        "اللغة الإنجليزية": "english",
+        "physics": "physics",
+        "فيزياء": "physics",
+        "الفيزياء": "physics",
+        "chemistry": "chemistry",
+        "كيمياء": "chemistry",
+        "الكيمياء": "chemistry",
+        "solid-geometry": "solid-geometry",
+        "solid geometry": "solid-geometry",
+        "الهندسة الفراغية": "solid-geometry",
+        "algebra": "algebra",
+        "الجبر": "algebra"
+      };
+
+      return aliases[raw] || raw;
+    }
+
+    function getReviewSubject(review) {
+      return normalizeSubject(
+        review.subjectId ??
+        review.subjectKey ??
+        review.subject ??
+        review.subjectName ??
+        ""
+      );
+    }
+
+    function getSubjectName(review) {
+      const raw = review.subjectName || review.subjectTitle || "";
+      if (raw) return String(raw);
+
+      const key = getReviewSubject(review);
+      return SUBJECTS[key] || "مادة دراسية";
+    }
+
+    function getReviewPrice(review) {
+      if (review.free === true || review.isFree === true) return 0;
+
+      const raw = review.price ?? review.amount ?? 0;
+      const parsed = Number(raw);
+
+      return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
+    }
+
+    function isFree(review) {
+      return getReviewPrice(review) <= 0;
+    }
+
+    function isAvailable(review) {
+      if (review.active === false) return false;
+      if (review.isActive === false) return false;
+      if (review.published === false) return false;
+      if (review.status === "hidden" || review.status === "draft") return false;
+      return true;
+    }
+
+    function getReviewType(review) {
+      const raw = String(review.type || review.contentType || "").toLowerCase();
+
+      const url = String(
+        review.contentUrl ||
+        review.pdfUrl ||
+        review.youtubeUrl ||
+        review.videoUrl ||
+        review.url ||
+        review.link ||
+        ""
+      ).trim();
+
+      if (raw.includes("youtube") || raw.includes("video") || raw.includes("فيديو")) {
+        return "youtube";
+      }
+
+      if (raw.includes("pdf") || raw.includes("ملف")) {
+        return "pdf";
+      }
+
+      if (raw.includes("link") || raw.includes("external") || raw.includes("رابط")) {
+        return "link";
+      }
+
+      if (/youtu\.be|youtube\.com/i.test(url)) return "youtube";
+      if (/\.pdf(?:$|[?#])/i.test(url)) return "pdf";
+
+      return "link";
+    }
+
+    function getReviewUrl(review) {
+      return String(
+        review.contentUrl ||
+        review.pdfUrl ||
+        review.youtubeUrl ||
+        review.videoUrl ||
+        review.url ||
+        review.link ||
+        ""
+      ).trim();
+    }
+
+    function getTypeLabel(type) {
+      if (type === "pdf") return "PDF";
+      if (type === "youtube") return "فيديو";
+      return "رابط خارجي";
+    }
+
+    function getTypeIcon(type) {
+      if (type === "pdf") return "📄";
+      if (type === "youtube") return "▶";
+      return "🔗";
+    }
+
+    function formatPrice(price) {
+      return price.toLocaleString("ar-EG", {
+        maximumFractionDigits: 2
+      }) + " ج.م";
+    }
+
+    function updateWalletDisplay() {
+      $("walletBalance").textContent = walletLoaded
+        ? formatPrice(walletBalance)
+        : "جارٍ التحميل...";
+    }
+
+    function updateStats(reviews) {
+      const available = reviews.filter(isAvailable);
+
+      $("totalCount").textContent = available.length.toLocaleString("ar-EG");
+      $("ownedCount").textContent = available.filter(
+        review => isFree(review) || purchasedIds.has(review.id)
+      ).length.toLocaleString("ar-EG");
+      $("freeCount").textContent = available.filter(isFree).length.toLocaleString("ar-EG");
+    }
+
+    function renderState(icon, title, message, buttonHTML = "") {
+      $("reviewsGrid").innerHTML = `
+        <div class="state">
+          <div class="state-icon">${icon}</div>
+          <h3>${escapeHTML(title)}</h3>
+          <p>${escapeHTML(message)}</p>
+          ${buttonHTML}
+        </div>
+      `;
+    }
+
+    function getFilteredReviews() {
+      const search = $("searchInput").value.trim().toLowerCase();
+      const subject = normalizeSubject($("subjectFilter").value);
+      const type = $("typeFilter").value;
+
+      return allReviews
+        .filter(isAvailable)
+        .filter(review => {
+          if (subject !== "all" && getReviewSubject(review) !== subject) {
+            return false;
+          }
+
+          if (search) {
+            const text = [
+              review.title,
+              review.name,
+              review.description,
+              review.subjectName,
+              review.subjectTitle
+            ].join(" ").toLowerCase();
+
+            if (!text.includes(search)) return false;
+          }
+
+          const reviewType = getReviewType(review);
+          const free = isFree(review);
+          const owned = free || purchasedIds.has(review.id);
+
+          if (type === "free" && !free) return false;
+          if (type === "paid" && free) return false;
+          if (type === "owned" && !owned) return false;
+          if (["pdf", "youtube", "link"].includes(type) && reviewType !== type) {
+            return false;
+          }
+
+          return true;
+        });
+    }
+
+    function renderReviews() {
+      if (!currentUser) return;
+
+      if (!reviewsLoaded || !purchasesLoaded || !walletLoaded) {
+        renderState("⌛", "بنجهز مكتبتك", "بنحمّل الملخصات ورصيد المحفظة.");
+        return;
+      }
+
+      const available = allReviews.filter(isAvailable);
+      updateStats(available);
+
+      const reviews = getFilteredReviews();
+
+      if (!reviews.length) {
+        renderState(
+          "📚",
+          "مفيش ملخصات هنا حاليًا",
+          "جرّب تغيّر البحث أو تختار مادة تانية، أو ارجع تاني بعد إضافة الملخصات."
+        );
+        return;
+      }
+
+      $("reviewsGrid").innerHTML = reviews.map(review => {
+        const id = escapeHTML(review.id);
+        const title = escapeHTML(review.title || review.name || "ملخص بدون عنوان");
+        const description = escapeHTML(review.description || "ملخص لمساعدتك في المذاكرة والمراجعة.");
+        const subjectName = escapeHTML(getSubjectName(review));
+        const type = getReviewType(review);
+        const typeLabel = getTypeLabel(type);
+        const price = getReviewPrice(review);
+        const free = price <= 0;
+        const owned = free || purchasedIds.has(review.id);
+
+        let badge = "";
+        if (free) {
+          badge = '<span class="badge free">مجاني</span>';
+        } else if (purchasedIds.has(review.id)) {
+          badge = '<span class="badge owned">تم الشراء</span>';
+        } else {
+          badge = '<span class="badge paid">مدفوع</span>';
+        }
+
+        let buttonText = "شراء الملخص";
+        let buttonClass = "btn-primary";
+
+        if (owned) {
+          buttonText = "فتح الملخص";
+          buttonClass = "btn-primary";
+        }
+
+        const actionLabel = owned ? "open" : "buy";
+
+        return `
+          <article class="review-card">
+            <div class="card-top">
+              <div class="file-icon">${getTypeIcon(type)}</div>
+              ${badge}
+            </div>
+
+            <h3>${title}</h3>
+            <p class="description">${description}</p>
+
+            <div class="meta">
+              <span>📘 ${subjectName}</span>
+              <span>${escapeHTML(typeLabel)}</span>
+            </div>
+
+            <div class="card-footer">
+              <div class="price ${free ? "free-price" : "paid-price"}">
+                ${free ? "مجاني" : escapeHTML(formatPrice(price))}
+              </div>
+
+              <button
+                class="btn ${buttonClass}"
+                type="button"
+                data-action="${actionLabel}"
+                data-id="${id}"
+              >${buttonText}</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function setInitialFilters() {
+      if (requestedSubject && requestedSubject !== "all") {
+        const normalized = normalizeSubject(requestedSubject);
+        const select = $("subjectFilter");
+
+        const optionExists = Array.from(select.options).some(
+          option => option.value === normalized
+        );
+
+        if (optionExists) {
+          select.value = normalized;
+          $("subjectBanner").style.display = "block";
+          $("subjectBanner").textContent =
+            "أنت بتعرض ملخصات مادة: " + (SUBJECTS[normalized] || requestedName || normalized);
+        } else if (requestedName) {
+          $("subjectBanner").style.display = "block";
+          $("subjectBanner").textContent = "المادة المختارة: " + requestedName;
+        }
+      } else if (requestedName) {
+        $("subjectBanner").style.display = "block";
+        $("subjectBanner").textContent = "المادة المختارة: " + requestedName;
+      }
+    }
+
+    function youtubeEmbedUrl(url) {
+      try {
+        const parsed = new URL(url);
+        let videoId = "";
+
+        if (parsed.hostname.includes("youtu.be")) {
+          videoId = parsed.pathname.split("/").filter(Boolean)[0] || "";
+        } else if (parsed.hostname.includes("youtube.com") ||
+                   parsed.hostname.includes("youtube-nocookie.com")) {
+          if (parsed.pathname === "/watch") {
+            videoId = parsed.searchParams.get("v") || "";
+          } else {
+            const parts = parsed.pathname.split("/").filter(Boolean);
+            const index = parts.findIndex(part =>
+              ["embed", "shorts", "live"].includes(part)
+            );
+
+            if (index >= 0) videoId = parts[index + 1] || "";
+          }
+        }
+
+        if (!/^[a-zA-Z0-9_-]{6,}$/.test(videoId)) return "";
+
+        return "https://www.youtube-nocookie.com/embed/" +
+          encodeURIComponent(videoId) +
+          "?rel=0";
+      } catch {
+        return "";
+      }
+    }
+
+    function safeHttpUrl(rawUrl) {
+      try {
+        const url = new URL(rawUrl);
+        if (url.protocol !== "https:" && url.protocol !== "http:") return "";
+        return url.href;
+      } catch {
+        return "";
+      }
+    }
+
+    function openViewer(review) {
+      const rawUrl = getReviewUrl(review);
+      const safeUrl = safeHttpUrl(rawUrl);
+
+      if (!safeUrl) {
+        showNotice("الملخص ده ملوش رابط صحيح. راجع الرابط من إدارة المنصة.", "error");
+        return;
+      }
+
+      const type = getReviewType(review);
+      const title = review.title || review.name || "عرض الملخص";
+      $("viewerTitle").textContent = title;
+
+      const body = $("viewerBody");
+      body.replaceChildren();
+
+      if (type === "youtube") {
+        const embedUrl = youtubeEmbedUrl(safeUrl);
+
+        if (!embedUrl) {
+          showNotice("رابط يوتيوب غير صحيح. راجع الرابط من إدارة المنصة.", "error");
+          return;
+        }
+
+        const iframe = document.createElement("iframe");
+        iframe.src = embedUrl;
+        iframe.title = title;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.allowFullscreen = true;
+        iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        body.appendChild(iframe);
+      } else if (type === "pdf") {
+        const iframe = document.createElement("iframe");
+        iframe.src = safeUrl;
+        iframe.title = title;
+        iframe.loading = "lazy";
+        body.appendChild(iframe);
+      } else {
+        const panel = document.createElement("div");
+        panel.className = "external-view";
+
+        const text = document.createElement("p");
+        text.textContent = "الملخص ده موجود على رابط خارجي. اضغط على الزر لفتحه.";
+
+        const link = document.createElement("a");
+        link.className = "btn btn-primary";
+        link.href = safeUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "فتح الملخص في صفحة جديدة ↗";
+
+        panel.append(text, link);
+        body.appendChild(panel);
+      }
+
+      $("viewer").classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeViewer() {
+      $("viewer").classList.remove("open");
+      $("viewerBody").replaceChildren();
+      document.body.style.overflow = "";
+    }
+
+    async function purchaseReview(reviewId, button) {
+      const review = allReviews.find(item => item.id === reviewId);
+
+      if (!review) {
+        showNotice("الملخص مش موجود أو تم حذفه.", "error");
+        return;
+      }
+
+      if (purchasedIds.has(reviewId) || isFree(review)) {
+        openViewer(review);
+        return;
+      }
+
+      if (!currentUser) {
+        window.location.href = "./login.html";
+        return;
+      }
+
+      if (!walletLoaded) {
+        showNotice("استنى لحظة لحد ما رصيد المحفظة يكتمل تحميله.");
+        return;
+      }
+
+      if (walletBalance < getReviewPrice(review)) {
+        showNotice("رصيدك مش كفاية لشراء الملخص. اشحن محفظتك الأول.", "error");
+
+        setTimeout(() => {
+          window.location.href = "./wallet.html";
+        }, 1100);
+
+        return;
+      }
+
+      const originalText = button ? button.textContent : "";
+      if (button) {
+        button.disabled = true;
+        button.textContent = "جاري الشراء...";
+      }
+
+      try {
+        const uid = currentUser.uid;
+        const walletRef = doc(db, "wallets", uid);
+        const reviewRef = doc(db, "revisions", reviewId);
+        const purchaseRef = doc(db, "purchases", uid + "_" + reviewId);
+
+        const result = await runTransaction(db, async transaction => {
+          // كل القراءات تتم قبل أي كتابة داخل الـ transaction.
+          const reviewSnap = await transaction.get(reviewRef);
+          const walletSnap = await transaction.get(walletRef);
+          const purchaseSnap = await transaction.get(purchaseRef);
+
+          if (!reviewSnap.exists()) {
+            throw new Error("REVIEW_NOT_FOUND");
+          }
+
+          const freshReview = reviewSnap.data();
+
+          if (!isAvailable(freshReview)) {
+            throw new Error("REVIEW_UNAVAILABLE");
+          }
+
+          if (purchaseSnap.exists()) {
+            return { alreadyOwned: true };
+          }
+
+          const freshPrice = getReviewPrice(freshReview);
+
+          if (freshPrice <= 0) {
+            return { free: true };
+          }
+
+          const currentWallet = walletSnap.exists() ? walletSnap.data() : {};
+          const hasBalance = Object.prototype.hasOwnProperty.call(currentWallet, "balance");
+          const hasAmount = Object.prototype.hasOwnProperty.call(currentWallet, "amount");
+
+          const currentBalance = Number(
+            hasBalance ? currentWallet.balance :
+            hasAmount ? currentWallet.amount : 0
+          );
+
+          if (!Number.isFinite(currentBalance) || currentBalance < freshPrice) {
+            throw new Error("INSUFFICIENT_BALANCE");
+          }
+
+          const newBalance = currentBalance - freshPrice;
+          const walletUpdate = {
+            updatedAt: serverTimestamp()
+          };
+
+          if (hasBalance || !hasAmount) walletUpdate.balance = newBalance;
+          if (hasAmount) walletUpdate.amount = newBalance;
+
+          transaction.set(walletRef, walletUpdate, { merge: true });
+
+          transaction.set(purchaseRef, {
+            studentId: uid,
+            itemId: reviewId,
+            reviewId: reviewId,
+            title: String(freshReview.title || freshReview.name || "ملخص"),
+            price: freshPrice,
+            createdAt: serverTimestamp()
+          });
+
+          return { purchased: true, price: freshPrice };
+        });
+
+        if (result.alreadyOwned) {
+          purchasedIds.add(reviewId);
+          renderReviews();
+          openViewer(review);
+          return;
+        }
+
+        if (result.free) {
+          openViewer(review);
+          return;
+        }
+
+        purchasedIds.add(reviewId);
+        walletBalance -= result.price;
+        walletData.balance = walletBalance;
+        updateWalletDisplay();
+        renderReviews();
+
+        showNotice("تم شراء الملخص بنجاح! تقدر تفتحه دلوقتي.", "success");
+
+        const freshReview = allReviews.find(item => item.id === reviewId);
+        if (freshReview) openViewer(freshReview);
+
+      } catch (error) {
+        console.error("Purchase error:", error);
+
+        if (error.message === "INSUFFICIENT_BALANCE") {
+          showNotice("رصيدك مش كفاية. اشحن المحفظة وحاول تاني.", "error");
+          setTimeout(() => {
+            window.location.href = "./wallet.html";
+          }, 1100);
+        } else if (error.message === "REVIEW_NOT_FOUND") {
+          showNotice("الملخص مش موجود في قاعدة البيانات.", "error");
+        } else if (error.message === "REVIEW_UNAVAILABLE") {
+          showNotice("الملخص ده مش متاح للشراء حاليًا.", "error");
+        } else {
+          showNotice(
+            "الشراء ما تمش. راجع اتصالك بالإنترنت وصلاحيات Firestore Rules.",
+            "error"
+          );
+        }
+      } finally {
+        if (button && button.isConnected) {
+          button.disabled = false;
+          button.textContent = originalText;
+        }
+      }
+    }
+
+    function listenToStudentData(user) {
+      unsubscribeReviews?.();
+      unsubscribePurchases?.();
+      unsubscribeWallet?.();
+
+      reviewsLoaded = false;
+      purchasesLoaded = false;
+      walletLoaded = false;
+      allReviews = [];
+      purchasedIds = new Set();
+      walletData = {};
+      walletBalance = 0;
+      updateWalletDisplay();
+      renderReviews();
+
+      // قراءة الملخصات من مجموعة revisions في Firestore.
+      unsubscribeReviews = onSnapshot(
+        collection(db, "revisions"),
+        snapshot => {
+          allReviews = snapshot.docs.map(item => ({
+            id: item.id,
+            ...item.data()
+          }));
+
+          reviewsLoaded = true;
+          renderReviews();
+        },
+        error => {
+          console.error("Revisions listener error:", error);
+          reviewsLoaded = true;
+          renderState(
+            "⚠️",
+            "مش قادرين نحمّل الملخصات",
+            "اتأكد إن مجموعة revisions موجودة وإن صلاحيات القراءة في Firestore Rules صحيحة."
+          );
+        }
+      );
+
+      // الاستماع لعمليات الشراء الخاصة بالطالب.
+      unsubscribePurchases = onSnapshot(
+        collection(db, "purchases"),
+        snapshot => {
+          purchasedIds = new Set();
+
+          snapshot.docs.forEach(item => {
+            const data = item.data();
+
+            const belongsToStudent =
+              data.studentId === user.uid ||
+              data.uid === user.uid ||
+              data.userId === user.uid;
+
+            if (!belongsToStudent) return;
+
+            const itemId = data.itemId || data.reviewId || data.contentId;
+            if (itemId) purchasedIds.add(String(itemId));
+          });
+
+          // دعم المستندات ذات المعرّف uid_reviewId.
+          snapshot.docs.forEach(item => {
+            if (item.id.startsWith(user.uid + "_")) {
+              purchasedIds.add(item.id.slice(user.uid.length + 1));
+            }
+          });
+
+          purchasesLoaded = true;
+          renderReviews();
+        },
+        error => {
+          console.error("Purchases listener error:", error);
+          purchasesLoaded = true;
+          showNotice("تعذر تحميل سجل مشترياتك. راجع صلاحيات Firestore.", "error");
+          renderReviews();
+        }
+      );
+
+      // قراءة رصيد المحفظة بشكل لحظي.
+      unsubscribeWallet = onSnapshot(
+        doc(db, "wallets", user.uid),
+        snapshot => {
+          walletData = snapshot.exists() ? snapshot.data() : {};
+
+          const rawBalance = walletData.balance ?? walletData.amount ?? 0;
+          walletBalance = Number(rawBalance);
+
+          if (!Number.isFinite(walletBalance)) walletBalance = 0;
+
+          walletLoaded = true;
+          updateWalletDisplay();
+          renderReviews();
+        },
+        error => {
+          console.error("Wallet listener error:", error);
+          walletLoaded = true;
+          updateWalletDisplay();
+          showNotice("تعذر تحميل رصيد المحفظة. راجع صلاحيات Firestore.", "error");
+          renderReviews();
+        }
+      );
+    }
+
+    $("reviewsGrid").addEventListener("click", event => {
+      const button = event.target.closest("button[data-action]");
+      if (!button) return;
+
+      const reviewId = button.dataset.id;
+      const action = button.dataset.action;
+
+      if (action === "open") {
+        const review = allReviews.find(item => item.id === reviewId);
+        if (review) openViewer(review);
+      } else if (action === "buy") {
+        purchaseReview(reviewId, button);
+      }
+    });
+
+    $("searchInput").addEventListener("input", renderReviews);
+    $("subjectFilter").addEventListener("change", renderReviews);
+    $("typeFilter").addEventListener("change", renderReviews);
+    $("closeViewer").addEventListener("click", closeViewer);
+
+    $("viewer").addEventListener("click", event => {
+      if (event.target === $("viewer")) closeViewer();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeViewer();
+    });
+
+    setInitialFilters();
+
+    try {
+      if (authReady && typeof authReady.then === "function") {
+        await authReady;
+      }
+
+      onAuthStateChanged(auth, user => {
+        if (!user) {
+          window.location.replace("./login.html");
+          return;
+        }
+
+        currentUser = user;
+        listenToStudentData(user);
+      });
+    } catch (error) {
+      console.error("Authentication initialization error:", error);
+
+      renderState(
+        "⚠️",
+        "حصلت مشكلة في تسجيل الدخول",
+        "راجع إعدادات Firebase في ملف firebase-config.js."
+      );
+    }
+  </script>
+</body>
+</html>
