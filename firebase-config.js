@@ -1,12 +1,15 @@
-// Mathix — Firebase configuration
-// Firebase Web API keys identify the project; access is controlled by Firebase Security Rules.
-import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+// Mathix - Firebase Configuration
+// Project: mathix-2008
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 import {
-  getAuth,
-  setPersistence,
-  browserLocalPersistence
+  getAuth
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+import {
+  getFirestore
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk",
@@ -18,9 +21,17 @@ const firebaseConfig = {
   measurementId: "G-XWHKQ72FM0"
 };
 
-export const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
-// Call once per page before using auth-dependent flows.
-export const authReady = setPersistence(auth, browserLocalPersistence);
+// Firebase services
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Export for other pages
+export {
+  app,
+  auth,
+  db,
+  firebaseConfig
+};
