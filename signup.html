@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050507">
+  <meta name="description" content="تسجيل الدخول إلى منصة Mathix التعليمية">
+  <title>تسجيل الدخول | Mathix</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Chakra+Petch:wght@500;600;700&display=swap');
+:root{color-scheme:dark;--bg:#050507;--panel:#111119;--panel2:#171521;--purple:#8b3dff;--purple2:#a75cff;--text:#f7f5ff;--muted:#94919f;--line:rgba(255,255,255,.09);--danger:#ff647c;--success:#5ee6a8}
+*{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{margin:0;min-height:100vh;font-family:'Cairo',sans-serif;color:var(--text);background:radial-gradient(ellipse at 12% 15%,rgba(139,61,255,.15),transparent 38%),radial-gradient(ellipse at 90% 85%,rgba(100,35,180,.12),transparent 34%),var(--bg);display:grid;place-items:center;padding:24px}
+button,input{font:inherit}.auth-shell{width:min(100%,980px);min-height:620px;display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:rgba(13,13,19,.88);box-shadow:0 28px 100px #0009;backdrop-filter:blur(18px)}
+.visual{position:relative;overflow:hidden;padding:42px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,rgba(139,61,255,.22),rgba(17,17,25,.3) 55%),#0c0b12;border-left:1px solid var(--line)}
+.visual:before,.visual:after{content:"";position:absolute;border:1px solid rgba(167,92,255,.22);border-radius:50%;width:360px;height:360px;left:-130px;bottom:-150px;box-shadow:0 0 70px rgba(139,61,255,.12),inset 0 0 60px rgba(139,61,255,.07)}
+.visual:after{width:250px;height:250px;left:-75px;bottom:-95px}
+.brand{display:flex;align-items:center;gap:12px;position:relative;z-index:1}.brand img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 0 14px #8b3dff40)}.brand-name{font-family:'Chakra Petch','Cairo',sans-serif;font-size:28px;font-weight:700;letter-spacing:.2px}.brand-name span{color:var(--purple2)}
+.visual-copy{position:relative;z-index:1;margin:40px 0}.eyebrow{display:inline-flex;border:1px solid #a75cff45;background:#8b3dff18;color:#cbaaff;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:700;letter-spacing:.3px}.visual h1{font-size:clamp(30px,4vw,46px);line-height:1.35;margin:20px 0 14px;font-weight:800}.visual h1 span{color:var(--purple2)}.visual p{color:#b7b2c5;line-height:2;max-width:360px;margin:0}.visual-foot{position:relative;z-index:1;color:#777282;font-size:12px}
+.form-side{padding:48px clamp(24px,5vw,58px);display:flex;align-items:center;justify-content:center}.form-wrap{width:100%;max-width:370px}.mobile-brand{display:none}.form-wrap h2{font-size:29px;margin:0 0 7px;font-weight:800}.sub{margin:0 0 28px;color:var(--muted);font-size:14px;line-height:1.9}.field{display:block;margin:0 0 17px}.field label{display:block;font-size:13px;font-weight:700;margin:0 0 8px;color:#e8e4f2}.input-wrap{position:relative}.field input{width:100%;height:51px;border:1px solid #ffffff16;background:#09090f;border-radius:13px;padding:0 15px;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s}.field input:focus{border-color:#8b3dffb8;box-shadow:0 0 0 3px #8b3dff20}.field input::placeholder{color:#625e6c}.toggle-pass{position:absolute;left:9px;top:7px;height:37px;padding:0 9px;background:transparent;border:0;color:#aaa2b8;cursor:pointer;font-size:12px}.primary{width:100%;min-height:51px;border:0;border-radius:13px;background:linear-gradient(100deg,#7c2ff0,#a052ff);color:white;font-weight:800;cursor:pointer;box-shadow:0 9px 28px #8b3dff2b;transition:transform .2s,filter .2s}.primary:hover{filter:brightness(1.08);transform:translateY(-1px)}.primary:disabled{opacity:.65;cursor:wait;transform:none}.message{display:none;margin:0 0 17px;padding:11px 13px;border:1px solid transparent;border-radius:12px;font-size:13px;line-height:1.8}.message.show{display:block}.message.error{color:#ffb0bd;background:#ff647c12;border-color:#ff647c30}.message.success{color:#91f3c2;background:#5ee6a810;border-color:#5ee6a830}.form-bottom{text-align:center;color:var(--muted);font-size:13px;margin:22px 0 0}.form-bottom a,.text-link{color:#c39aff;text-decoration:none;font-weight:700}.form-bottom a:hover,.text-link:hover{color:#fff}.form-note{color:#777282;font-size:11px;line-height:1.8;margin-top:19px;text-align:center}
+@media(max-width:760px){body{padding:14px;display:block}.auth-shell{width:min(100%,480px);min-height:0;margin:12px auto;display:block;border-radius:22px}.visual{display:none}.form-side{padding:28px 23px 30px}.mobile-brand{display:flex;margin-bottom:30px}.mobile-brand .brand-name{font-size:25px}.form-wrap h2{font-size:26px}.sub{margin-bottom:23px}.form-note{margin-top:16px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+  <main class="auth-shell">
+    <aside class="visual" aria-label="Mathix">
+      <a class="brand" href="index.html" aria-label="Mathix - الرئيسية">
+        <img src="logo.png" alt="شعار Mathix" onerror="this.style.display='none'">
+        <span class="brand-name">Math<span>ix</span></span>
+      </a>
+      <div class="visual-copy">
+        <span class="eyebrow">YOUR NEXT LEVEL STARTS HERE</span>
+        <h1>كل يوم خطوة<br>أقرب <span>للهدف.</span></h1>
+        <p>ملخصاتك ومراجعاتك في مكان واحد. ركّز في مذاكرتك وسيب تنظيم المحتوى علينا.</p>
+      </div>
+      <div class="visual-foot">© Mathix — منصة تعليمية لطلاب الثانوية العامة</div>
+    </aside>
+    <section class="form-side">
+      <div class="form-wrap">
+        <a class="brand mobile-brand" href="index.html">
+          <img src="logo.png" alt="شعار Mathix" onerror="this.style.display='none'">
+          <span class="brand-name">Math<span>ix</span></span>
+        </a>
+        <h2>أهلاً بعودتك 👋</h2>
+        <p class="sub">سجّل دخولك وكمّل رحلتك التعليمية.</p>
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+        <form id="loginForm">
+          <div class="field">
+            <label for="email">البريد الإلكتروني</label>
+            <input id="email" name="email" type="email" placeholder="أدخل بريدك الإلكتروني" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="password">كلمة المرور</label>
+            <div class="input-wrap">
+              <input id="password" name="password" type="password" placeholder="أدخل كلمة المرور" autocomplete="current-password" minlength="6" required>
+              <button class="toggle-pass" type="button" data-toggle="password" aria-label="إظهار كلمة المرور">إظهار</button>
+            </div>
+          </div>
+          <button id="submitBtn" class="primary" type="submit">تسجيل الدخول</button>
+        </form>
+        <p class="form-bottom">لسه معندكش حساب؟ <a href="signup.html">إنشاء حساب جديد</a></p>
+        <p class="form-note">بتسجيل الدخول، أنت تستخدم حسابك الشخصي على منصة Mathix.</p>
+      </div>
+    </section>
+  </main>
+  <script type="module">
+    import { auth, authReady } from "./firebase-config.js";
+    import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    const form = document.getElementById("loginForm");
+    const btn = document.getElementById("submitBtn");
+    const message = document.getElementById("message");
+    let submitting = false;
+    let authResolved = false;
+
+    function showMessage(text, type = "error") {
+      message.textContent = text;
+      message.className = "message show " + type;
+    }
+    function friendlyError(error) {
+      const code = error?.code || "";
+      const map = {
+        "auth/invalid-email": "اكتب بريد إلكتروني صحيح.",
+        "auth/invalid-credential": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+        "auth/user-not-found": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+        "auth/wrong-password": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+        "auth/too-many-requests": "محاولات كتير في وقت قصير. جرّب تاني بعد شوية.",
+        "auth/network-request-failed": "في مشكلة في الاتصال بالإنترنت. جرّب تاني.",
+        "auth/user-disabled": "الحساب ده متوقف. تواصل مع إدارة المنصة.",
+        "auth/operation-not-allowed": "تسجيل الدخول بالبريد وكلمة المرور مش مفعّل في Firebase."
+      };
+      return map[code] || "حصلت مشكلة أثناء تسجيل الدخول. راجع إعدادات Firebase وحاول تاني.";
+    }
+
+    // Wait for Firebase to restore the persisted session before deciding to redirect.
+    onAuthStateChanged(auth, async (user) => {
+      authResolved = true;
+      if (user && !submitting) {
+        window.location.replace("dashboard.html");
+      }
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (submitting) return;
+      submitting = true;
+      btn.disabled = true;
+      btn.textContent = "جاري تسجيل الدخول...";
+      message.className = "message";
+      try {
+        await authReady;
+        const email = form.email.value.trim();
+        const password = form.password.value;
+        await signInWithEmailAndPassword(auth, email, password);
+        showMessage("تم تسجيل الدخول بنجاح، جاري فتح حسابك...", "success");
+        window.location.replace("dashboard.html");
+      } catch (error) {
+        showMessage(friendlyError(error));
+        submitting = false;
+        btn.disabled = false;
+        btn.textContent = "تسجيل الدخول";
+      }
+    });
+
+    document.querySelectorAll("[data-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const input = document.getElementById(button.dataset.toggle);
+        const visible = input.type === "password";
+        input.type = visible ? "text" : "password";
+        button.textContent = visible ? "إخفاء" : "إظهار";
+        button.setAttribute("aria-label", visible ? "إخفاء كلمة المرور" : "إظهار كلمة المرور");
+      });
+    });
+  </script>
+</body>
+</html>
