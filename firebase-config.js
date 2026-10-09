@@ -1,15 +1,12 @@
-// Mathix - Firebase Configuration
-// Project: mathix-2008
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
+import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import {
-  getAuth
+  initializeAuth,
+  getAuth,
+  indexedDBLocalPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-import {
-  getFirestore
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCH--HkIXYn3qhXZ9TwRItZrnMOIx_lWXk",
@@ -21,17 +18,28 @@ const firebaseConfig = {
   measurementId: "G-XWHKQ72FM0"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-// Firebase services
-const auth = getAuth(app);
+let auth;
+
+try {
+  auth = initializeAuth(app, {
+    persistence: [
+      indexedDBLocalPersistence,
+      browserLocalPersistence,
+      browserSessionPersistence
+    ]
+  });
+} catch (error) {
+  if (error.code === "auth/already-initialized") {
+    auth = getAuth(app);
+  } else {
+    throw error;
+  }
+}
+
 const db = getFirestore(app);
 
-// Export for other pages
-export {
-  app,
-  auth,
-  db,
-  firebaseConfig
-};
+const authReady = Promise.resolve(auth);
+
+export { app, auth, db, authReady, firebaseConfig };
