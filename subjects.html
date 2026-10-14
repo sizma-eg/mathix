@@ -551,7 +551,7 @@
             <span class="nav-icon">▦</span>
             المواد الدراسية
           </a>
-          <a href="revisions/revesions.html">
+          <a href="revesions.html">
             <span class="nav-icon">▤</span>
             الملخصات والمراجعات
           </a>
@@ -733,7 +733,7 @@
       }
 
       grid.innerHTML = visibleSubjects.map((subject, index) => {
-        const target = new URL("revisions/revesions.html", window.location.href);
+        const target = new URL("revesions.html", window.location.href);
         target.searchParams.set("subject", subject.id);
         target.searchParams.set("name", subject.name);
 
